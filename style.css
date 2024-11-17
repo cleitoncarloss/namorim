@@ -5,10 +5,18 @@
 }
 
 body {
-  background-color: #000;
-  color: #fff;
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
   font-family: sans-serif;
+}
+
+header {
+  display: flex;
+  padding: 10px;
+
+  & span {
+    margin-top: 20px;
+  }
+}
+
+.logo {
+  width: 90px;
 }
