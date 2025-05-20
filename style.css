@@ -5,16 +5,18 @@
 }
 
 body {
+  align-items: center;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  min-height: 100svh;
 }
 
 header {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   padding: 10px;
-
-  & span {
-    margin-top: 20px;
-  }
 }
 
 .logo {
