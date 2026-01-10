@@ -15,5 +15,10 @@
   "module": "index.ts",
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.90.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   }
 }
