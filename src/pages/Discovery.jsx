@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../services/supabase';
 import ProfileCard from '../components/ProfileCard';
+import MatchNotification from '../components/MatchNotification';
 
 export default function Discovery({ session }) {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [matchedProfile, setMatchedProfile] = useState(null); // New state for match notification
 
   const fetchProfiles = useCallback(async () => {
     setLoading(true);
@@ -53,6 +55,10 @@ export default function Discovery({ session }) {
     setLoading(false);
   }, [session]);
 
+  const handleDismissMatch = () => {
+    setMatchedProfile(null);
+  };
+
   useEffect(() => {
     fetchProfiles();
   }, [fetchProfiles]);
@@ -80,7 +86,8 @@ export default function Discovery({ session }) {
         if (matchError) {
           console.error('Error checking for match:', matchError);
         } else if (data && data.length > 0) {
-          alert("It's a Match! 💖");
+          // It's a Match! Set the matchedProfile state to show the notification
+          setMatchedProfile(currentProfile);
           // In a real app, you'd create a chat room or a more robust notification
         }
       }
@@ -113,6 +120,7 @@ export default function Discovery({ session }) {
         onLike={() => handleSwipe(currentProfile.id, 'like')}
         onDislike={() => handleSwipe(currentProfile.id, 'dislike')}
       />
+      <MatchNotification matchedProfile={matchedProfile} onDismiss={handleDismissMatch} />
     </div>
   );
 }

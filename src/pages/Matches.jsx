@@ -11,6 +11,7 @@ export default function Matches({ session, setView }) {
       try {
         setLoading(true);
         const { user } = session;
+        console.log('Current user ID:', user.id);
 
         // Find users that the current user has liked
         const { data: myLikesData, error: myLikesError } = await supabase
@@ -20,6 +21,7 @@ export default function Matches({ session, setView }) {
 
         if (myLikesError) throw myLikesError;
         const myLikedIds = myLikesData.map((l) => l.liked_user_id);
+        console.log('Users current user has liked (myLikedIds):', myLikedIds);
 
         // Find users who have liked the current user
         const { data: likedMeData, error: likedMeError } = await supabase
@@ -29,9 +31,11 @@ export default function Matches({ session, setView }) {
 
         if (likedMeError) throw likedMeError;
         const likedMeIds = likedMeData.map((l) => l.user_id);
+        console.log('Users who liked current user (likedMeIds):', likedMeIds);
 
         // Find the intersection (the matches)
         const matchIds = myLikedIds.filter((id) => likedMeIds.includes(id));
+        console.log('Matched user IDs (matchIds):', matchIds);
 
         if (matchIds.length > 0) {
           // Fetch the profiles of the matched users
@@ -42,6 +46,10 @@ export default function Matches({ session, setView }) {
 
           if (profilesError) throw profilesError;
           setMatches(profilesData);
+          console.log('Matched profiles data:', profilesData);
+        } else {
+            console.log('No match IDs found, setting matches to empty array.');
+            setMatches([]); // Ensure matches is explicitly empty if no match IDs.
         }
       } catch (e) {
         setError(e.message);
