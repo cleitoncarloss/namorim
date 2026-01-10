@@ -35,11 +35,13 @@ export default function Discovery({ session }) {
       ...dislikedData.map((d) => d.disliked_user_id),
     ];
 
+    const allSeenIds = user.id ? [user.id, ...seenUserIds] : seenUserIds;
+
     // Fetch profiles that are not the current user and have not been seen
     const { data: profilesData, error: profilesError } = await supabase
       .from('profiles')
       .select('*')
-      .not('id', 'in', `(${[user.id, ...seenUserIds].map(id => `'${id}'`).join(',')})`)
+      .not('id', 'in', `(${allSeenIds.join(',')})`)
       .limit(10);
 
     if (profilesError) {
