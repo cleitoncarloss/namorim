@@ -9,12 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "vite": "^5.4.10"
-  },
-  "module": "index.ts",
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.90.1",
