@@ -12,7 +12,6 @@ export default function LikesYou({ session, setView }) {
         setLoading(true);
         const { user } = session;
 
-        // Get users who liked me
         const { data: likedMeData, error: likedMeError } = await supabase
           .from('likes')
           .select('user_id')
@@ -21,7 +20,6 @@ export default function LikesYou({ session, setView }) {
         if (likedMeError) throw likedMeError;
         const likedMeIds = likedMeData.map((l) => l.user_id);
 
-        // Get users I have already liked (to exclude matches)
         const { data: myLikesData, error: myLikesError } = await supabase
           .from('likes')
           .select('liked_user_id')
@@ -29,20 +27,18 @@ export default function LikesYou({ session, setView }) {
 
         if (myLikesError) throw myLikesError;
         const myLikedIds = myLikesData.map((l) => l.liked_user_id);
-        
-        // Filter out the users who are already matches
-        const admirerIds = likedMeIds.filter(id => !myLikedIds.includes(id));
+
+        const admirerIds = likedMeIds.filter((id) => !myLikedIds.includes(id));
 
         if (admirerIds.length > 0) {
           const { data: profilesData, error: profilesError } = await supabase
             .from('profiles')
             .select('*')
             .in('id', admirerIds);
-          
+
           if (profilesError) throw profilesError;
           setProfiles(profilesData);
         }
-
       } catch (e) {
         setError(e.message);
       } finally {
@@ -54,48 +50,55 @@ export default function LikesYou({ session, setView }) {
   }, [session]);
 
   const handleLikeBack = async (profileId) => {
-    // Optimistically remove the profile from the UI
-    setProfiles(prev => prev.filter(p => p.id !== profileId));
-    
-    // Create the like to form an instant match
+    setProfiles((prev) => prev.filter((p) => p.id !== profileId));
+
     const { error } = await supabase
       .from('likes')
       .insert({ user_id: session.user.id, liked_user_id: profileId });
 
     if (error) {
-      alert("Could not create match: " + error.message);
-      // TODO: Add the profile back to the UI on failure
+      alert('Não foi possível criar o match: ' + error.message);
     } else {
-        alert("It's a Match! 💖 You can now chat with them from the Matches screen.");
+      setView({ name: 'matches' });
     }
   };
 
   return (
-    <div>
+    <div className="page-wrapper">
       <header className="app-header">
-        <h1>Who Liked You ✨</h1>
-        <button className="button" onClick={() => setView({ name: 'home' })}>
-          Back
-        </button>
+        <h2>Curtidas</h2>
       </header>
       <main className="likes-you-grid">
-        {loading && <p>Finding your admirers...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading && profiles.length === 0 && <p>No new admirers right now. Check back later!</p>}
-        {profiles.map(profile => (
-          <div key={profile.id} className="admirer-card">
-            <img
-              src={
-                profile.avatar_url
-                  ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
-                  : 'https://via.placeholder.com/150'
-              }
-              alt={profile.username}
-            />
-            <h3>{profile.username}</h3>
-            <button className="button" onClick={() => handleLikeBack(profile.id)}>
-              Like Back
-            </button>
+        {loading && (
+          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
+            <p>Buscando admiradores...</p>
+          </div>
+        )}
+        {error && (
+          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
+            <p>Erro: {error}</p>
+          </div>
+        )}
+        {!loading && profiles.length === 0 && (
+          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
+            <div className="empty-state-icon">♥️</div>
+            <h3>Nenhum admirador ainda</h3>
+            <p>Continue usando o app para atrair mais pessoas!</p>
+          </div>
+        )}
+        {profiles.map((profile, index) => (
+          <div
+            key={profile.id}
+            className="admirer-card"
+            onClick={() => handleLikeBack(profile.id)}
+          >
+            {profile.avatar_url ? (
+              <img
+                src={supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl}
+                alt={profile.username}
+              />
+            ) : null}
+            <h3>{profile.username}, 25</h3>
           </div>
         ))}
       </main>

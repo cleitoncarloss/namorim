@@ -7,6 +7,7 @@ import Matches from './pages/Matches';
 import Chat from './pages/Chat';
 import LikesYou from './pages/LikesYou';
 import GoPremium from './pages/GoPremium';
+import BottomNav from './components/BottomNav';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -47,7 +48,7 @@ function App() {
       if (error && error.code === 'PGRST116') {
         // Handle the case where the profile does not exist for a new user
         console.log('Profile not found, creating one for the new user.');
-        
+
         const userEmail = session.user.email || 'new_user';
         const defaultUsername = userEmail.split('@')[0] + Math.floor(Math.random() * 1000);
 
@@ -60,7 +61,7 @@ function App() {
           })
           .select()
           .single();
-        
+
         if (insertError) {
           console.error('Error creating profile:', insertError);
         } else {
@@ -80,21 +81,26 @@ function App() {
     getOrCreateProfile();
   }, [session, view.force_reload]); // re-fetch profile on session change or forced reload
 
+  // Check if we should hide the bottom nav (e.g., in chat view)
+  const hideBottomNav = view.name === 'chat';
+
   const renderView = () => {
     if (!session || !profile) {
       // Show Auth page if no session, or a loading indicator while profile is fetching
-      return !session ? <Auth /> : <div className="loading-container"><p>Loading Profile...</p></div>;
+      return !session ? <Auth /> : <div className="loading-container"><p>Carregando perfil...</p></div>;
     }
 
     switch (view.name) {
       case 'account':
         return <Account key={session.user.id} session={session} setView={setView} />;
+      case 'messages':
+        return <Matches session={session} setView={setView} showMessages={true} />;
       case 'matches':
         return <Matches session={session} setView={setView} />;
       case 'chat':
         return <Chat session={session} setView={setView} chatPartner={view.partner} />;
       case 'likes-you':
-        return profile.is_premium 
+        return profile.is_premium
           ? <LikesYou session={session} setView={setView} />
           : <GoPremium session={session} setView={setView} />;
       default:
@@ -102,7 +108,14 @@ function App() {
     }
   };
 
-  return <div className="container">{renderView()}</div>;
+  return (
+    <div className="container">
+      {renderView()}
+      {session && profile && !hideBottomNav && (
+        <BottomNav currentView={view.name} setView={setView} />
+      )}
+    </div>
+  );
 }
 
 export default App;

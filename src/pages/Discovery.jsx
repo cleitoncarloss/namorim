@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Loader, SearchX } from 'lucide-react';
 import { supabase } from '../services/supabase';
 import ProfileCard from '../components/ProfileCard';
 import MatchNotification from '../components/MatchNotification';
@@ -7,7 +8,7 @@ export default function Discovery({ session }) {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [matchedProfile, setMatchedProfile] = useState(null); // New state for match notification
+  const [matchedProfile, setMatchedProfile] = useState(null);
 
   const fetchProfiles = useCallback(async () => {
     setLoading(true);
@@ -73,7 +74,7 @@ export default function Discovery({ session }) {
       .insert({ user_id: user.id, [column]: swipedUserId });
 
     if (error) {
-      alert(`Error recording ${action}: ${error.message}`);
+      alert(`Erro ao registrar ${action}: ${error.message}`);
     } else {
       // If it was a like, check for a match
       if (action === 'like') {
@@ -86,9 +87,8 @@ export default function Discovery({ session }) {
         if (matchError) {
           console.error('Error checking for match:', matchError);
         } else if (data && data.length > 0) {
-          // It's a Match! Set the matchedProfile state to show the notification
+          // It's a Match!
           setMatchedProfile(currentProfile);
-          // In a real app, you'd create a chat room or a more robust notification
         }
       }
 
@@ -100,15 +100,36 @@ export default function Discovery({ session }) {
   };
 
   if (loading) {
-    return <div>Loading profiles...</div>;
+    return (
+      <div className="discovery-container">
+        <div className="empty-state">
+          <Loader size={48} className="loading-spinner" />
+          <p>Buscando perfis...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="discovery-container">
+        <div className="empty-state">
+          <p>Erro: {error}</p>
+        </div>
+      </div>
+    );
   }
 
   if (profiles.length === 0) {
-    return <div>No new profiles to show. Check back later!</div>;
+    return (
+      <div className="discovery-container">
+        <div className="empty-state">
+          <SearchX size={48} />
+          <h3>Sem novos perfis</h3>
+          <p>Volte mais tarde para descobrir novas pessoas!</p>
+        </div>
+      </div>
+    );
   }
 
   const currentProfile = profiles[0];

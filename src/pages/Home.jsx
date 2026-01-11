@@ -1,20 +1,15 @@
 import React from 'react';
+import { Settings } from 'lucide-react';
 import Discovery from './Discovery';
 
 export default function Home({ session, setView }) {
   return (
-    <div>
+    <div className="page-wrapper">
       <header className="app-header">
-        <h1>Namorim</h1>
-        <div className="nav-buttons">
-          <button className="button" onClick={() => setView({ name: 'matches' })}>
-            My Matches
-          </button>
-          <button className="button gold" onClick={() => setView({ name: 'likes-you' })}>
-            ✨ Who Likes You
-          </button>
-          <button className="button" onClick={() => setView({ name: 'account' })}>
-            My Profile
+        <h2>💕</h2>
+        <div className="header-actions">
+          <button onClick={() => setView({ name: 'account' })}>
+            <Settings size={20} color="#667eea" />
           </button>
         </div>
       </header>

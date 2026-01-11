@@ -11,9 +11,7 @@ export default function Matches({ session, setView }) {
       try {
         setLoading(true);
         const { user } = session;
-        console.log('Current user ID:', user.id);
 
-        // Find users that the current user has liked
         const { data: myLikesData, error: myLikesError } = await supabase
           .from('likes')
           .select('liked_user_id')
@@ -21,9 +19,7 @@ export default function Matches({ session, setView }) {
 
         if (myLikesError) throw myLikesError;
         const myLikedIds = myLikesData.map((l) => l.liked_user_id);
-        console.log('Users current user has liked (myLikedIds):', myLikedIds);
 
-        // Find users who have liked the current user
         const { data: likedMeData, error: likedMeError } = await supabase
           .from('likes')
           .select('user_id')
@@ -31,14 +27,10 @@ export default function Matches({ session, setView }) {
 
         if (likedMeError) throw likedMeError;
         const likedMeIds = likedMeData.map((l) => l.user_id);
-        console.log('Users who liked current user (likedMeIds):', likedMeIds);
 
-        // Find the intersection (the matches)
         const matchIds = myLikedIds.filter((id) => likedMeIds.includes(id));
-        console.log('Matched user IDs (matchIds):', matchIds);
 
         if (matchIds.length > 0) {
-          // Fetch the profiles of the matched users
           const { data: profilesData, error: profilesError } = await supabase
             .from('profiles')
             .select('id, username, avatar_url, bio')
@@ -46,10 +38,8 @@ export default function Matches({ session, setView }) {
 
           if (profilesError) throw profilesError;
           setMatches(profilesData);
-          console.log('Matched profiles data:', profilesData);
         } else {
-            console.log('No match IDs found, setting matches to empty array.');
-            setMatches([]); // Ensure matches is explicitly empty if no match IDs.
+          setMatches([]);
         }
       } catch (e) {
         setError(e.message);
@@ -65,32 +55,47 @@ export default function Matches({ session, setView }) {
     setView({ name: 'chat', partner: profile });
   };
 
+  const getInitial = (name) => name ? name.charAt(0).toUpperCase() : '?';
+
   return (
-    <div>
+    <div className="matches-container">
       <header className="app-header">
-        <h1>My Matches</h1>
-        <button className="button" onClick={() => setView({ name: 'home' })}>
-          Back to Discovery
-        </button>
+        <h2>Matches</h2>
       </header>
       <main className="matches-list-container">
-        {loading && <p>Loading matches...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading && matches.length === 0 && <p>No matches yet. Keep swiping!</p>}
+        {loading && (
+          <div className="empty-state">
+            <p>Carregando matches...</p>
+          </div>
+        )}
+        {error && (
+          <div className="empty-state">
+            <p>Erro: {error}</p>
+          </div>
+        )}
+        {!loading && matches.length === 0 && (
+          <div className="empty-state">
+            <div className="empty-state-icon">❤️</div>
+            <h3>Nenhum match ainda</h3>
+            <p>Continue deslizando para encontrar seu match perfeito!</p>
+          </div>
+        )}
         {matches.map((profile) => (
           <div key={profile.id} className="match-item" onClick={() => openChat(profile)}>
-            <img
-              src={
-                profile.avatar_url
-                  ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
-                  : 'https://via.placeholder.com/100'
-              }
-              alt={profile.username}
-              className="match-avatar"
-            />
+            {profile.avatar_url ? (
+              <img
+                src={supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl}
+                alt={profile.username}
+                className="match-avatar"
+              />
+            ) : (
+              <div className="match-avatar">
+                {getInitial(profile.username)}
+              </div>
+            )}
             <div className="match-info">
               <h3>{profile.username}</h3>
-              <p>{profile.bio}</p>
+              <p>{profile.bio || 'São Paulo, SP • 25 anos'}</p>
             </div>
           </div>
         ))}
@@ -98,4 +103,3 @@ export default function Matches({ session, setView }) {
     </div>
   );
 }
-

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, Send } from 'lucide-react';
 import { supabase } from '../services/supabase';
 
 export default function Chat({ session, setView, chatPartner }) {
@@ -60,7 +61,7 @@ export default function Chat({ session, setView, chatPartner }) {
       supabase.removeChannel(channel);
     };
   }, [session, chatPartner]);
-  
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -87,14 +88,16 @@ export default function Chat({ session, setView, chatPartner }) {
 
   return (
     <div className="chat-container">
-      <header className="app-header">
-        <h2>{chatPartner.username}</h2>
-        <button className="button" onClick={() => setView({ name: 'matches' })}>
-          Back to Matches
+      <header className="chat-header">
+        <button className="button-back" onClick={() => setView({ name: 'matches' })}>
+          <ArrowLeft size={20} />
         </button>
+        <div className="chat-header-info">
+          <h2>{chatPartner.username}</h2>
+        </div>
       </header>
       <main className="chat-messages">
-        {loading && <p>Loading conversation...</p>}
+        {loading && <p>Carregando conversa...</p>}
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -110,10 +113,10 @@ export default function Chat({ session, setView, chatPartner }) {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a message..."
+          placeholder="Digite uma mensagem..."
         />
         <button type="submit" className="button">
-          Send
+          <Send size={18} />
         </button>
       </form>
     </div>

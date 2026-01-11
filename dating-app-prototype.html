@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protótipo - App de Namoro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .phone {
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            aspect-ratio: 9/19.5;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .screen {
+            background: white;
+            border-radius: 32px;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen-title {
+            text-align: center;
+            padding: 10px;
+            background: #f8f8f8;
+            font-size: 11px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .screen-content {
+            flex: 1;
+            padding: 30px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Tela Inicial */
+        .welcome-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-screen h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-screen p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        /* Botões */
+        .btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 12px;
+            transition: transform 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Formulários */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #667eea;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 4px;
+            background: #e0e0e0;
+            margin: 0 24px 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Swipe Cards */
+        .swipe-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .swipe-card {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .swipe-card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .swipe-card-info h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .swipe-card-info p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .swipe-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .swipe-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .swipe-btn:active {
+            transform: scale(0.95);
+        }
+
+        .swipe-btn.dislike {
+            background: white;
+            color: #ff4458;
+        }
+
+        .swipe-btn.like {
+            background: #00d47c;
+            color: white;
+        }
+
+        /* Match List */
+        .match-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+        }
+
+        .match-item:hover {
+            background: #f8f8f8;
+        }
+
+        .match-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .match-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .match-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 24px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            border: none;
+            background: none;
+            color: #999;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        /* Profile */
+        .profile-header {
+            text-align: center;
+            padding: 30px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #667eea;
+        }
+
+        .profile-header h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .profile-header p {
+            opacity: 0.9;
+        }
+
+        .profile-section {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .profile-section h3 {
+            font-size: 14px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .profile-section p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Options */
+        .option-group {
+            margin-bottom: 24px;
+        }
+
+        .option-group h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 12px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-btn.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        /* Range Slider */
+        .range-group {
+            margin-bottom: 24px;
+        }
+
+        .range-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        /* Checkbox List */
+        .checkbox-group {
+            margin-bottom: 24px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #999;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+        }
+
+        .nav-label {
+            font-size: 11px;
+        }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .photo-upload {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .photo-box {
+            aspect-ratio: 1;
+            border: 2px dashed #e0e0e0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .photo-box:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Protótipo - App de Namoro</h1>
+        
+        <div class="screens-grid">
+            
+            <!-- 1. Tela Inicial -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Tela Inicial</div>
+                    <div class="screen-content welcome-screen">
+                        <div>
+                            <div class="logo">💕</div>
+                            <h2>LoveConnect</h2>
+                            <p>Encontre pessoas incríveis<br>perto de você</p>
+                        </div>
+                        <div style="width: 100%;">
+                            <button class="btn">Criar Conta</button>
+                            <button class="btn btn-secondary">Já tenho conta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Tela de Login -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Login</div>
+                    <div style="padding: 20px 24px; border-bottom: 1px solid #f0f0f0;">
+                        <button class="back-btn">←</button>
+                    </div>
+                    <div class="screen-content" style="justify-content: center; align-items: center; text-align: center;">
+                        <div style="width: 100%; max-width: 320px;">
+                            <div style="margin-bottom: 24px;">
+                                <img src="/mnt/user-data/uploads/1768152142228_Image.svg" alt="Logo" style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #000;">Welcome back</h2>
+                                <p style="color: #666; font-size: 15px;">Faça login na sua conta</p>
+                            </div>
+                            
+                            <div style="text-align: left; margin-top: 32px;">
+                                <div class="form-group">
+                                    <label style="font-size: 14px; font-weight: 500; color: #333;">Email</label>
+                                    <input type="email" placeholder="Enter your email" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 14px; font-weight: 500; color: #333;">Password</label>
+                                    <input type="password" placeholder="••••••••" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                                </div>
+                                <div style="text-align: right; margin-bottom: 24px;">
+                                    <a href="#" class="link" style="font-size: 14px;">Forgot password</a>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary" style="margin-bottom: 20px;">Sign in</button>
+                            
+                            <p style="color: #666; font-size: 14px;">
+                                Don't have an account? <a href="#" class="link">Sign up</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Cadastro - Etapa 1 -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Cadastro - Etapa 1/2</div>
+                    <div class="header">
+                        <button class="back-btn">←</button>
+                        <h2>Criar Conta</h2>
+                        <div style="width: 24px;"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%;"></div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="margin-bottom: auto;">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" placeholder="seu@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Senha</label>
+                                <input type="password" placeholder="Mínimo 8 caracteres">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirmar Senha</label>
+                                <input type="password" placeholder="Digite a senha novamente">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Próximo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Cadastro - Etapa 2 -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Cadastro - Etapa 2/2</div>
+                    <div class="header">
+                        <button class="back-btn">←</button>
+                        <h2>Informações Básicas</h2>
+                        <div style="width: 24px;"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="margin-bottom: auto;">
+                            <div class="form-group">
+                                <label>Gênero</label>
+                                <select>
+                                    <option>Selecione...</option>
+                                    <option>Masculino</option>
+                                    <option>Feminino</option>
+                                    <option>Não-binário</option>
+                                    <option>Prefiro não dizer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Seu Estado</label>
+                                <select>
+                                    <option>Selecione seu estado...</option>
+                                    <option>São Paulo</option>
+                                    <option>Rio de Janeiro</option>
+                                    <option>Minas Gerais</option>
+                                    <option>Bahia</option>
+                                    <option>Paraná</option>
+                                    <option>Rio Grande do Sul</option>
+                                    <option>Outros...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Criar Conta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Setup de Perfil - Informações e Fotos -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Configurar Perfil</div>
+                    <div class="header">
+                        <button class="back-btn">←</button>
+                        <h2>Complete seu Perfil</h2>
+                        <div style="width: 24px;"></div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="margin-bottom: auto;">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" placeholder="Como quer ser chamado(a)?">
+                            </div>
+                            <div class="form-group">
+                                <label>Data de Nascimento</label>
+                                <input type="date">
+                            </div>
+                            <p style="color: #666; margin: 24px 0 16px; font-weight: 500;">
+                                Adicione pelo menos 1 foto (máximo 2)
+                            </p>
+                            <div class="photo-upload" style="grid-template-columns: repeat(2, 1fr);">
+                                <div class="photo-box">📷</div>
+                                <div class="photo-box">+</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Bio (Opcional)</label>
+                                <textarea placeholder="Conte um pouco sobre você..."></textarea>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" disabled>Próximo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Preferências - O que busca -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Preferências - 1/2</div>
+                    <div class="header">
+                        <button class="back-btn">←</button>
+                        <h2>O que você busca?</h2>
+                        <div style="width: 24px;"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%;"></div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="margin-bottom: auto;">
+                            <div class="option-group">
+                                <div class="option-buttons" style="flex-direction: column;">
+                                    <button class="option-btn selected">Relacionamento sério</button>
+                                    <button class="option-btn">Algo casual</button>
+                                    <button class="option-btn">Novas amizades</button>
+                                    <button class="option-btn">Ainda não sei</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Próximo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Preferências - Quem quer conhecer -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Preferências - 2/2</div>
+                    <div class="header">
+                        <button class="back-btn">←</button>
+                        <h2>Quem você quer conhecer?</h2>
+                        <div style="width: 24px;"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="screen-content">
+                        <div style="margin-bottom: auto;">
+                            <div class="option-group">
+                                <h3>Interessado em</h3>
+                                <div class="option-buttons">
+                                    <button class="option-btn">Homens</button>
+                                    <button class="option-btn selected">Mulheres</button>
+                                    <button class="option-btn">Todos</button>
+                                </div>
+                            </div>
+
+                            <div class="range-group">
+                                <label>Faixa etária</label>
+                                <div class="range-values">
+                                    <span>18 anos</span>
+                                    <span>50 anos</span>
+                                </div>
+                                <input type="range" min="18" max="100" value="18">
+                                <input type="range" min="18" max="100" value="50">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Buscar em quais estados?</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sp" checked>
+                                        <label for="sp">Apenas no meu estado (SP)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="rj">
+                                        <label for="rj">Rio de Janeiro</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="mg">
+                                        <label for="mg">Minas Gerais</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="all">
+                                        <label for="all">Todo o Brasil</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Começar a usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Tela de Descobrir -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Descobrir</div>
+                    <div class="header">
+                        <h2>💕</h2>
+                        <div style="display: flex; gap: 16px;">
+                            <button style="background: none; border: none; font-size: 20px; cursor: pointer;">⚙️</button>
+                        </div>
+                    </div>
+                    <div class="screen-content" style="padding: 16px;">
+                        <div class="swipe-container">
+                            <div class="swipe-card">
+                                <div class="swipe-card-info">
+                                    <h3>Maria, 25</h3>
+                                    <p>📍 São Paulo, SP</p>
+                                    <p style="margin-top: 8px; font-size: 14px;">
+                                        Amo viajar e conhecer lugares novos 🌎
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipe-actions">
+                            <button class="swipe-btn dislike">✕</button>
+                            <button class="swipe-btn like">♥</button>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span>🔥</span>
+                            <span class="nav-label">Descobrir</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>💬</span>
+                            <span class="nav-label">Mensagens</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>❤️</span>
+                            <span class="nav-label">Matches</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>♥️</span>
+                            <span class="nav-label">Curtidas</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>👤</span>
+                            <span class="nav-label">Perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. Tela de Mensagens -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Mensagens</div>
+                    <div class="header">
+                        <h2>Mensagens</h2>
+                    </div>
+                    <div class="screen-content" style="padding: 0;">
+                        <div class="match-item">
+                            <div class="match-avatar">M</div>
+                            <div class="match-info">
+                                <h3>Maria</h3>
+                                <p>Olá! Tudo bem? 😊</p>
+                            </div>
+                            <div style="font-size: 12px; color: #999;">2m</div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">J</div>
+                            <div class="match-info">
+                                <h3>João</h3>
+                                <p>Oi! Vi que você gosta de viajar...</p>
+                            </div>
+                            <div style="font-size: 12px; color: #999;">1h</div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">A</div>
+                            <div class="match-info">
+                                <h3>Ana</h3>
+                                <p>Que coincidência! Também sou de SP</p>
+                            </div>
+                            <div style="font-size: 12px; color: #999;">3h</div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <span>🔥</span>
+                            <span class="nav-label">Descobrir</span>
+                        </div>
+                        <div class="nav-item active">
+                            <span>💬</span>
+                            <span class="nav-label">Mensagens</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>❤️</span>
+                            <span class="nav-label">Matches</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>♥️</span>
+                            <span class="nav-label">Curtidas</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>👤</span>
+                            <span class="nav-label">Perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. Tela de Matches -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Matches</div>
+                    <div class="header">
+                        <h2>Matches</h2>
+                    </div>
+                    <div class="screen-content" style="padding: 0;">
+                        <div class="match-item">
+                            <div class="match-avatar">M</div>
+                            <div class="match-info">
+                                <h3>Maria</h3>
+                                <p>São Paulo, SP • 25 anos</p>
+                            </div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">J</div>
+                            <div class="match-info">
+                                <h3>João</h3>
+                                <p>Rio de Janeiro, RJ • 28 anos</p>
+                            </div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">A</div>
+                            <div class="match-info">
+                                <h3>Ana</h3>
+                                <p>São Paulo, SP • 24 anos</p>
+                            </div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">P</div>
+                            <div class="match-info">
+                                <h3>Pedro</h3>
+                                <p>Minas Gerais, MG • 30 anos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <span>🔥</span>
+                            <span class="nav-label">Descobrir</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>💬</span>
+                            <span class="nav-label">Mensagens</span>
+                        </div>
+                        <div class="nav-item active">
+                            <span>❤️</span>
+                            <span class="nav-label">Matches</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>♥️</span>
+                            <span class="nav-label">Curtidas</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>👤</span>
+                            <span class="nav-label">Perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. Tela de Curtidas -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Curtidas</div>
+                    <div class="header">
+                        <h2>Curtidas</h2>
+                    </div>
+                    <div class="screen-content">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="aspect-ratio: 3/4; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; bottom: 10px; left: 10px; color: white; font-weight: 600;">
+                                    Pedro, 28
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 3/4; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; bottom: 10px; left: 10px; color: white; font-weight: 600;">
+                                    Julia, 24
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 3/4; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; bottom: 10px; left: 10px; color: white; font-weight: 600;">
+                                    Carlos, 30
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 3/4; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; bottom: 10px; left: 10px; color: white; font-weight: 600;">
+                                    Beatriz, 26
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <span>🔥</span>
+                            <span class="nav-label">Descobrir</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>💬</span>
+                            <span class="nav-label">Mensagens</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>❤️</span>
+                            <span class="nav-label">Matches</span>
+                        </div>
+                        <div class="nav-item active">
+                            <span>♥️</span>
+                            <span class="nav-label">Curtidas</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>👤</span>
+                            <span class="nav-label">Perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. Tela de Perfil -->
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-title">Meu Perfil</div>
+                    <div class="profile-header">
+                        <div class="profile-avatar">TU</div>
+                        <h2>Seu Nome</h2>
+                        <p>25 anos • São Paulo, SP</p>
+                    </div>
+                    <div class="screen-content" style="padding: 0;">
+                        <div class="profile-section">
+                            <h3>Bio</h3>
+                            <p>Amo viajar e conhecer lugares novos. Sempre em busca de novas aventuras! 🌎✈️</p>
+                        </div>
+                        <div class="profile-section">
+                            <h3>Buscando por</h3>
+                            <p>Relacionamento sério</p>
+                        </div>
+                        <div class="profile-section">
+                            <h3>Interessado em</h3>
+                            <p>Mulheres • 18-50 anos</p>
+                        </div>
+                        <div class="profile-section">
+                            <h3>Localização</h3>
+                            <p>Buscando em: São Paulo</p>
+                        </div>
+                        <div style="padding: 24px;">
+                            <button class="btn btn-primary">Editar Perfil</button>
+                            <button class="btn" style="margin-top: 12px;">Configurações</button>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <span>🔥</span>
+                            <span class="nav-label">Descobrir</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>💬</span>
+                            <span class="nav-label">Mensagens</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>❤️</span>
+                            <span class="nav-label">Matches</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>♥️</span>
+                            <span class="nav-label">Curtidas</span>
+                        </div>
+                        <div class="nav-item active">
+                            <span>👤</span>
+                            <span class="nav-label">Perfil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="margin-bottom: 20px; color: #333;">📱 Fluxo Completo do App</h2>
+            <ol style="line-height: 2; color: #666;">
+                <li><strong>Tela Inicial:</strong> Apresentação do app com opções de criar conta ou fazer login</li>
+                <li><strong>Login:</strong> Para usuários que já tem conta</li>
+                <li><strong>Cadastro Etapa 1:</strong> Email e senhas</li>
+                <li><strong>Cadastro Etapa 2:</strong> Gênero e estado (localização)</li>
+                <li><strong>Setup de Perfil:</strong> Nome, data de nascimento, fotos e bio</li>
+                <li><strong>Preferências 1:</strong> O que o usuário busca (relacionamento, amizade, etc)</li>
+                <li><strong>Preferências 2:</strong> Quem quer conhecer (gênero, idade, estados)</li>
+                <li><strong>Descobrir:</strong> Tela principal com cards de pessoas para dar match</li>
+                <li><strong>Mensagens:</strong> Conversas ativas com matches que já iniciaram conversa</li>
+                <li><strong>Matches:</strong> Lista de todos os matches feitos (conexões mútuas)</li>
+                <li><strong>Curtidas:</strong> Grade de pessoas que curtiram você</li>
+                <li><strong>Perfil:</strong> Visualizar e editar informações do próprio perfil</li>
+            </ol>
+            <div style="margin-top: 20px; padding: 16px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                <p style="margin: 0; color: #555; font-size: 14px;">
+                    <strong>💡 Diferença entre Mensagens e Matches:</strong><br>
+                    • <strong>Mensagens:</strong> Conversas ativas (com mensagens trocadas)<br>
+                    • <strong>Matches:</strong> Todas as conexões mútuas (podem ou não ter iniciado conversa)
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

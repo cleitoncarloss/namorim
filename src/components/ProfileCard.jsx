@@ -20,26 +20,31 @@ export default function ProfileCard({ profile, onLike, onDislike }) {
   }, [profile.avatar_url]);
 
   return (
-    <div className="profile-card">
-      <div className="profile-card-image-container">
-        {avatarUrl ? (
-          <img src={avatarUrl} alt={profile.username} className="profile-card-image" />
-        ) : (
-          <div className="profile-card-no-image">No Image</div>
-        )}
+    <>
+      <div className="profile-card">
+        <div className="profile-card-image-container">
+          {avatarUrl ? (
+            <img src={avatarUrl} alt={profile.username} className="profile-card-image" />
+          ) : (
+            <div className="profile-card-no-image">
+              👤
+            </div>
+          )}
+        </div>
+        <div className="profile-card-info">
+          <h2>{profile.username}, 25</h2>
+          <p className="location">📍 São Paulo, SP</p>
+          <p>{profile.bio}</p>
+        </div>
       </div>
-      <div className="profile-card-info">
-        <h2>{profile.username}</h2>
-        <p>{profile.bio}</p>
-      </div>
-      <div className="profile-card-actions">
-        <button className="button dislike-button" onClick={onDislike}>
-          ❌
+      <div className="swipe-actions">
+        <button className="swipe-btn dislike" onClick={onDislike} aria-label="Passar">
+          ✕
         </button>
-        <button className="button like-button" onClick={onLike}>
-          ❤️
+        <button className="swipe-btn like" onClick={onLike} aria-label="Curtir">
+          ♥
         </button>
       </div>
-    </div>
+    </>
   );
 }
