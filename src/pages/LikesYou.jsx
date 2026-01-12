@@ -1,67 +1,89 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
+/**
+ * LikesYou - Página de quem curtiu você
+ * Regra 010: Single Responsibility Principle
+ * Regra 002: Sem cláusula else (guard clauses)
+ */
+
+import React from 'react';
+import { useAdmirers } from '../hooks/useAdmirers';
+import { usePublicAvatarUrl } from '../hooks/useAvatar';
+import { ROUTES, PROFILE } from '../constants';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
+import EmptyState from '../components/ui/EmptyState';
+
+function AdmirerCard({ profile, onLikeBack }) {
+  const avatarUrl = usePublicAvatarUrl(profile.avatar_url);
+
+  return (
+    <div className="admirer-card" onClick={() => onLikeBack(profile.id)}>
+      {avatarUrl && (
+        <img src={avatarUrl} alt={profile.username} />
+      )}
+      <h3>{profile.username}, {PROFILE.DEFAULT_AGE}</h3>
+    </div>
+  );
+}
 
 export default function LikesYou({ session, setView }) {
-  const [profiles, setProfiles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { admirers, loading, error, likeBack, refreshAdmirers } = useAdmirers(session);
 
-  useEffect(() => {
-    async function fetchLikers() {
-      try {
-        setLoading(true);
-        const { user } = session;
+  const handleLikeBack = async (admirerId) => {
+    const { success } = await likeBack(admirerId);
 
-        const { data: likedMeData, error: likedMeError } = await supabase
-          .from('likes')
-          .select('user_id')
-          .eq('liked_user_id', user.id);
-
-        if (likedMeError) throw likedMeError;
-        const likedMeIds = likedMeData.map((l) => l.user_id);
-
-        const { data: myLikesData, error: myLikesError } = await supabase
-          .from('likes')
-          .select('liked_user_id')
-          .eq('user_id', user.id);
-
-        if (myLikesError) throw myLikesError;
-        const myLikedIds = myLikesData.map((l) => l.liked_user_id);
-
-        const admirerIds = likedMeIds.filter((id) => !myLikedIds.includes(id));
-
-        if (admirerIds.length > 0) {
-          const { data: profilesData, error: profilesError } = await supabase
-            .from('profiles')
-            .select('*')
-            .in('id', admirerIds);
-
-          if (profilesError) throw profilesError;
-          setProfiles(profilesData);
-        }
-      } catch (e) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchLikers();
-  }, [session]);
-
-  const handleLikeBack = async (profileId) => {
-    setProfiles((prev) => prev.filter((p) => p.id !== profileId));
-
-    const { error } = await supabase
-      .from('likes')
-      .insert({ user_id: session.user.id, liked_user_id: profileId });
-
-    if (error) {
-      alert('Não foi possível criar o match: ' + error.message);
-    } else {
-      setView({ name: 'matches' });
+    if (success) {
+      setView({ name: ROUTES.MATCHES });
     }
   };
+
+  if (loading) {
+    return (
+      <div className="page-wrapper">
+        <header className="app-header">
+          <h2>Curtidas</h2>
+        </header>
+        <main className="likes-you-grid">
+          <div className="grid-full-width">
+            <LoadingState message="Buscando admiradores..." />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="page-wrapper">
+        <header className="app-header">
+          <h2>Curtidas</h2>
+        </header>
+        <main className="likes-you-grid">
+          <div className="grid-full-width">
+            <ErrorState message={error} onRetry={refreshAdmirers} />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (admirers.length === 0) {
+    return (
+      <div className="page-wrapper">
+        <header className="app-header">
+          <h2>Curtidas</h2>
+        </header>
+        <main className="likes-you-grid">
+          <div className="grid-full-width">
+            <EmptyState
+              icon="♥️"
+              title="Nenhum admirador ainda"
+              message="Continue usando o app para atrair mais pessoas!"
+            />
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="page-wrapper">
@@ -69,37 +91,12 @@ export default function LikesYou({ session, setView }) {
         <h2>Curtidas</h2>
       </header>
       <main className="likes-you-grid">
-        {loading && (
-          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-            <p>Buscando admiradores...</p>
-          </div>
-        )}
-        {error && (
-          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-            <p>Erro: {error}</p>
-          </div>
-        )}
-        {!loading && profiles.length === 0 && (
-          <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-            <div className="empty-state-icon">♥️</div>
-            <h3>Nenhum admirador ainda</h3>
-            <p>Continue usando o app para atrair mais pessoas!</p>
-          </div>
-        )}
-        {profiles.map((profile, index) => (
-          <div
+        {admirers.map((profile) => (
+          <AdmirerCard
             key={profile.id}
-            className="admirer-card"
-            onClick={() => handleLikeBack(profile.id)}
-          >
-            {profile.avatar_url ? (
-              <img
-                src={supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl}
-                alt={profile.username}
-              />
-            ) : null}
-            <h3>{profile.username}, 25</h3>
-          </div>
+            profile={profile}
+            onLikeBack={handleLikeBack}
+          />
         ))}
       </main>
     </div>

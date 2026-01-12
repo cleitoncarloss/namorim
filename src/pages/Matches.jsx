@@ -1,61 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
+/**
+ * Matches - Página de lista de matches
+ * Regra 010: Single Responsibility Principle
+ * Regra 002: Sem cláusula else (guard clauses)
+ */
+
+import React from 'react';
+import { useMatches } from '../hooks/useMatches';
+import { usePublicAvatarUrl } from '../hooks/useAvatar';
+import { getFirstInitial } from '../domain/utils';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
+import EmptyState from '../components/ui/EmptyState';
+import { PROFILE } from '../constants';
+
+function MatchItem({ profile, onClick }) {
+  const avatarUrl = usePublicAvatarUrl(profile.avatar_url);
+  const initial = getFirstInitial(profile.username);
+
+  return (
+    <div className="match-item" onClick={onClick}>
+      {avatarUrl ? (
+        <img src={avatarUrl} alt={profile.username} className="match-avatar" />
+      ) : (
+        <div className="match-avatar">{initial}</div>
+      )}
+      <div className="match-info">
+        <h3>{profile.username}</h3>
+        <p>{profile.bio || `${PROFILE.DEFAULT_LOCATION} • ${PROFILE.DEFAULT_AGE} anos`}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function Matches({ session, setView }) {
-  const [matches, setMatches] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchMatches() {
-      try {
-        setLoading(true);
-        const { user } = session;
-
-        const { data: myLikesData, error: myLikesError } = await supabase
-          .from('likes')
-          .select('liked_user_id')
-          .eq('user_id', user.id);
-
-        if (myLikesError) throw myLikesError;
-        const myLikedIds = myLikesData.map((l) => l.liked_user_id);
-
-        const { data: likedMeData, error: likedMeError } = await supabase
-          .from('likes')
-          .select('user_id')
-          .eq('liked_user_id', user.id);
-
-        if (likedMeError) throw likedMeError;
-        const likedMeIds = likedMeData.map((l) => l.user_id);
-
-        const matchIds = myLikedIds.filter((id) => likedMeIds.includes(id));
-
-        if (matchIds.length > 0) {
-          const { data: profilesData, error: profilesError } = await supabase
-            .from('profiles')
-            .select('id, username, avatar_url, bio')
-            .in('id', matchIds);
-
-          if (profilesError) throw profilesError;
-          setMatches(profilesData);
-        } else {
-          setMatches([]);
-        }
-      } catch (e) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchMatches();
-  }, [session]);
+  const { matches, loading, error, refreshMatches } = useMatches(session);
 
   const openChat = (profile) => {
     setView({ name: 'chat', partner: profile });
   };
 
-  const getInitial = (name) => name ? name.charAt(0).toUpperCase() : '?';
+  if (loading) {
+    return (
+      <div className="matches-container">
+        <header className="app-header">
+          <h2>Matches</h2>
+        </header>
+        <main className="matches-list-container">
+          <LoadingState message="Carregando matches..." />
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="matches-container">
+        <header className="app-header">
+          <h2>Matches</h2>
+        </header>
+        <main className="matches-list-container">
+          <ErrorState message={error} onRetry={refreshMatches} />
+        </main>
+      </div>
+    );
+  }
+
+  if (matches.length === 0) {
+    return (
+      <div className="matches-container">
+        <header className="app-header">
+          <h2>Matches</h2>
+        </header>
+        <main className="matches-list-container">
+          <EmptyState
+            icon="❤️"
+            title="Nenhum match ainda"
+            message="Continue deslizando para encontrar seu match perfeito!"
+          />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="matches-container">
@@ -63,41 +88,12 @@ export default function Matches({ session, setView }) {
         <h2>Matches</h2>
       </header>
       <main className="matches-list-container">
-        {loading && (
-          <div className="empty-state">
-            <p>Carregando matches...</p>
-          </div>
-        )}
-        {error && (
-          <div className="empty-state">
-            <p>Erro: {error}</p>
-          </div>
-        )}
-        {!loading && matches.length === 0 && (
-          <div className="empty-state">
-            <div className="empty-state-icon">❤️</div>
-            <h3>Nenhum match ainda</h3>
-            <p>Continue deslizando para encontrar seu match perfeito!</p>
-          </div>
-        )}
         {matches.map((profile) => (
-          <div key={profile.id} className="match-item" onClick={() => openChat(profile)}>
-            {profile.avatar_url ? (
-              <img
-                src={supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl}
-                alt={profile.username}
-                className="match-avatar"
-              />
-            ) : (
-              <div className="match-avatar">
-                {getInitial(profile.username)}
-              </div>
-            )}
-            <div className="match-info">
-              <h3>{profile.username}</h3>
-              <p>{profile.bio || 'São Paulo, SP • 25 anos'}</p>
-            </div>
-          </div>
+          <MatchItem
+            key={profile.id}
+            profile={profile}
+            onClick={() => openChat(profile)}
+          />
         ))}
       </main>
     </div>

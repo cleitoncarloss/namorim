@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from './services/supabase';
+/**
+ * App - Componente principal da aplicação
+ * Regra 010: Single Responsibility Principle
+ * Regra 011: Open/Closed Principle (view renderers)
+ * Regra 002: Sem cláusula else (guard clauses)
+ */
+
+import React from 'react';
+import { AppProvider, useApp } from './context/AppContext';
 import Auth from './pages/Auth';
 import Account from './pages/Account';
 import Home from './pages/Home';
@@ -8,114 +15,67 @@ import Chat from './pages/Chat';
 import LikesYou from './pages/LikesYou';
 import GoPremium from './pages/GoPremium';
 import BottomNav from './components/BottomNav';
+import LoadingState from './components/ui/LoadingState';
+import { ROUTES } from './constants';
 
-function App() {
-  const [session, setSession] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [view, setView] = useState({ name: 'home' });
-
-  useEffect(() => {
-    // Fetch session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      // Clear profile on logout
-      if (!session) {
-        setProfile(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    async function getOrCreateProfile() {
-      if (!session) return;
-
-      // First, try to fetch the profile
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', session.user.id)
-        .single();
-
-      if (error && error.code === 'PGRST116') {
-        // Handle the case where the profile does not exist for a new user
-        console.log('Profile not found, creating one for the new user.');
-
-        const userEmail = session.user.email || 'new_user';
-        const defaultUsername = userEmail.split('@')[0] + Math.floor(Math.random() * 1000);
-
-        const { data: newProfile, error: insertError } = await supabase
-          .from('profiles')
-          .insert({
-            id: session.user.id,
-            username: defaultUsername,
-            bio: 'Welcome to Namorim!',
-          })
-          .select()
-          .single();
-
-        if (insertError) {
-          console.error('Error creating profile:', insertError);
-        } else {
-          setProfile(newProfile);
-          // Redirect the new user to their account page to complete their profile
-          setView({ name: 'account' });
-        }
-      } else if (error) {
-        // Handle other potential errors
-        console.error('Error fetching profile:', error);
-      } else {
-        // Profile found, set it
-        setProfile(data);
-      }
+const VIEW_RENDERERS = {
+  [ROUTES.HOME]: ({ session, setView }) => <Home session={session} setView={setView} />,
+  [ROUTES.ACCOUNT]: ({ session, setView }) => <Account session={session} setView={setView} />,
+  [ROUTES.MESSAGES]: ({ session, setView }) => <Matches session={session} setView={setView} showMessages={true} />,
+  [ROUTES.MATCHES]: ({ session, setView }) => <Matches session={session} setView={setView} />,
+  [ROUTES.CHAT]: ({ session, setView, view }) => <Chat session={session} setView={setView} chatPartner={view.partner} />,
+  [ROUTES.LIKES_YOU]: ({ session, setView, profile }) => {
+    if (profile?.is_premium) {
+      return <LikesYou session={session} setView={setView} />;
     }
+    return <GoPremium session={session} setView={setView} />;
+  },
+};
 
-    getOrCreateProfile();
-  }, [session, view.force_reload]); // re-fetch profile on session change or forced reload
+function AppContent() {
+  const { session, profile, view, setView, loading } = useApp();
 
-  // Check if we should hide the bottom nav (e.g., in chat view)
-  const hideBottomNav = view.name === 'chat';
+  if (loading) {
+    return (
+      <div className="container">
+        <LoadingState message="Iniciando..." />
+      </div>
+    );
+  }
 
-  const renderView = () => {
-    if (!session || !profile) {
-      // Show Auth page if no session, or a loading indicator while profile is fetching
-      return !session ? <Auth /> : <div className="loading-container"><p>Carregando perfil...</p></div>;
-    }
+  if (!session) {
+    return (
+      <div className="container">
+        <Auth />
+      </div>
+    );
+  }
 
-    switch (view.name) {
-      case 'account':
-        return <Account key={session.user.id} session={session} setView={setView} />;
-      case 'messages':
-        return <Matches session={session} setView={setView} showMessages={true} />;
-      case 'matches':
-        return <Matches session={session} setView={setView} />;
-      case 'chat':
-        return <Chat session={session} setView={setView} chatPartner={view.partner} />;
-      case 'likes-you':
-        return profile.is_premium
-          ? <LikesYou session={session} setView={setView} />
-          : <GoPremium session={session} setView={setView} />;
-      default:
-        return <Home session={session} setView={setView} />;
-    }
-  };
+  if (!profile) {
+    return (
+      <div className="container">
+        <LoadingState message="Carregando perfil..." />
+      </div>
+    );
+  }
+
+  const hideBottomNav = view.name === ROUTES.CHAT;
+  const renderView = VIEW_RENDERERS[view.name] || VIEW_RENDERERS[ROUTES.HOME];
 
   return (
     <div className="container">
-      {renderView()}
-      {session && profile && !hideBottomNav && (
+      {renderView({ session, setView, view, profile })}
+      {!hideBottomNav && (
         <BottomNav currentView={view.name} setView={setView} />
       )}
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  );
+}

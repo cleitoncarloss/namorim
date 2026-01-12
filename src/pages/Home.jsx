@@ -9,7 +9,7 @@ export default function Home({ session, setView }) {
         <h2>💕</h2>
         <div className="header-actions">
           <button onClick={() => setView({ name: 'account' })}>
-            <Settings size={20} color="#667eea" />
+            <Settings size={20} color="#ec4899" />
           </button>
         </div>
       </header>

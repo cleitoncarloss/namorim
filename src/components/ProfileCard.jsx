@@ -1,50 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
+/**
+ * ProfileCard - Card de perfil para swipe
+ * Regra 010: Single Responsibility Principle
+ * Regra 021: Elimina duplicação
+ */
+
+import React from 'react';
+import { useAvatar } from '../hooks/useAvatar';
+import { PROFILE } from '../constants';
+
+function ProfileImage({ avatarUrl, username }) {
+  if (avatarUrl) {
+    return (
+      <img src={avatarUrl} alt={username} className="profile-card-image" />
+    );
+  }
+
+  return (
+    <div className="profile-card-no-image">👤</div>
+  );
+}
+
+function SwipeActions({ onLike, onDislike }) {
+  return (
+    <div className="swipe-actions">
+      <button className="swipe-btn dislike" onClick={onDislike} aria-label="Passar">
+        ✕
+      </button>
+      <button className="swipe-btn like" onClick={onLike} aria-label="Curtir">
+        ♥
+      </button>
+    </div>
+  );
+}
 
 export default function ProfileCard({ profile, onLike, onDislike }) {
-  const [avatarUrl, setAvatarUrl] = useState(null);
-
-  useEffect(() => {
-    async function downloadImage(path) {
-      if (!path) return;
-      try {
-        const { data, error } = await supabase.storage.from('avatars').download(path);
-        if (error) throw error;
-        setAvatarUrl(URL.createObjectURL(data));
-      } catch (error) {
-        console.log('Error downloading image: ', error.message);
-      }
-    }
-
-    downloadImage(profile.avatar_url);
-  }, [profile.avatar_url]);
+  const { avatarUrl } = useAvatar(profile.avatar_url);
 
   return (
     <>
       <div className="profile-card">
         <div className="profile-card-image-container">
-          {avatarUrl ? (
-            <img src={avatarUrl} alt={profile.username} className="profile-card-image" />
-          ) : (
-            <div className="profile-card-no-image">
-              👤
-            </div>
-          )}
+          <ProfileImage avatarUrl={avatarUrl} username={profile.username} />
         </div>
         <div className="profile-card-info">
-          <h2>{profile.username}, 25</h2>
-          <p className="location">📍 São Paulo, SP</p>
+          <h2>{profile.username}, {PROFILE.DEFAULT_AGE}</h2>
+          <p className="location">📍 {PROFILE.DEFAULT_LOCATION}</p>
           <p>{profile.bio}</p>
         </div>
       </div>
-      <div className="swipe-actions">
-        <button className="swipe-btn dislike" onClick={onDislike} aria-label="Passar">
-          ✕
-        </button>
-        <button className="swipe-btn like" onClick={onLike} aria-label="Curtir">
-          ♥
-        </button>
-      </div>
+      <SwipeActions onLike={onLike} onDislike={onDislike} />
     </>
   );
 }

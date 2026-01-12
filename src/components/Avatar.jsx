@@ -1,53 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { supabase } from '../services/supabase'
+/**
+ * Avatar - Componente de avatar com upload
+ * Regra 010: Single Responsibility Principle
+ * Regra 040: Validação de input
+ * Regra 053: Prevenção de path traversal
+ */
+
+import React from 'react';
+import { useAvatar } from '../hooks/useAvatar';
+import { STORAGE } from '../constants';
 
 export default function Avatar({ url, size, onUpload }) {
-  const [avatarUrl, setAvatarUrl] = useState(null)
-  const [uploading, setUploading] = useState(false)
+  const { avatarUrl, uploading, error, uploadAvatar } = useAvatar(url);
 
-  useEffect(() => {
-    if (url) downloadImage(url)
-  }, [url])
+  const handleFileChange = async (event) => {
+    const files = event.target.files;
 
-  async function downloadImage(path) {
-    try {
-      const { data, error } = await supabase.storage.from('avatars').download(path)
-      if (error) {
-        throw error
-      }
-      const url = URL.createObjectURL(data)
-      setAvatarUrl(url)
-    } catch (error) {
-      console.log('Error downloading image: ', error.message)
+    if (!files || files.length === 0) {
+      return;
     }
-  }
 
-  async function uploadAvatar(event) {
-    try {
-      setUploading(true)
+    const file = files[0];
+    const { success, path, error: uploadError } = await uploadAvatar(file);
 
-      if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('You must select an image to upload.')
-      }
-
-      const file = event.target.files[0]
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Math.random()}.${fileExt}`
-      const filePath = `${fileName}`
-
-      const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
-
-      if (uploadError) {
-        throw uploadError
-      }
-
-      onUpload(event, filePath)
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setUploading(false)
+    if (success && onUpload) {
+      onUpload(event, path);
     }
-  }
+  };
+
+  const acceptedTypes = STORAGE.ALLOWED_IMAGE_TYPES.join(',');
 
   return (
     <div>
@@ -62,8 +42,8 @@ export default function Avatar({ url, size, onUpload }) {
         <div className="avatar no-image" style={{ height: size, width: size }} />
       )}
       <div style={{ width: size }}>
-        <label className="button primary block" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
+        <label className="button primary block" htmlFor="avatar-upload">
+          {uploading ? 'Enviando...' : 'Upload'}
         </label>
         <input
           style={{
@@ -71,12 +51,17 @@ export default function Avatar({ url, size, onUpload }) {
             position: 'absolute',
           }}
           type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
+          id="avatar-upload"
+          accept={acceptedTypes}
+          onChange={handleFileChange}
           disabled={uploading}
         />
       </div>
+      {error && (
+        <p style={{ color: '#ff6b6b', fontSize: '12px', marginTop: '8px' }}>
+          {error}
+        </p>
+      )}
     </div>
-  )
+  );
 }
