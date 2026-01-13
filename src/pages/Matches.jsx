@@ -5,8 +5,10 @@
  */
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMatches } from '../hooks/useMatches';
 import { usePublicAvatarUrl } from '../hooks/useAvatar';
+import { useApp } from '../context/AppContext';
 import { getFirstInitial } from '../domain/utils';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
@@ -32,18 +34,22 @@ function MatchItem({ profile, onClick }) {
   );
 }
 
-export default function Matches({ session, setView }) {
+export default function Matches({ showMessages = false }) {
+  const navigate = useNavigate();
+  const { session } = useApp();
   const { matches, loading, error, refreshMatches } = useMatches(session);
 
   const openChat = (profile) => {
-    setView({ name: 'chat', partner: profile });
+    navigate(`/chat/${profile.id}`);
   };
+
+  const title = showMessages ? 'Mensagens' : 'Matches';
 
   if (loading) {
     return (
       <div className="matches-container">
         <header className="app-header">
-          <h2>Matches</h2>
+          <h2>{title}</h2>
         </header>
         <main className="matches-list-container">
           <LoadingState message="Carregando matches..." />
@@ -56,7 +62,7 @@ export default function Matches({ session, setView }) {
     return (
       <div className="matches-container">
         <header className="app-header">
-          <h2>Matches</h2>
+          <h2>{title}</h2>
         </header>
         <main className="matches-list-container">
           <ErrorState message={error} onRetry={refreshMatches} />
@@ -69,7 +75,7 @@ export default function Matches({ session, setView }) {
     return (
       <div className="matches-container">
         <header className="app-header">
-          <h2>Matches</h2>
+          <h2>{title}</h2>
         </header>
         <main className="matches-list-container">
           <EmptyState
@@ -85,7 +91,7 @@ export default function Matches({ session, setView }) {
   return (
     <div className="matches-container">
       <header className="app-header">
-        <h2>Matches</h2>
+        <h2>{title}</h2>
       </header>
       <main className="matches-list-container">
         {matches.map((profile) => (

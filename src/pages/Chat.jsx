@@ -4,18 +4,40 @@
  * Regra 002: Sem cláusula else (guard clauses)
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Send } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
+import { useApp } from '../context/AppContext';
+import { ProfileService } from '../services/profileService';
 import { ROUTES } from '../constants';
+import LoadingState from '../components/ui/LoadingState';
 
 function ChatMessage({ message, isOwn }) {
   const className = `chat-bubble ${isOwn ? 'sent' : 'received'}`;
   return <div className={className}>{message.content}</div>;
 }
 
-export default function Chat({ session, setView, chatPartner }) {
+export default function Chat() {
+  const navigate = useNavigate();
+  const { partnerId } = useParams();
+  const { session } = useApp();
+  const [chatPartner, setChatPartner] = useState(null);
+  const [loadingPartner, setLoadingPartner] = useState(true);
   const [newMessage, setNewMessage] = useState('');
+
+  useEffect(() => {
+    const loadPartner = async () => {
+      if (!partnerId) {
+        return;
+      }
+      const { profile } = await ProfileService.getProfile(partnerId);
+      setChatPartner(profile);
+      setLoadingPartner(false);
+    };
+    loadPartner();
+  }, [partnerId]);
+
   const {
     messages,
     loading,
@@ -39,8 +61,16 @@ export default function Chat({ session, setView, chatPartner }) {
   };
 
   const handleBack = () => {
-    setView({ name: ROUTES.MATCHES });
+    navigate(ROUTES.MATCHES);
   };
+
+  if (loadingPartner) {
+    return (
+      <div className="chat-container">
+        <LoadingState message="Carregando conversa..." />
+      </div>
+    );
+  }
 
   return (
     <div className="chat-container">

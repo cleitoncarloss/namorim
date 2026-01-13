@@ -4,7 +4,9 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProfileService } from '../services/profileService';
+import { useApp } from '../context/AppContext';
 import { ROUTES } from '../constants';
 import { ERROR_MESSAGES } from '../constants/errors';
 
@@ -14,7 +16,9 @@ const PREMIUM_PERKS = [
   { icon: '⭐', text: 'Destaque seu perfil' },
 ];
 
-export default function GoPremium({ session, setView }) {
+export default function GoPremium() {
+  const navigate = useNavigate();
+  const { session, refreshProfile } = useApp();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -34,7 +38,8 @@ export default function GoPremium({ session, setView }) {
       return;
     }
 
-    setView({ name: ROUTES.LIKES_YOU, force_reload: Date.now() });
+    await refreshProfile();
+    navigate(ROUTES.LIKES_YOU);
     setLoading(false);
   };
 

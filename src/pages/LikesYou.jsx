@@ -5,8 +5,10 @@
  */
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAdmirers } from '../hooks/useAdmirers';
 import { usePublicAvatarUrl } from '../hooks/useAvatar';
+import { useApp } from '../context/AppContext';
 import { ROUTES, PROFILE } from '../constants';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
@@ -25,14 +27,16 @@ function AdmirerCard({ profile, onLikeBack }) {
   );
 }
 
-export default function LikesYou({ session, setView }) {
+export default function LikesYou() {
+  const navigate = useNavigate();
+  const { session } = useApp();
   const { admirers, loading, error, likeBack, refreshAdmirers } = useAdmirers(session);
 
   const handleLikeBack = async (admirerId) => {
     const { success } = await likeBack(admirerId);
 
     if (success) {
-      setView({ name: ROUTES.MATCHES });
+      navigate(ROUTES.MATCHES);
     }
   };
 

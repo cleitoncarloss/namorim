@@ -34,12 +34,14 @@ export const REALTIME = Object.freeze({
 });
 
 export const ROUTES = Object.freeze({
-  HOME: 'home',
-  ACCOUNT: 'account',
-  MESSAGES: 'messages',
-  MATCHES: 'matches',
-  CHAT: 'chat',
-  LIKES_YOU: 'likes-you',
+  AUTH_SIGN_IN: '/auth/sign-in',
+  HOME: '/',
+  ACCOUNT: '/account',
+  MESSAGES: '/messages',
+  MATCHES: '/matches',
+  CHAT: '/chat/:partnerId',
+  LIKES_YOU: '/likes',
+  PREMIUM: '/premium',
 });
 
 export const SWIPE_ACTIONS = Object.freeze({

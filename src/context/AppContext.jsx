@@ -1,19 +1,18 @@
 /**
  * AppContext - Context para estado global da aplicação
  * Regra 014: Dependency Inversion Principle
+ * Regra 010: Single Responsibility - gerencia estado de auth e perfil
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { AuthService } from '../services/authService';
 import { ProfileService } from '../services/profileService';
-import { ROUTES } from '../constants';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [view, setView] = useState({ name: ROUTES.HOME });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,14 +36,14 @@ export function AppProvider({ children }) {
   const fetchProfile = useCallback(async () => {
     if (!session?.user?.id) {
       setProfile(null);
-      return;
+      return { needsSetup: false };
     }
 
     const { profile: fetchedProfile, notFound, error } =
       await ProfileService.getProfile(session.user.id);
 
     if (error) {
-      return;
+      return { needsSetup: false };
     }
 
     if (notFound) {
@@ -53,37 +52,26 @@ export function AppProvider({ children }) {
 
       if (!createError) {
         setProfile(newProfile);
-        setView({ name: ROUTES.ACCOUNT });
+        return { needsSetup: true };
       }
-    } else {
-      setProfile(fetchedProfile);
+      return { needsSetup: false };
     }
+
+    setProfile(fetchedProfile);
+    return { needsSetup: false };
   }, [session]);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
 
-  useEffect(() => {
-    if (view.force_reload) {
-      fetchProfile();
-    }
-  }, [view.force_reload, fetchProfile]);
-
-  const navigateTo = useCallback((viewName, options = {}) => {
-    setView({ name: viewName, ...options });
-  }, []);
-
-  const refreshProfile = useCallback(() => {
-    fetchProfile();
+  const refreshProfile = useCallback(async () => {
+    await fetchProfile();
   }, [fetchProfile]);
 
   const value = {
     session,
     profile,
-    view,
-    setView,
-    navigateTo,
     loading,
     refreshProfile,
   };

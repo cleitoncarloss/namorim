@@ -7,14 +7,19 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useProfile } from '../hooks/useProfile';
 import { useAvatar } from '../hooks/useAvatar';
+import { useApp } from '../context/AppContext';
 import { AuthService } from '../services/authService';
 import LoadingState from '../components/ui/LoadingState';
 import ProfileView from '../components/profile/ProfileView';
 import EditProfileForm from '../components/profile/EditProfileForm';
+import { ROUTES } from '../constants';
 
-export default function Account({ session }) {
+export default function Account() {
+  const navigate = useNavigate();
+  const { session } = useApp();
   const [editing, setEditing] = useState(false);
   const { profile, loading, updateProfile } = useProfile(session);
   const { avatarUrl, uploadAvatar } = useAvatar(profile?.avatar_url);
@@ -35,8 +40,9 @@ export default function Account({ session }) {
     }
   };
 
-  const handleSignOut = () => {
-    AuthService.signOut();
+  const handleSignOut = async () => {
+    await AuthService.signOut();
+    navigate(ROUTES.AUTH_SIGN_IN);
   };
 
   if (loading && !profile) {

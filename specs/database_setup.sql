@@ -103,9 +103,17 @@ CREATE POLICY "Users can insert their own likes."
   WITH CHECK ( auth.uid() = user_id );
 
 DROP POLICY IF EXISTS "Users can view their own likes." ON likes;
+DROP POLICY IF EXISTS "Users can view likes they received." ON likes;
+
+-- Permite ver likes que o usuário fez
 CREATE POLICY "Users can view their own likes."
   ON likes FOR SELECT
   USING ( auth.uid() = user_id );
+
+-- Permite ver likes que o usuário recebeu (para ver admiradores)
+CREATE POLICY "Users can view likes they received."
+  ON likes FOR SELECT
+  USING ( auth.uid() = liked_user_id );
 
 
 -- Tabela 'dislikes'
