@@ -1,0 +1,12 @@
+/**
+ * Uso das variações de `font-weight`:
+ * -----------------------------------
+ *   - `font-weight-bold`: Uso em títulos e elementos que precisam de forte destaque visual.
+ *   - `font-weight-medium`: Textos intermediários, garantindo hierarquia sem excesso de peso.
+ *   - `font-weight-regular`: Padrão para textos regulares, oferecendo legibilidade equilibrada.
+ */
+:root {
+  --font-weight-bold: 700; /* Uso em títulos e elementos que precisam de forte destaque visual. */
+  --font-weight-medium: 500; /* Textos intermediários, garantindo hierarquia sem excesso de peso. */
+  --font-weight-regular: 400; /* Padrão para textos regulares, oferecendo legibilidade equilibrada. */
+}

@@ -1,0 +1,260 @@
+/**
+ * Design System - Paleta de Cores
+ * ================================
+ *
+ * Estrutura de variações de cores:
+ * - `-darker`: Cabeçalhos e elementos de alta hierarquia
+ * - `-dark`: Textos principais ou destaques
+ * - (base): Cor padrão para elementos interativos
+ * - `-light`: Elementos de suporte, bordas, detalhes
+ * - `-lighter`: Fundos claros e superfícies secundárias
+ */
+
+:root {
+  /* PRIMARY - Teal (#14B8A6) */
+  /* Cor principal do design system, ideal para botões e elementos interativos */
+  --color-primary-darker: light-dark(
+    #084E47,
+    #7FE8DC
+  ); /* Cabeçalhos com destaque em tons teal. */
+
+  --color-primary-dark: light-dark(
+    #0A6E63,
+    #4ECDC1
+  ); /* Textos principais interativos. */
+
+  --color-primary: light-dark(
+    #14B8A6,
+    #14B8A6
+  ); /* Botões e elementos interativos principais. */
+
+  --color-primary-light: light-dark(
+    #4ECDC1,
+    #0A6E63
+  ); /* Ícones ou destaques leves em teal. */
+
+  --color-primary-lighter: light-dark(
+    #B0F4ED,
+    #084E47
+  ); /* Fundos de componentes interativos teal. */
+
+  /* SECONDARY - Cinza Médio (#6B7280) */
+  /* Cor secundária para elementos de suporte e contextos específicos */
+  --color-secondary-darker: light-dark(
+    #1F2937,
+    #F3F4F6
+  ); /* Cabeçalhos secundários com destaque. */
+
+  --color-secondary-dark: light-dark(
+    #374151,
+    #D1D5DB
+  ); /* Textos secundários principais. */
+
+  --color-secondary: light-dark(
+    #6B7280,
+    #9CA3AF
+  ); /* Cor padrão para elementos secundários. */
+
+  --color-secondary-light: light-dark(
+    #9CA3AF,
+    #6B7280
+  ); /* Ícones e detalhes secundários. */
+
+  --color-secondary-lighter: light-dark(
+    #D1D5DB,
+    #4B5563
+  ); /* Fundos secundários. */
+
+  /* TERTIARY - Cinza Claro (#F1F5F9) */
+  /* Cor terciária para superfícies leves e fundos claros */
+  --color-tertiary-darker: light-dark(
+    #E0E7F1,
+    #4A5568
+  ); /* Cabeçalhos em contextos terciários. */
+
+  --color-tertiary-dark: light-dark(
+    #E8ECF4,
+    #2D3748
+  ); /* Textos sobre fundos terciários. */
+
+  --color-tertiary: light-dark(
+    #F1F5F9,
+    #1A202C
+  ); /* Cor padrão terciária. */
+
+  --color-tertiary-light: light-dark(
+    #F5F8FB,
+    #0F1419
+  ); /* Detalhes leves terciários. */
+
+  --color-tertiary-lighter: light-dark(
+    #FAFBFD,
+    #000000
+  ); /* Fundos mais leves. */
+
+  /* NEUTRAL - Cinza Escuro (#111827) */
+  /* Tons neutros para textos, bordas e estrutura */
+  --color-neutral-darker: light-dark(
+    #000000,
+    #FFFFFF
+  ); /* Máximo contraste para textos críticos. */
+
+  --color-neutral-dark: light-dark(
+    #0F172A,
+    #F1F5F9
+  ); /* Textos principais em contextos neutros. */
+
+  --color-neutral: light-dark(
+    #111827,
+    #E0E7F1
+  ); /* Cor neutra padrão. */
+
+  --color-neutral-light: light-dark(
+    #475569,
+    #A1AEC6
+  ); /* Bordas e detalhes neutros. */
+
+  --color-neutral-lighter: light-dark(
+    #CBD5E1,
+    #475569
+  ); /* Fundos neutros claros. */
+
+  /* COMPLETE - Azul (#3B82F6) */
+  /* Para ações completadas e confirmações */
+  --color-complete-darker: light-dark(
+    #1E3A8A,
+    #93C5FD
+  ); /* Cabeçalhos com destaque em azul. */
+
+  --color-complete-dark: light-dark(
+    #1E40AF,
+    #60A5FA
+  ); /* Textos principais em azul. */
+
+  --color-complete: light-dark(
+    #3B82F6,
+    #3B82F6
+  ); /* Botões de conclusão e confirmação. */
+
+  --color-complete-light: light-dark(
+    #60A5FA,
+    #1E40AF
+  ); /* Ícones e detalhes em azul. */
+
+  --color-complete-lighter: light-dark(
+    #DBEAFE,
+    #1E3A8A
+  ); /* Fundos em azul claro. */
+
+  /* SUCCEEDED - Verde (#10B981) */
+  /* Para ações de sucesso e validações positivas */
+  --color-succeeded-darker: light-dark(
+    #064E3B,
+    #86EFAC
+  ); /* Cabeçalhos com destaque em verde. */
+
+  --color-succeeded-dark: light-dark(
+    #047857,
+    #4ADE80
+  ); /* Textos principais em verde. */
+
+  --color-succeeded: light-dark(
+    #10B981,
+    #10B981
+  ); /* Botões de sucesso. */
+
+  --color-succeeded-light: light-dark(
+    #4ADE80,
+    #047857
+  ); /* Ícones e detalhes em verde. */
+
+  --color-succeeded-lighter: light-dark(
+    #DCFCE7,
+    #064E3B
+  ); /* Fundos em verde claro. */
+
+  /* WARNING - Âmbar (#F59E0B) */
+  /* Para avisos e ações que requerem atenção */
+  --color-warning-darker: light-dark(
+    #78350F,
+    #FCD34D
+  ); /* Cabeçalhos com destaque em âmbar. */
+
+  --color-warning-dark: light-dark(
+    #B45309,
+    #FBBF24
+  ); /* Textos principais em âmbar. */
+
+  --color-warning: light-dark(
+    #F59E0B,
+    #F59E0B
+  ); /* Botões de aviso. */
+
+  --color-warning-light: light-dark(
+    #FBBF24,
+    #B45309
+  ); /* Ícones e detalhes em âmbar. */
+
+  --color-warning-lighter: light-dark(
+    #FEF3C7,
+    #78350F
+  ); /* Fundos em âmbar claro. */
+
+  /* DANGER - Vermelho (#EF4444) */
+  /* Para ações destrutivas e erros */
+  --color-danger-darker: light-dark(
+    #7F1D1D,
+    #FCA5A5
+  ); /* Cabeçalhos com destaque em vermelho. */
+
+  --color-danger-dark: light-dark(
+    #B91C1C,
+    #F87171
+  ); /* Textos principais em vermelho. */
+
+  --color-danger: light-dark(
+    #EF4444,
+    #EF4444
+  ); /* Botões de perigo. */
+
+  --color-danger-light: light-dark(
+    #F87171,
+    #B91C1C
+  ); /* Ícones e detalhes em vermelho. */
+
+  --color-danger-lighter: light-dark(
+    #FEE2E2,
+    #7F1D1D
+  ); /* Fundos em vermelho claro. */
+
+  /* INFO - Ciano (#06B6D4) */
+  /* Para informações e dicas */
+  --color-info-darker: light-dark(
+    #164E63,
+    #A5F3FC
+  ); /* Cabeçalhos com destaque em ciano. */
+
+  --color-info-dark: light-dark(
+    #0E7490,
+    #67E8F9
+  ); /* Textos principais em ciano. */
+
+  --color-info: light-dark(
+    #06B6D4,
+    #06B6D4
+  ); /* Botões de informação. */
+
+  --color-info-light: light-dark(
+    #67E8F9,
+    #0E7490
+  ); /* Ícones e detalhes em ciano. */
+
+  --color-info-lighter: light-dark(
+    #CFFAFE,
+    #164E63
+  ); /* Fundos em ciano claro. */
+
+  /* UTILITY - White & Black */
+  --color-pure-white: #FFFFFF;
+  --color-pure-black: #000000;
+}

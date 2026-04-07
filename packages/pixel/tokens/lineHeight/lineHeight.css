@@ -1,0 +1,20 @@
+/**
+ * Uso das variações de `line-height`:
+ * -----------------------------------
+ *   - `line-height-default`: Uso padrão, alinhado ao tamanho da fonte sem espaçamento extra.
+ *   - `line-height-xs`: Textos compactos com mínima altura de linha, ideal para botões e labels.
+ *   - `line-height-sm`: Textos curtos ou títulos menores, garantindo boa legibilidade sem excesso de espaço.
+ *   - `line-height-md`: Padrão para parágrafos regulares, proporcionando leitura confortável.
+ *   - `line-height-lg`: Textos longos, como descrições detalhadas ou artigos, melhorando o fluxo da leitura.
+ *   - `line-height-xl`: Conteúdos extensos, garantindo espaçamento adequado em textos densos.
+ *   - `line-height-xxl`: Títulos grandes ou textos hero com espaçamento amplo para impacto visual.
+ */
+:root {
+  --line-height-default: 100%; /* Uso padrão, alinhado ao tamanho da fonte sem espaçamento extra. */
+  --line-height-xs: 115%; /* Textos compactos com mínima altura de linha, ideal para botões e labels. */
+  --line-height-sm: 120%; /* Textos curtos ou títulos menores, garantindo boa legibilidade sem excesso de espaço. */
+  --line-height-md: 133%; /* Padrão para parágrafos regulares, proporcionando leitura confortável. */
+  --line-height-lg: 150%; /* Textos longos, como descrições detalhadas ou artigos, melhorando o fluxo da leitura. */
+  --line-height-xl: 170%; /* Conteúdos extensos, garantindo espaçamento adequado em textos densos. */
+  --line-height-xxl: 200%; /* Títulos grandes ou textos hero com espaçamento amplo para impacto visual. */
+}

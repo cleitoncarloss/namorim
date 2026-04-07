@@ -1,0 +1,14 @@
+/**
+ * Uso das variações de `shadow-level`:
+ * ------------------------------------
+ *   - `shadow-level-1`: Sombra sutil (0 4px 8px). Ideal para elementos de baixa elevação, como cards, inputs ou botões em estado default.
+ *   - `shadow-level-2`: Sombra média (0 8px 24px). Recomendada para componentes flutuantes como dropdowns, menus ou tooltips.
+ *   - `shadow-level-3`: Sombra mais intensa (0 16px 32px). Indicada para modais, side panels ou elementos de destaque visual.
+ *   - `shadow-level-4`: Sombra profunda (0 16px 48px). Usada para conteúdos com prioridade máxima, como modais principais, banners ou áreas sobrepostas.
+ */
+:root {
+  --shadow-level-1: 0px 4px 8px -1px rgba(0, 0, 0, 0.1); /* Cards, botões e elementos com leve elevação. */
+  --shadow-level-2: 0px 8px 24px -1px rgba(0, 0, 0, 0.12); /* Menus suspensos, tooltips ou componentes interativos. */
+  --shadow-level-3: 0px 16px 32px -1px rgba(0, 0, 0, 0.12); /* Modais ou painéis flutuantes com destaque. */
+  --shadow-level-4: 0px 16px 48px -1px rgba(0, 0, 0, 0.16); /* Elementos com máxima hierarquia e impacto visual. */
+}

@@ -1,0 +1,16 @@
+/**
+ * Uso das variações de `opacity-level`:
+ * -------------------------------------
+ *   - `opacity-level-semiopaque`: Alta visibilidade com leve transparência (72%). Ideal para sobreposições suaves como modais, menus ou tooltips com fundo parcialmente visível.
+ *   - `opacity-level-intense`: Transparência moderada (64%) para elementos interativos em foco, como botões com hover ou componentes flutuantes.
+ *   - `opacity-level-medium`: Transparência média (32%), recomendada para textos desabilitados, placeholders ou elementos em segundo plano.
+ *   - `opacity-level-light`: Transparência leve (16%) para detalhes sutis como bordas, ícones decorativos ou fundos de apoio.
+ *   - `opacity-level-semitransparent`: Baixíssima opacidade (8%), usada em microdetalhes, brilhos ou realces visuais quase imperceptíveis.
+ */
+:root {
+  --opacity-level-semiopaque: 0.72; /* Sobreposições suaves, como tooltips ou dropdowns. */
+  --opacity-level-intense: 0.64; /* Hover/focus states com presença visual. */
+  --opacity-level-medium: 0.32; /* Textos desabilitados ou conteúdos secundários. */
+  --opacity-level-light: 0.16; /* Detalhes sutis e efeitos decorativos. */
+  --opacity-level-semitransparent: 0.08; /* Realces quase invisíveis ou camadas profundas. */
+}

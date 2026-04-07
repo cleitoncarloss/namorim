@@ -1,0 +1,52 @@
+/**
+ * Uso das variações de `spacing`:
+ * -----------------------------------
+ *   - `spacing-quarck`: Espaçamento ultra pequeno, ideal para microajustes em ícones e elementos compactos.
+ *   - `spacing-nano`: Pequenos espaçamentos internos, usados em separação de elementos muito próximos.
+ *   - `spacing-xxxs`: Margens e paddings sutis, úteis para pequenos agrupamentos de componentes.
+ *   - `spacing-xxs`: Espaçamento padrão para separação entre elementos e seções menores.
+ *   - `spacing-xs`: Espaço entre blocos de conteúdo, como cards e seções compactas.
+ *   - `spacing-sm`: Margens de seções médias e espaçamentos internos mais pronunciados.
+ *   - `spacing-md`: Espaçamento entre módulos e componentes de maior relevância visual.
+ *   - `spacing-lg`: Separação entre blocos de conteúdo maiores, como seções de uma página.
+ *   - `spacing-xl`: Margens e gaps grandes para conteúdos amplos e layouts arejados.
+ *   - `spacing-xxl`: Uso em grandes seções, garantindo respiro visual significativo.
+ *   - `spacing-xxxl`: Espaçamento extra grande para conteúdos que exigem hierarquia visual.
+ *   - `spacing-huge`: Distâncias generosas entre seções para destacar blocos de informação.
+ *   - `spacing-giant`: Máximo espaçamento, usado em seções hero ou conteúdos de grande impacto.
+ *
+ * Uso das variações de `spacing_inset` (Preenchimentos Internos):
+ * ---------------------------------------------------------------
+ *   - `spacing_inset-quarck`: Padding mínimo para pequenos botões ou chips.
+ *   - `spacing_inset-nano`: Preenchimento interno sutil, comum em badges e labels.
+ *   - `spacing_inset-xs`: Padding padrão para botões pequenos e cards compactos.
+ *   - `spacing_inset-sm`: Espaçamento interno para seções menores e cards médios.
+ *   - `spacing_inset-md`: Padding regular para caixas de conteúdo e containers padrões.
+ *   - `spacing_inset-lg`: Preenchimento interno mais amplo para seções destacadas.
+ *   - `spacing_inset-huge`: Padding generoso para grandes seções ou modais.
+ *   - `spacing_inset-giant`: Máximo preenchimento interno, usado em componentes hero e banners.
+ */
+:root {
+  --spacing-quarck: 4px; /* Espaçamento ultra pequeno, ideal para microajustes em ícones e elementos compactos. */
+  --spacing-nano: 8px; /* Pequenos espaçamentos internos, usados em separação de elementos muito próximos. */
+  --spacing-xxxs: 16px; /* Margens e paddings sutis, úteis para pequenos agrupamentos de componentes. */
+  --spacing-xxs: 24px; /* Espaçamento padrão para separação entre elementos e seções menores. */
+  --spacing-xs: 32px; /* Espaço entre blocos de conteúdo, como cards e seções compactas. */
+  --spacing-sm: 40px; /* Margens de seções médias e espaçamentos internos mais pronunciados. */
+  --spacing-md: 48px; /* Espaçamento entre módulos e componentes de maior relevância visual. */
+  --spacing-lg: 56px; /* Separação entre blocos de conteúdo maiores, como seções de uma página. */
+  --spacing-xl: 64px; /* Margens e gaps grandes para conteúdos amplos e layouts arejados. */
+  --spacing-xxl: 80px; /* Uso em grandes seções, garantindo respiro visual significativo. */
+  --spacing-xxxl: 120px; /* Espaçamento extra grande para conteúdos que exigem hierarquia visual. */
+  --spacing-huge: 160px; /* Distâncias generosas entre seções para destacar blocos de informação. */
+  --spacing-giant: 200px; /* Máximo espaçamento, usado em seções hero ou conteúdos de grande impacto. */
+
+  --spacing_inset-quarck: 4px; /* Padding mínimo para pequenos botões ou chips. */
+  --spacing_inset-nano: 8px; /* Preenchimento interno sutil, comum em badges e labels. */
+  --spacing_inset-xs: 16px; /* Padding padrão para botões pequenos e cards compactos. */
+  --spacing_inset-sm: 24px; /* Espaçamento interno para seções menores e cards médios. */
+  --spacing_inset-md: 32px; /* Padding regular para caixas de conteúdo e containers padrões. */
+  --spacing_inset-lg: 40px; /* Preenchimento interno mais amplo para seções destacadas. */
+  --spacing_inset-huge: 48px; /* Padding generoso para grandes seções ou modais. */
+  --spacing_inset-giant: 56px; /* Máximo preenchimento interno, usado em componentes hero e banners. */
+}

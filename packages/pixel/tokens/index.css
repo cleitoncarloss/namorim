@@ -1,0 +1,10 @@
+@import "./borderRadius/borderRadius.css";
+@import "./borderWidth/borderWidth.css";
+@import "./color/color.css";
+@import "./fontFamily/fontFamily.css";
+@import "./typography/fontSize.css";
+@import "./typography/fontWeight.css";
+@import "./lineHeight/lineHeight.css";
+@import "./opacity/opacity.css";
+@import "./shadow/shadow.css";
+@import "./spacing/spacing.css";

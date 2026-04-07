@@ -1,0 +1,20 @@
+/**
+ * Uso das variações de `border-radius`:
+ * --------------------------------------
+ *   - `border-radius-none`: Sem arredondamento, para elementos com cantos retos.
+ *   - `border-radius-xs`: Bordas levemente arredondadas, ideais para inputs e pequenos componentes.
+ *   - `border-radius-sm`: Arredondamento suave para botões, cartões e seções modulares.
+ *   - `border-radius-md`: Cantos mais arredondados para modais, popovers e componentes visuais.
+ *   - `border-radius-lg`: Arredondamento acentuado para componentes destacados.
+ *   - `border-radius-pill`: Formato de pílula, ideal para botões alongados e etiquetas.
+ *   - `border-radius-circular`: Arredondamento total para avatares, ícones e elementos circulares.
+ */
+:root {
+  --border-radius-none: 0; /* Sem arredondamento, para elementos com cantos retos. */
+  --border-radius-xs: 4px; /* Bordas levemente arredondadas, ideais para inputs e pequenos componentes. */
+  --border-radius-sm: 8px; /* Arredondamento suave para botões, cartões e seções modulares. */
+  --border-radius-md: 16px; /* Cantos mais arredondados para modais, popovers e componentes visuais. */
+  --border-radius-lg: 24px; /* Arredondamento acentuado para componentes destacados. */
+  --border-radius-pill: 500px; /* Formato de pílula, ideal para botões alongados e etiquetas. */
+  --border-radius-circular: 50%; /* Arredondamento total para avatares, ícones e elementos circulares. */
+}

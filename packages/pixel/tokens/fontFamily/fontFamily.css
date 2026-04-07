@@ -1,0 +1,12 @@
+/**
+ * Uso das variações de `font-family`:
+ * -----------------------------------
+ *   - `font-family-highlight`: Fonte de destaque, utilizada em títulos, chamadas de atenção e elementos que precisam de impacto visual.
+ *   - `font-family-base`: Fonte padrão para textos regulares, garantindo legibilidade e consistência na interface.
+ */
+:root {
+  --font-family-highlight:
+    "Roboto Condensed", sans-serif; /* Fonte de destaque para títulos e elementos impactantes. */
+  --font-family-base:
+    "Roboto", sans-serif; /* Fonte padrão para textos regulares, garantindo legibilidade. */
+}

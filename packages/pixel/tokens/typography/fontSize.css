@@ -1,0 +1,28 @@
+/**
+ * Uso das variações de `font-size`:
+ * -----------------------------------
+ *   - `font-size-xxxs`: Textos auxiliares mínimos, como labels em formulários ou notas de rodapé.
+ *   - `font-size-xxs`: Textos informativos secundários, breadcrumbs, ou metadados.
+ *   - `font-size-xs`: Corpo de texto padrão para parágrafos e conteúdos regulares.
+ *   - `font-size-sm`: Textos com leve destaque, como descrições curtas ou botões de ação.
+ *   - `font-size-md`: Subtítulos e conteúdos de destaque dentro de cards ou seções específicas.
+ *   - `font-size-lg`: Cabeçalhos de seção e títulos de módulos dentro da aplicação.
+ *   - `font-size-xl`: Títulos principais de páginas e chamadas de destaque.
+ *   - `font-size-xxl`: Hero titles ou seções que exigem forte hierarquia visual.
+ *   - `font-size-xxxl`: Headlines impactantes, slogans ou manchetes em páginas principais.
+ *   - `font-size-display`: Uso em campanhas, landing pages ou conteúdos hero de grande destaque.
+ *   - `font-size-giant`: Títulos imponentes em contextos especiais, como eventos ou apresentações.
+ */
+:root {
+  --font-size-xxxs: 12px; /* Textos auxiliares mínimos, como labels em formulários ou notas de rodapé. */
+  --font-size-xxs: 14px; /* Textos informativos secundários, breadcrumbs, ou metadados. */
+  --font-size-xs: 16px; /* Corpo de texto padrão para parágrafos e conteúdos regulares. */
+  --font-size-sm: 20px; /* Textos com leve destaque, como descrições curtas ou botões de ação. */
+  --font-size-md: 24px; /* Subtítulos e conteúdos de destaque dentro de cards ou seções específicas. */
+  --font-size-lg: 32px; /* Cabeçalhos de seção e títulos de módulos dentro da aplicação. */
+  --font-size-xl: 40px; /* Títulos principais de páginas e chamadas de destaque. */
+  --font-size-xxl: 48px; /* Hero titles ou seções que exigem forte hierarquia visual. */
+  --font-size-xxxl: 64px; /* Headlines impactantes, slogans ou manchetes em páginas principais. */
+  --font-size-display: 80px; /* Uso em campanhas, landing pages ou conteúdos hero de grande destaque. */
+  --font-size-giant: 96px; /* Títulos imponentes em contextos especiais, como eventos ou apresentações. */
+}
