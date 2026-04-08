@@ -5,5 +5,10 @@
   "preview_urls": true,
   "assets": {
     "directory": "./dist"
+  },
+  "build": {
+    "command": "bun run build",
+    "cwd": "./",
+    "outdir": "dist"
   }
 }
