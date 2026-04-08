@@ -1,0 +1,9 @@
+{
+  "name": "namorim",
+  "compatibility_date": "2026-01-08",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist"
+  }
+}
