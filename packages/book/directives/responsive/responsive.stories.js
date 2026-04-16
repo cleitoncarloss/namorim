@@ -8,13 +8,13 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-responsive\` é uma diretiva headless que aplica atributos ao elemento pai baseado em media queries.
+O componente \`nm-responsive\` é uma diretiva headless que aplica atributos ao elemento pai baseado em media queries.
 
 ## Uso
 
 \`\`\`html
 <div>
-  <morph-responsive media="(max-width: 768px)" hidden></morph-responsive>
+  <nm-responsive media="(max-width: 768px)" hidden></nm-responsive>
 </div>
 \`\`\`
 
@@ -42,32 +42,32 @@ Os seguintes atributos nunca são copiados para o elemento pai:
 
 \`\`\`html
 <!-- Mobile First: esconde em mobile -->
-<morph-responsive media="(max-width: 768px)" hidden></morph-responsive>
+<nm-responsive media="(max-width: 768px)" hidden></nm-responsive>
 
 <!-- Desktop Only: mostra apenas em desktop -->
-<morph-responsive media="(min-width: 769px)" data-visible="true"></morph-responsive>
+<nm-responsive media="(min-width: 769px)" data-visible="true"></nm-responsive>
 
 <!-- Tablet Range: aplica em tablets -->
-<morph-responsive media="(min-width: 481px) and (max-width: 768px)" data-device="tablet"></morph-responsive>
+<nm-responsive media="(min-width: 481px) and (max-width: 768px)" data-device="tablet"></nm-responsive>
 
 <!-- Portrait Orientation -->
-<morph-responsive media="(orientation: portrait)" data-layout="vertical"></morph-responsive>
+<nm-responsive media="(orientation: portrait)" data-layout="vertical"></nm-responsive>
 
 <!-- High DPI Screens -->
-<morph-responsive media="(min-resolution: 2dppx)" data-quality="high"></morph-responsive>
+<nm-responsive media="(min-resolution: 2dppx)" data-quality="high"></nm-responsive>
 \`\`\`
 
 ## Combinação com Outros Componentes
 
 \`\`\`html
-<morph-button>
+<nm-button>
   Clique aqui
-  <morph-responsive media="(max-width: 768px)" disabled></morph-responsive>
-</morph-button>
+  <nm-responsive media="(max-width: 768px)" disabled></nm-responsive>
+</nm-button>
 
-<morph-text value="Desktop">
-  <morph-responsive media="(max-width: 768px)" value="Mobile"></morph-responsive>
-</morph-text>
+<nm-text value="Desktop">
+  <nm-responsive media="(max-width: 768px)" value="Mobile"></nm-responsive>
+</nm-text>
 \`\`\`
         `,
       },
@@ -96,7 +96,7 @@ export const Default = {
       </p>
       <code style="display: block; padding: 12px; background: #e0e0e0; border-radius: 4px; margin-bottom: 16px;">
         &lt;div&gt;<br>
-        &nbsp;&nbsp;&lt;morph-responsive media="(max-width: 768px)" hidden&gt;&lt;/morph-responsive&gt;<br>
+        &nbsp;&nbsp;&lt;nm-responsive media="(max-width: 768px)" hidden&gt;&lt;/nm-responsive&gt;<br>
         &lt;/div&gt;
       </code>
       <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.6;">
@@ -162,7 +162,7 @@ export const HideOnMobile = {
 
         <div class="demo-box">
           📱 Visível apenas em Desktop (> 768px)
-          <morph-responsive media="(max-width: 768px)" hidden></morph-responsive>
+          <nm-responsive media="(max-width: 768px)" hidden></nm-responsive>
         </div>
 
         <div class="info-box">
@@ -218,7 +218,7 @@ export const ShowOnMobile = {
 
         <div class="demo-box" hidden>
           📱 Visível apenas em Mobile (≤ 768px)
-          <morph-responsive media="(max-width: 768px)" hidden="false"></morph-responsive>
+          <nm-responsive media="(max-width: 768px)" hidden="false"></nm-responsive>
         </div>
       </div>
     `
@@ -270,7 +270,7 @@ export const TabletRange = {
 
         <div class="demo-box" hidden>
           💻 Modo Tablet Detectado (481px - 768px)
-          <morph-responsive media="(min-width: 481px) and (max-width: 768px)" hidden="false"></morph-responsive>
+          <nm-responsive media="(min-width: 481px) and (max-width: 768px)" hidden="false"></nm-responsive>
         </div>
       </div>
     `
@@ -343,19 +343,19 @@ export const MultipleBreakpoints = {
           <div class="device-card mobile">
             📱 Mobile<br>
             <small>≤ 480px</small>
-            <morph-responsive media="(min-width: 481px)" hidden></morph-responsive>
+            <nm-responsive media="(min-width: 481px)" hidden></nm-responsive>
           </div>
 
           <div class="device-card tablet" hidden>
             💻 Tablet<br>
             <small>481px - 768px</small>
-            <morph-responsive media="(min-width: 481px) and (max-width: 768px)" hidden="false"></morph-responsive>
+            <nm-responsive media="(min-width: 481px) and (max-width: 768px)" hidden="false"></nm-responsive>
           </div>
 
           <div class="device-card desktop" hidden>
             🖥️ Desktop<br>
             <small>> 768px</small>
-            <morph-responsive media="(min-width: 769px)" hidden="false"></morph-responsive>
+            <nm-responsive media="(min-width: 769px)" hidden="false"></nm-responsive>
           </div>
         </div>
       </div>
@@ -415,15 +415,15 @@ export const AttributeManipulation = {
 
         <div class="demo-text" data-device="desktop">
           🖥️ Visualização: Desktop
-          <morph-responsive media="(max-width: 768px)" data-device="mobile"></morph-responsive>
+          <nm-responsive media="(max-width: 768px)" data-device="mobile"></nm-responsive>
         </div>
 
         <div class="demo-text" data-device="desktop">
           Largura atual: Desktop (> 768px)
-          <morph-responsive
+          <nm-responsive
             media="(max-width: 768px)"
             data-device="mobile"
-          ></morph-responsive>
+          ></nm-responsive>
         </div>
       </div>
     `
@@ -483,7 +483,7 @@ export const OrientationDetection = {
 
         <div class="orientation-box" data-orientation="landscape">
           🖥️ Paisagem (Landscape)
-          <morph-responsive media="(orientation: portrait)" data-orientation="portrait"></morph-responsive>
+          <nm-responsive media="(orientation: portrait)" data-orientation="portrait"></nm-responsive>
         </div>
 
         <div class="info-box">

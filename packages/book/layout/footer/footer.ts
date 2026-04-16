@@ -5,7 +5,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-footer')
+@define('nm-footer')
 @paint(component, style)
 class Footer extends Echo(Hidden(HTMLElement)) {
   #internals

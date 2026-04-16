@@ -5,19 +5,19 @@ Componente visual usado para exibir status, contadores, categorias ou labels de 
 ## Uso
 
 ```html
-<morph-badge color="warning">In progress</morph-badge>
-<morph-badge color="primary">In review</morph-badge>
-<morph-badge color="complete">Complete</morph-badge>
+<nm-badge color="warning">In progress</nm-badge>
+<nm-badge color="primary">In review</nm-badge>
+<nm-badge color="complete">Complete</nm-badge>
 ```
 
 ### Status de Tarefas
 
 ```html
-<morph-badge color="warning">In progress</morph-badge>
-<morph-badge color="primary">In review</morph-badge>
-<morph-badge color="complete">Complete</morph-badge>
-<morph-badge color="succeeded">Success</morph-badge>
-<morph-badge color="danger">Error</morph-badge>
+<nm-badge color="warning">In progress</nm-badge>
+<nm-badge color="primary">In review</nm-badge>
+<nm-badge color="complete">Complete</nm-badge>
+<nm-badge color="succeeded">Success</nm-badge>
+<nm-badge color="danger">Error</nm-badge>
 ```
 
 ## Propriedades
@@ -59,27 +59,27 @@ Oculta o elemento (mixin Hidden).
 ### Tamanhos
 
 ```html
-<morph-badge size="sm" color="primary">Small</morph-badge>
-<morph-badge color="primary">Medium</morph-badge>
-<morph-badge size="lg" color="primary">Large</morph-badge>
+<nm-badge size="sm" color="primary">Small</nm-badge>
+<nm-badge color="primary">Medium</nm-badge>
+<nm-badge size="lg" color="primary">Large</nm-badge>
 ```
 
 ### Variante Pill
 
 ```html
-<morph-badge variant="pill" color="primary">Pill Badge</morph-badge>
-<morph-badge variant="pill" color="danger" size="sm">99+</morph-badge>
+<nm-badge variant="pill" color="primary">Pill Badge</nm-badge>
+<nm-badge variant="pill" color="danger" size="sm">99+</nm-badge>
 ```
 
 ### Com Cores
 
 ```html
-<morph-badge color="master">Master</morph-badge>
-<morph-badge color="primary">Primary</morph-badge>
-<morph-badge color="complete">Complete</morph-badge>
-<morph-badge color="succeeded">Succeeded</morph-badge>
-<morph-badge color="warning">Warning</morph-badge>
-<morph-badge color="danger">Danger</morph-badge>
+<nm-badge color="master">Master</nm-badge>
+<nm-badge color="primary">Primary</nm-badge>
+<nm-badge color="complete">Complete</nm-badge>
+<nm-badge color="succeeded">Succeeded</nm-badge>
+<nm-badge color="warning">Warning</nm-badge>
+<nm-badge color="danger">Danger</nm-badge>
 ```
 
 ## Design Tokens Utilizados

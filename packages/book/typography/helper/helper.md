@@ -1,4 +1,4 @@
-### `<morph-helper>`
+### `<nm-helper>`
 
 **Objetivo**
 Fornece texto de ajuda ou informações contextuais para elementos da interface.
@@ -19,4 +19,4 @@ Nenhum.
 - Precisa fornecer dicas ou informações adicionais para o usuário.
 
 **Não use quando**
-- Precisa de um texto principal ou título → use `<morph-text>` ou `<morph-heading>`.
+- Precisa de um texto principal ou título → use `<nm-text>` ou `<nm-heading>`.

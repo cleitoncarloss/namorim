@@ -1,4 +1,4 @@
-### `<morph-responsive>`
+### `<nm-responsive>`
 
 **Objetivo**
 Aplica atributos ao elemento pai baseado em media queries.
@@ -22,7 +22,7 @@ Nenhum.
 
 ```html
 <div>
-  <morph-responsive media="(max-width: 768px)" hidden></morph-responsive>
+  <nm-responsive media="(max-width: 768px)" hidden></nm-responsive>
 </div>
 ```
 
@@ -46,30 +46,30 @@ Os seguintes atributos nunca são copiados para o elemento pai:
 
 ```html
 <!-- Mobile First: esconde em mobile -->
-<morph-responsive media="(max-width: 768px)" hidden></morph-responsive>
+<nm-responsive media="(max-width: 768px)" hidden></nm-responsive>
 
 <!-- Desktop Only: mostra apenas em desktop -->
-<morph-responsive media="(min-width: 769px)" data-visible="true"></morph-responsive>
+<nm-responsive media="(min-width: 769px)" data-visible="true"></nm-responsive>
 
 <!-- Tablet Range: aplica em tablets -->
-<morph-responsive media="(min-width: 481px) and (max-width: 768px)" data-device="tablet"></morph-responsive>
+<nm-responsive media="(min-width: 481px) and (max-width: 768px)" data-device="tablet"></nm-responsive>
 
 <!-- Portrait Orientation -->
-<morph-responsive media="(orientation: portrait)" data-layout="vertical"></morph-responsive>
+<nm-responsive media="(orientation: portrait)" data-layout="vertical"></nm-responsive>
 
 <!-- High DPI Screens -->
-<morph-responsive media="(min-resolution: 2dppx)" data-quality="high"></morph-responsive>
+<nm-responsive media="(min-resolution: 2dppx)" data-quality="high"></nm-responsive>
 ```
 
 ## Combinação com Outros Componentes
 
 ```html
-<morph-button>
+<nm-button>
   Clique aqui
-  <morph-responsive media="(max-width: 768px)" disabled></morph-responsive>
-</morph-button>
+  <nm-responsive media="(max-width: 768px)" disabled></nm-responsive>
+</nm-button>
 
-<morph-text value="Desktop">
-  <morph-responsive media="(max-width: 768px)" value="Mobile"></morph-responsive>
-</morph-text>
+<nm-text value="Desktop">
+  <nm-responsive media="(max-width: 768px)" value="Mobile"></nm-responsive>
+</nm-text>
 ```

@@ -6,7 +6,7 @@ import { Headless } from '@mixin'
 import { dispatch } from './interfaces'
 import Storage from './storage'
 
-@define('morph-dataset')
+@define('nm-dataset')
 class Dataset extends Echo(Headless(HTMLElement)) {
   #storage = Storage.from(this)
   #upsert

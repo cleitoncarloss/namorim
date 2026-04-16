@@ -4,8 +4,7 @@ const style = (text) =>
   css`
     :host {
       box-sizing: border-box;
-      color: var(--color-${text.color}-dark);
-      display: inline-flex;
+      color: var(--color-${text.color});
       font-family: var(--font-family-base);
       font-size: var(--font-size-xxs);
       font-weight: var(--font-weight-regular);

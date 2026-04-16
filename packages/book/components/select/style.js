@@ -62,7 +62,7 @@ const style = (select) =>
       }
     }
 
-    morph-icon {
+    nm-icon {
       pointer-events: none;
       position: absolute;
       right: var(--spacing-xxxs);

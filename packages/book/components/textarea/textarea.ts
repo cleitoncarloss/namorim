@@ -18,7 +18,7 @@ import {
 } from './interfaces'
 import style from './style'
 
-@define('morph-textarea')
+@define('nm-textarea')
 @paint(component, style)
 class Textarea extends Echo(Hidden(Width(HTMLElement))) {
   #controller

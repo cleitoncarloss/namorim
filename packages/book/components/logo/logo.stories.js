@@ -28,7 +28,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-logo')
+    const element = document.createElement('nm-logo')
     if (args.value) element.setAttribute('value', args.value)
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)

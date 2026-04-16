@@ -15,7 +15,7 @@ const component = (select) => html`
       <option value=""></option>
       <slot></slot>
     </select>
-    <morph-icon use="keyboard_arrow_down"></morph-icon>
+    <nm-icon use="keyboard_arrow_down"></nm-icon>
   </div>
   <slot name="helper"></slot>
   <slot name="validity"></slot>

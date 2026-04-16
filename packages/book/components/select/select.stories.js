@@ -19,7 +19,7 @@ export default {
     },
     helper: {
       control: 'text',
-      description: 'Texto auxiliar exibido abaixo do select (morph-helper)',
+      description: 'Texto auxiliar exibido abaixo do select (nm-helper)',
     },
     hidden: {
       control: 'boolean',
@@ -28,7 +28,7 @@ export default {
     },
     label: {
       control: 'text',
-      description: 'Label associada ao select (morph-label)',
+      description: 'Label associada ao select (nm-label)',
     },
     name: {
       control: 'text',
@@ -56,7 +56,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-select')
+    const element = document.createElement('nm-select')
     if (args.name) element.setAttribute('name', args.name)
     if (args.value) element.setAttribute('value', args.value)
     if (args.width) element.setAttribute('width', args.width)
@@ -65,7 +65,7 @@ export default {
     if (args.required) element.setAttribute('required', '')
     if (args.onChanged) element.addEventListener('changed', args.onChanged)
     if (args.label) {
-      const label = document.createElement('morph-label')
+      const label = document.createElement('nm-label')
       label.textContent = args.label
       element.appendChild(label)
     }
@@ -77,12 +77,12 @@ export default {
       element.appendChild(option)
     })
     if (args.helper) {
-      const helper = document.createElement('morph-helper')
+      const helper = document.createElement('nm-helper')
       helper.textContent = args.helper
       element.appendChild(helper)
     }
     if (args.required) {
-      const validity = document.createElement('morph-validity')
+      const validity = document.createElement('nm-validity')
       validity.setAttribute('state', 'valueMissing')
       validity.textContent = 'Selecione uma opcao'
       element.appendChild(validity)

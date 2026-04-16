@@ -7,7 +7,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-logo')
+@define('nm-logo')
 @paint(component, style)
 class Logo extends Echo(Hidden(HTMLElement)) {
   #internals

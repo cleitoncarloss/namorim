@@ -7,7 +7,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-alert')
+@define('nm-alert')
 @paint(component, style)
 class Alert extends Echo(Hidden(HTMLElement)) {
   #type

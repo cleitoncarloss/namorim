@@ -55,7 +55,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-stack')
+    const element = document.createElement('nm-stack')
     if (args.align) element.setAttribute('align', args.align)
     if (args.direction) element.setAttribute('direction', args.direction)
 
@@ -66,7 +66,7 @@ export default {
     if (args.width) element.setAttribute('width', args.width)
 
     for (let i = 1; i <= 3; i++) {
-      const button = document.createElement('morph-button')
+      const button = document.createElement('nm-button')
       button.setAttribute('color', 'primary')
       button.textContent = `Item ${i}`
       element.appendChild(button)

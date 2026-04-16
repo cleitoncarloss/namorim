@@ -2,7 +2,7 @@ import { attributeChanged, connected, define } from '@directive'
 import { Headless } from '@mixin'
 import { connectArc, setter } from './interfaces'
 
-@define('morph-on')
+@define('nm-on')
 class On extends Headless(HTMLElement) {
   #value
 

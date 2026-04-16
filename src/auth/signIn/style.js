@@ -12,26 +12,13 @@ const style = () =>
     main {
       align-items: center;
       display: flex;
-      flex: 1;
-      flex-direction: column;
-      gap: var(--spacing_inset-giant);
       justify-content: center;
+      min-height: 100svh;
     }
 
-    div {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: var(--spacing-xxxl);
-      width: 100%;
-    }
-
-    nav {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing_inset-xs);
-      width: 100%;
+    nm-stack {
+      max-width: 430px;
+      margin: 0 auto;
     }
   `
 

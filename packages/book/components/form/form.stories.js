@@ -35,7 +35,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-form')
+    const element = document.createElement('nm-form')
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)
     if (args.onSubmit) element.addEventListener('submitted', args.onSubmit)
@@ -53,7 +53,7 @@ export const Default = {
   args: {
     content: `
       <input type="text" name="username" placeholder="Nome de usuário" />
-      <morph-button type="submitted">Enviar</morph-button>
+      <nm-button type="submitted">Enviar</nm-button>
     `,
   },
 }
@@ -64,12 +64,12 @@ export const WithSubmit = {
     content: `
       <input type="text" name="email" placeholder="Email" value="user@example.com" />
       <input type="password" name="password" placeholder="Senha" value="senha123" />
-      <morph-button type="submitted">Login</morph-button>
+      <nm-button type="submitted">Login</nm-button>
     `,
   },
   play: async ({ args, canvasElement }) => {
-    const form = canvasElement.querySelector('morph-form')
-    const submitButton = form.querySelector('morph-button[type="submitted"]')
+    const form = canvasElement.querySelector('nm-form')
+    const submitButton = form.querySelector('nm-button[type="submitted"]')
 
     await userEvent.clicked(submitButton)
 
@@ -89,13 +89,13 @@ export const WithReset = {
     content: `
       <input type="text" name="name" placeholder="Nome" value="João" />
       <input type="email" name="email" placeholder="Email" value="joao@example.com" />
-      <morph-button type="resetted">Limpar</morph-button>
-      <morph-button type="submitted">Enviar</morph-button>
+      <nm-button type="resetted">Limpar</nm-button>
+      <nm-button type="submitted">Enviar</nm-button>
     `,
   },
   play: async ({ args, canvasElement }) => {
-    const form = canvasElement.querySelector('morph-form')
-    const resetButton = form.querySelector('morph-button[type="resetted"]')
+    const form = canvasElement.querySelector('nm-form')
+    const resetButton = form.querySelector('nm-button[type="resetted"]')
 
     await userEvent.clicked(resetButton)
 
@@ -112,12 +112,12 @@ export const MultipleFields = {
       <input type="email" name="email" placeholder="Email" value="joao.silva@example.com" />
       <input type="tel" name="phone" placeholder="Telefone" value="(11) 98765-4321" />
       <textarea name="message" placeholder="Mensagem">Olá, gostaria de mais informações.</textarea>
-      <morph-button type="submitted">Enviar Formulário</morph-button>
+      <nm-button type="submitted">Enviar Formulário</nm-button>
     `,
   },
   play: async ({ args, canvasElement }) => {
-    const form = canvasElement.querySelector('morph-form')
-    const submitButton = form.querySelector('morph-button[type="submitted"]')
+    const form = canvasElement.querySelector('nm-form')
+    const submitButton = form.querySelector('nm-button[type="submitted"]')
 
     await userEvent.clicked(submitButton)
 

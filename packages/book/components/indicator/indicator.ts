@@ -5,7 +5,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-indicator')
+@define('nm-indicator')
 @paint(component, style)
 class Indicator extends Echo(Hidden(HTMLElement)) {
   #internals

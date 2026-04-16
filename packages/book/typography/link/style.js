@@ -7,7 +7,7 @@ const style = (link) =>
       display: inline-flex;
 
       a {
-        color: var(--color-primary);
+        color: var(--color-secondary);
         cursor: pointer;
         display: inline-flex;
         font-family: var(--font-family-base);

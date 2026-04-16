@@ -2,7 +2,7 @@ import { attributeChanged, define } from '@directive'
 import Echo from '@echo'
 import { Headless } from '@mixin'
 
-@define('morph-redirect')
+@define('nm-redirect')
 class Redirect extends Echo(Headless(HTMLElement)) {
   #href
 

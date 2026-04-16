@@ -4,7 +4,7 @@ import { Headless } from '@mixin'
 import { match } from './interfaces'
 import resize from './resize'
 
-@define('morph-responsive')
+@define('nm-responsive')
 class Responsive extends Headless(HTMLElement) {
   #media
 

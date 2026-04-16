@@ -27,7 +27,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-title')
+    const element = document.createElement('nm-title')
     if (args.align) element.setAttribute('align', args.align)
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)

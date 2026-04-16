@@ -43,7 +43,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-card')
+    const element = document.createElement('nm-card')
     if (args.direction) element.setAttribute('direction', args.direction)
     if (args.height) element.setAttribute('height', args.height)
     if (args.hidden) element.setAttribute('hidden', '')
@@ -52,12 +52,12 @@ export default {
       element.setAttribute('variant', args.variant)
     if (args.width) element.setAttribute('width', args.width)
 
-    const title = document.createElement('morph-heading')
+    const title = document.createElement('nm-heading')
     title.setAttribute('size', 'sm')
     title.textContent = 'Titulo do Card'
     element.appendChild(title)
 
-    const text = document.createElement('morph-text')
+    const text = document.createElement('nm-text')
     text.setAttribute('size', 'sm')
     text.textContent = 'Conteudo do card com texto descritivo.'
     element.appendChild(text)

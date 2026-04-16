@@ -1,14 +1,14 @@
-# morph-slider
+# nm-slider
 
 Componente de slider que segue o padrão de design do projeto, permitindo que o usuário selecione um valor numérico dentro de um intervalo definido através de uma entrada visual e intuitiva.
 
 ## Uso Básico
 
 ```html
-<morph-slider id="volume" name="volume" min="0" max="100" value="50">
+<nm-slider id="volume" name="volume" min="0" max="100" value="50">
   <span slot="label">Volume</span>
   <span slot="helper">Ajuste o volume entre 0 e 100</span>
-</morph-slider>
+</nm-slider>
 ```
 
 ## Propriedades
@@ -36,7 +36,7 @@ O componente fornece getters computados para acesso a valores processados:
 ### Exemplo de Uso
 
 ```javascript
-const slider = document.querySelector('morph-slider')
+const slider = document.querySelector('nm-slider')
 
 // Obter valor normalizado (0-1)
 console.log(slider.normalized) // Ex: 0.5 (se value=50, min=0, max=100)
@@ -63,7 +63,7 @@ console.log(slider.value) // Ex: 50
 O componente suporta integração com formulários nativos através da API ElementInternals:
 
 ```javascript
-const slider = document.querySelector('morph-slider')
+const slider = document.querySelector('nm-slider')
 
 // Obter o valor do slider
 console.log(slider.value) // "50"
@@ -80,57 +80,57 @@ slider.reportValidity()
 ### Slider Simples
 
 ```html
-<morph-slider id="brightness" name="brightness" min="0" max="100" value="75">
+<nm-slider id="brightness" name="brightness" min="0" max="100" value="75">
   <span slot="label">Brilho</span>
-</morph-slider>
+</nm-slider>
 ```
 
 ### Slider com Range Customizado
 
 ```html
-<morph-slider id="price" name="price" min="10" max="1000" step="10" value="500">
+<nm-slider id="price" name="price" min="10" max="1000" step="10" value="500">
   <span slot="label">Preço Máximo</span>
   <span slot="helper">Selecione um valor entre R$ 10 e R$ 1.000</span>
-</morph-slider>
+</nm-slider>
 ```
 
 ### Slider Desabilitado
 
 ```html
-<morph-slider id="readonly" name="readonly" value="50" disabled>
+<nm-slider id="readonly" name="readonly" value="50" disabled>
   <span slot="label">Opção Indisponível</span>
   <span slot="helper">Este controle não está disponível</span>
-</morph-slider>
+</nm-slider>
 ```
 
 ### Slider em Formulário
 
 ```html
 <form>
-  <morph-slider id="opacity" name="opacity" min="0" max="100" step="5" value="100">
+  <nm-slider id="opacity" name="opacity" min="0" max="100" step="5" value="100">
     <span slot="label">Opacidade</span>
-  </morph-slider>
+  </nm-slider>
 
-  <morph-slider id="speed" name="speed" min="0.5" max="2" step="0.1" value="1">
+  <nm-slider id="speed" name="speed" min="0.5" max="2" step="0.1" value="1">
     <span slot="label">Velocidade</span>
-  </morph-slider>
+  </nm-slider>
 
-  <morph-button type="submit">Salvar Preferências</morph-button>
+  <nm-button type="submit">Salvar Preferências</nm-button>
 </form>
 ```
 
 ### Slider com Largura Customizada
 
 ```html
-<morph-slider id="custom" name="custom" value="50" width="300px">
+<nm-slider id="custom" name="custom" value="50" width="300px">
   <span slot="label">Slider Customizado</span>
-</morph-slider>
+</nm-slider>
 ```
 
 ## Tratamento de Eventos
 
 ```javascript
-const slider = document.querySelector('morph-slider')
+const slider = document.querySelector('nm-slider')
 
 // Escutar mudanças do slider
 slider.addEventListener('change', (event) => {
@@ -157,7 +157,7 @@ console.log(slider.progress)   // 75 (porcentagem)
 ### Slider com Feedback Visual
 
 ```javascript
-const slider = document.querySelector('morph-slider')
+const slider = document.querySelector('nm-slider')
 const valueDisplay = document.querySelector('#value-display')
 
 slider.addEventListener('change', (event) => {
@@ -172,24 +172,24 @@ valueDisplay.textContent = `${slider.value}%`
 
 ```html
 <form>
-  <morph-slider id="red" name="red" min="0" max="255" value="128">
+  <nm-slider id="red" name="red" min="0" max="255" value="128">
     <span slot="label">Vermelho</span>
-  </morph-slider>
+  </nm-slider>
 
-  <morph-slider id="green" name="green" min="0" max="255" value="128">
+  <nm-slider id="green" name="green" min="0" max="255" value="128">
     <span slot="label">Verde</span>
-  </morph-slider>
+  </nm-slider>
 
-  <morph-slider id="blue" name="blue" min="0" max="255" value="128">
+  <nm-slider id="blue" name="blue" min="0" max="255" value="128">
     <span slot="label">Azul</span>
-  </morph-slider>
+  </nm-slider>
 
   <div id="color-preview" style="width: 100px; height: 100px;"></div>
 </form>
 ```
 
 ```javascript
-const sliders = document.querySelectorAll('morph-slider')
+const sliders = document.querySelectorAll('nm-slider')
 const preview = document.querySelector('#color-preview')
 
 function updateColor() {

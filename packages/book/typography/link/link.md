@@ -1,4 +1,4 @@
-### `<morph-link>`
+### `<nm-link>`
 
 **Objetivo**
 Cria um link navegável que pode ser estilizado.
@@ -21,4 +21,4 @@ Nenhum (o clique é tratado internamente para navegação).
 - Precisa de um elemento clicável para navegar para outra rota ou seção da página.
 
 **Não use quando**
-- Precisa de um elemento para disparar uma ação sem navegação → use `<morph-button>`.
+- Precisa de um elemento para disparar uma ação sem navegação → use `<nm-button>`.

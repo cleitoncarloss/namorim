@@ -13,11 +13,11 @@ O componente \`x-find\` é uma diretiva headless que busca um único item em um 
 ## Características
 
 - **Headless**: Não possui renderização visual
-- **Match Exato**: Busca valor exato (não parcial como o \`morph-like\`)
+- **Match Exato**: Busca valor exato (não parcial como o \`nm-like\`)
 - **Único Resultado**: Retorna apenas o primeiro item encontrado
-- **Filho de Dataset**: Deve ser filho direto de \`morph-dataset\` ou \`x-dataset\`
+- **Filho de Dataset**: Deve ser filho direto de \`nm-dataset\` ou \`x-dataset\`
 - **Eventos**: Dispara \`found\` com o resultado encontrado
-- **Dataflow**: Integração via barramento de eventos com \`morph-on\`
+- **Dataflow**: Integração via barramento de eventos com \`nm-on\`
 
 ## Sintaxe
 
@@ -30,7 +30,7 @@ O componente \`x-find\` é uma diretiva headless que busca um único item em um 
 ## Atributos
 
 - **key**: Nome da propriedade a ser buscada no dataset (ex: \`id\`, \`uuid\`, \`email\`)
-- **value**: Valor exato a ser buscado (geralmente definido via \`morph-on\`)
+- **value**: Valor exato a ser buscado (geralmente definido via \`nm-on\`)
 
 ## Comportamento
 
@@ -44,25 +44,25 @@ Disparado após a busca. O \`event.detail\` contém o objeto encontrado (ou \`un
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com \`morph-on\`.
+O componente é projetado para ser usado através do barramento de eventos com \`nm-on\`.
 
 ### Busca por ID
 
 \`\`\`html
 <!-- Botão com ID do usuário -->
-<morph-button value="123">Buscar Usuário 123</morph-button>
+<nm-button value="123">Buscar Usuário 123</nm-button>
 
 <!-- Dataset com find interno -->
 <x-dataset name="users" upsert="id">
   <x-find key="id">
-    <morph-on value="morph-button/clicked:attribute/value"></morph-on>
+    <nm-on value="nm-button/clicked:attribute/value"></nm-on>
   </x-find>
 </x-dataset>
 
 <!-- Exibe resultado -->
-<morph-text value="">
-  <morph-on value="users/found:attribute/value|prop=name"></morph-on>
-</morph-text>
+<nm-text value="">
+  <nm-on value="users/found:attribute/value|prop=name"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Busca para Edição (Padrão CRUD)
@@ -71,46 +71,46 @@ Este é o padrão mais comum, usado no exemplo dataset.html:
 
 \`\`\`html
 <!-- Lista de usuários com botão de editar -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-stack>
-      <morph-text>{name}</morph-text>
-      <morph-button name="edit" value="{id}" variant="outlined">
-        <morph-icon use="edit"></morph-icon>
-      </morph-button>
-    </morph-stack>
+    <nm-stack>
+      <nm-text>{name}</nm-text>
+      <nm-button name="edit" value="{id}" variant="outlined">
+        <nm-icon use="edit"></nm-icon>
+      </nm-button>
+    </nm-stack>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 
 <!-- Dataset com found -->
 <x-dataset name="users" upsert="id">
   <x-find key="id">
     <!-- Quando clicar em edit, busca o usuário pelo ID -->
-    <morph-on value="edit/clicked:attribute/value"></morph-on>
+    <nm-on value="edit/clicked:attribute/value"></nm-on>
   </x-find>
 </x-dataset>
 
 <!-- Modal de edição -->
-<morph-modal>
-  <morph-render>
+<nm-modal>
+  <nm-render>
     <template>
-      <morph-form name="update">
+      <nm-form name="update">
         <template>
-          <morph-input name="id" value="{id}" hidden></morph-input>
-          <morph-input name="name" value="{name}">
-            <morph-label>Nome</morph-label>
-          </morph-input>
-          <morph-button>Salvar</morph-button>
+          <nm-input name="id" value="{id}" hidden></nm-input>
+          <nm-input name="name" value="{name}">
+            <nm-label>Nome</nm-label>
+          </nm-input>
+          <nm-button>Salvar</nm-button>
         </template>
-      </morph-form>
+      </nm-form>
     </template>
     <!-- Renderiza o formulário com os dados encontrados -->
-    <morph-on value="users/found:method/render"></morph-on>
-  </morph-render>
+    <nm-on value="users/found:method/render"></nm-on>
+  </nm-render>
   <!-- Abre o modal quando encontra -->
-  <morph-on value="users/found:method/show"></morph-on>
-</morph-modal>
+  <nm-on value="users/found:method/show"></nm-on>
+</nm-modal>
 \`\`\`
 
 ## Exemplos de Fluxos Completos
@@ -119,84 +119,84 @@ Este é o padrão mais comum, usado no exemplo dataset.html:
 
 \`\`\`html
 <!-- Botões com IDs -->
-<morph-button value="1">Ver João</morph-button>
-<morph-button value="2">Ver Maria</morph-button>
+<nm-button value="1">Ver João</nm-button>
+<nm-button value="2">Ver Maria</nm-button>
 
 <!-- Adiciona dados -->
-<morph-button value='{"id":"1","name":"João","age":25}'>
+<nm-button value='{"id":"1","name":"João","age":25}'>
   Adicionar João
-</morph-button>
-<morph-button value='{"id":"2","name":"Maria","age":30}'>
+</nm-button>
+<nm-button value='{"id":"2","name":"Maria","age":30}'>
   Adicionar Maria
-</morph-button>
+</nm-button>
 
 <x-dataset name="users" upsert="id">
   <x-find key="id">
-    <morph-on value="morph-button/clicked:attribute/value"></morph-on>
+    <nm-on value="nm-button/clicked:attribute/value"></nm-on>
   </x-find>
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
 </x-dataset>
 
 <!-- Exibe detalhes -->
-<morph-stack direction="column">
-  <morph-text value="">
-    <morph-on value="users/found:attribute/value|prop=name"></morph-on>
-  </morph-text>
-  <morph-text value="">
-    <morph-on value="users/found:attribute/value|prop=age"></morph-on>
-  </morph-text>
-</morph-stack>
+<nm-stack direction="column">
+  <nm-text value="">
+    <nm-on value="users/found:attribute/value|prop=name"></nm-on>
+  </nm-text>
+  <nm-text value="">
+    <nm-on value="users/found:attribute/value|prop=age"></nm-on>
+  </nm-text>
+</nm-stack>
 \`\`\`
 
 ### Busca para Remoção Confirmada
 
 \`\`\`html
 <!-- Lista com botões de deletar -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-stack>
-      <morph-text>{name}</morph-text>
-      <morph-button name="delete-request" value="{id}" color="error">
-        <morph-icon use="delete"></morph-icon>
-      </morph-button>
-    </morph-stack>
+    <nm-stack>
+      <nm-text>{name}</nm-text>
+      <nm-button name="delete-request" value="{id}" color="error">
+        <nm-icon use="delete"></nm-icon>
+      </nm-button>
+    </nm-stack>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 
 <x-dataset name="users" upsert="id">
   <x-find key="id">
-    <morph-on value="delete-request/clicked:attribute/value"></morph-on>
+    <nm-on value="delete-request/clicked:attribute/value"></nm-on>
   </x-find>
-  <morph-on value="delete-confirm/clicked:method/deleted"></morph-on>
+  <nm-on value="delete-confirm/clicked:method/deleted"></nm-on>
 </x-dataset>
 
 <!-- Modal de confirmação -->
-<morph-modal>
-  <morph-card>
-    <morph-stack direction="column">
-      <morph-text value="">
-        <morph-on value="users/found:attribute/value|prop=name"></morph-on>
-      </morph-text>
-      <morph-text>Confirma a exclusão?</morph-text>
-      <morph-stack>
-        <morph-button name="delete-confirm" color="error">
-          <morph-on value="users/found:attribute/value|prop=id"></morph-on>
+<nm-modal>
+  <nm-card>
+    <nm-stack direction="column">
+      <nm-text value="">
+        <nm-on value="users/found:attribute/value|prop=name"></nm-on>
+      </nm-text>
+      <nm-text>Confirma a exclusão?</nm-text>
+      <nm-stack>
+        <nm-button name="delete-confirm" color="error">
+          <nm-on value="users/found:attribute/value|prop=id"></nm-on>
           Confirmar
-        </morph-button>
-        <morph-button variant="outlined">Cancelar</morph-button>
-      </morph-stack>
-    </morph-stack>
-  </morph-card>
-  <morph-on value="users/found:method/show"></morph-on>
-  <morph-on value="delete-confirm/clicked:method/hidden"></morph-on>
-</morph-modal>
+        </nm-button>
+        <nm-button variant="outlined">Cancelar</nm-button>
+      </nm-stack>
+    </nm-stack>
+  </nm-card>
+  <nm-on value="users/found:method/show"></nm-on>
+  <nm-on value="delete-confirm/clicked:method/hidden"></nm-on>
+</nm-modal>
 \`\`\`
 
 ## Diferença entre Found e Like
 
 - **x-find**: Busca um único resultado com match exato
-- **morph-like**: Filtra múltiplos resultados com busca parcial (contains)
+- **nm-like**: Filtra múltiplos resultados com busca parcial (contains)
 
 \`\`\`html
 <!-- Found: retorna objeto com match exato -->
@@ -204,32 +204,32 @@ Este é o padrão mais comum, usado no exemplo dataset.html:
 <!-- Resultado: {id:123, name:"João"} -->
 
 <!-- Like: retorna array com todos que contêm "Jo" -->
-<morph-like key="name" value="Jo"></morph-like>
+<nm-like key="name" value="Jo"></nm-like>
 <!-- Resultado: [{name:"João"}, {name:"Jorge"}] -->
 \`\`\`
 
-## Uso Combinado com morph-render
+## Uso Combinado com nm-render
 
 O resultado de \`find\` pode ser usado para renderizar um formulário ou card de detalhes:
 
 \`\`\`html
 <x-dataset name="products" upsert="id">
   <x-find key="id">
-    <morph-on value="view/clicked:attribute/value"></morph-on>
+    <nm-on value="view/clicked:attribute/value"></nm-on>
   </x-find>
 </x-dataset>
 
 <!-- Renderiza card de detalhes -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-heading>{name}</morph-heading>
-      <morph-text>Preço: R$ {price}</morph-text>
-      <morph-text>Estoque: {stock}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-heading>{name}</nm-heading>
+      <nm-text>Preço: R$ {price}</nm-text>
+      <nm-text>Estoque: {stock}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="products/found:method/render"></morph-on>
-</morph-render>
+  <nm-on value="products/found:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ## Integração com Formulários
@@ -239,26 +239,26 @@ O padrão mais comum é usar \`find\` para preencher formulários de edição:
 \`\`\`html
 <x-dataset name="users" upsert="id">
   <x-find key="id">
-    <morph-on value="edit/clicked:attribute/value"></morph-on>
+    <nm-on value="edit/clicked:attribute/value"></nm-on>
   </x-find>
-  <morph-on value="update/submitted:method/pushed"></morph-on>
+  <nm-on value="update/submitted:method/pushed"></nm-on>
 </x-dataset>
 
-<morph-render>
+<nm-render>
   <template>
-    <morph-form name="update">
+    <nm-form name="update">
       <template>
         <!-- Campos preenchidos com valores do item encontrado -->
-        <morph-input name="id" value="{id}" hidden></morph-input>
-        <morph-input name="name" value="{name}"></morph-input>
-        <morph-input name="email" value="{email}"></morph-input>
-        <morph-button>Salvar</morph-button>
+        <nm-input name="id" value="{id}" hidden></nm-input>
+        <nm-input name="name" value="{name}"></nm-input>
+        <nm-input name="email" value="{email}"></nm-input>
+        <nm-button>Salvar</nm-button>
       </template>
-    </morph-form>
+    </nm-form>
   </template>
   <!-- Renderiza formulário quando encontrar -->
-  <morph-on value="users/found:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/found:method/render"></nm-on>
+</nm-render>
 \`\`\`
         `,
       },
@@ -271,7 +271,7 @@ O padrão mais comum é usar \`find\` para preencher formulários de edição:
     },
     value: {
       control: 'text',
-      description: 'Valor exato a ser buscado (geralmente via morph-on)',
+      description: 'Valor exato a ser buscado (geralmente via nm-on)',
     },
   },
 }
@@ -313,39 +313,39 @@ export const BasicFind = {
           Primeiro adicione usuários, depois clique para buscá-los por ID.
         </div>
 
-        <morph-button value='{"id":"1","name":"João Silva","age":25}'>
+        <nm-button value='{"id":"1","name":"João Silva","age":25}'>
           Adicionar João (ID: 1)
-        </morph-button>
-        <morph-button value='{"id":"2","name":"Maria Santos","age":30}'>
+        </nm-button>
+        <nm-button value='{"id":"2","name":"Maria Santos","age":30}'>
           Adicionar Maria (ID: 2)
-        </morph-button>
-        <morph-button value='{"id":"3","name":"José Oliveira","age":28}'>
+        </nm-button>
+        <nm-button value='{"id":"3","name":"José Oliveira","age":28}'>
           Adicionar José (ID: 3)
-        </morph-button>
+        </nm-button>
 
         <hr style="margin: 16px 0; border: none; border-top: 1px solid #ddd;">
 
-        <morph-button name="found" value="1">🔍 Buscar João (ID: 1)</morph-button>
-        <morph-button name="found" value="2">🔍 Buscar Maria (ID: 2)</morph-button>
-        <morph-button name="found" value="3">🔍 Buscar José (ID: 3)</morph-button>
+        <nm-button name="found" value="1">🔍 Buscar João (ID: 1)</nm-button>
+        <nm-button name="found" value="2">🔍 Buscar Maria (ID: 2)</nm-button>
+        <nm-button name="found" value="3">🔍 Buscar José (ID: 3)</nm-button>
 
         <div class="result-box">
           <strong>Resultado:</strong><br>
-          <morph-text value="-">
-            <morph-on value="users/found:attribute/value|prop=name"></morph-on>
-          </morph-text>
+          <nm-text value="-">
+            <nm-on value="users/found:attribute/value|prop=name"></nm-on>
+          </nm-text>
           -
-          <morph-text value="-">
-            <morph-on value="users/found:attribute/value|prop=age"></morph-on>
-          </morph-text>
+          <nm-text value="-">
+            <nm-on value="users/found:attribute/value|prop=age"></nm-on>
+          </nm-text>
           anos
         </div>
 
         <x-dataset name="users" upsert="id">
           <x-find key="id">
-            <morph-on value="found/clicked:attribute/value"></morph-on>
+            <nm-on value="found/clicked:attribute/value"></nm-on>
           </x-find>
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
         </x-dataset>
       </div>
     `
@@ -385,94 +385,94 @@ export const EditWithFind = {
           buscar e preencher o formulário, e salve as alterações.
         </div>
 
-        <morph-button name="add">
-          <morph-icon use="add"></morph-icon>
+        <nm-button name="add">
+          <nm-icon use="add"></nm-icon>
           Adicionar Novo Usuário
-        </morph-button>
+        </nm-button>
 
         <!-- Modal de adição -->
-        <morph-modal>
-          <morph-card width="xxs">
-            <morph-stack direction="column" width="fill">
-              <morph-heading size="xs">Novo Usuário</morph-heading>
-              <morph-form name="create" width="fill">
+        <nm-modal>
+          <nm-card width="xxs">
+            <nm-stack direction="column" width="fill">
+              <nm-heading size="xs">Novo Usuário</nm-heading>
+              <nm-form name="create" width="fill">
                 <template>
-                  <morph-stack direction="column">
-                    <morph-input name="name" width="fill" required>
-                      <morph-label>Nome</morph-label>
-                      <morph-validity state="valueMissing">Nome é obrigatório</morph-validity>
-                    </morph-input>
-                    <morph-input name="email" type="email" width="fill" required>
-                      <morph-label>Email</morph-label>
-                      <morph-validity state="valueMissing">Email é obrigatório</morph-validity>
-                    </morph-input>
-                    <morph-button width="fill">Salvar</morph-button>
-                  </morph-stack>
+                  <nm-stack direction="column">
+                    <nm-input name="name" width="fill" required>
+                      <nm-label>Nome</nm-label>
+                      <nm-validity state="valueMissing">Nome é obrigatório</nm-validity>
+                    </nm-input>
+                    <nm-input name="email" type="email" width="fill" required>
+                      <nm-label>Email</nm-label>
+                      <nm-validity state="valueMissing">Email é obrigatório</nm-validity>
+                    </nm-input>
+                    <nm-button width="fill">Salvar</nm-button>
+                  </nm-stack>
                 </template>
-                <morph-on value="create/submitted:method/resetted"></morph-on>
-              </morph-form>
-            </morph-stack>
-          </morph-card>
-          <morph-on value="add/clicked:method/show"></morph-on>
-          <morph-on value="create/submitted:method/hidden"></morph-on>
-        </morph-modal>
+                <nm-on value="create/submitted:method/resetted"></nm-on>
+              </nm-form>
+            </nm-stack>
+          </nm-card>
+          <nm-on value="add/clicked:method/show"></nm-on>
+          <nm-on value="create/submitted:method/hidden"></nm-on>
+        </nm-modal>
 
         <!-- Lista de usuários -->
-        <morph-render>
+        <nm-render>
           <template>
-            <morph-stack width="fill">
-              <morph-stack width="fill" direction="column">
-                <morph-text style="font-weight: 600;">{name}</morph-text>
-                <morph-text style="font-size: 14px; color: #666;">{email}</morph-text>
-              </morph-stack>
-              <morph-button name="edit" value="{id}" variant="outlined">
-                <morph-icon use="edit"></morph-icon>
-              </morph-button>
-            </morph-stack>
+            <nm-stack width="fill">
+              <nm-stack width="fill" direction="column">
+                <nm-text style="font-weight: 600;">{name}</nm-text>
+                <nm-text style="font-size: 14px; color: #666;">{email}</nm-text>
+              </nm-stack>
+              <nm-button name="edit" value="{id}" variant="outlined">
+                <nm-icon use="edit"></nm-icon>
+              </nm-button>
+            </nm-stack>
           </template>
-          <morph-on value="users/changed:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="users/changed:method/render"></nm-on>
+        </nm-render>
 
         <!-- Modal de edição -->
-        <morph-modal>
-          <morph-card width="xxs">
-            <morph-stack direction="column" width="fill">
-              <morph-heading size="xs">Editar Usuário</morph-heading>
-              <morph-render>
+        <nm-modal>
+          <nm-card width="xxs">
+            <nm-stack direction="column" width="fill">
+              <nm-heading size="xs">Editar Usuário</nm-heading>
+              <nm-render>
                 <template>
-                  <morph-form name="update">
+                  <nm-form name="update">
                     <template>
-                      <morph-stack direction="column">
-                        <morph-input name="id" value="{id}" hidden></morph-input>
-                        <morph-input name="name" value="{name}" required>
-                          <morph-label>Nome</morph-label>
-                          <morph-validity state="valueMissing">Nome é obrigatório</morph-validity>
-                        </morph-input>
-                        <morph-input name="email" value="{email}" type="email" required>
-                          <morph-label>Email</morph-label>
-                          <morph-validity state="valueMissing">Email é obrigatório</morph-validity>
-                        </morph-input>
-                        <morph-button width="fill">Salvar Alterações</morph-button>
-                      </morph-stack>
+                      <nm-stack direction="column">
+                        <nm-input name="id" value="{id}" hidden></nm-input>
+                        <nm-input name="name" value="{name}" required>
+                          <nm-label>Nome</nm-label>
+                          <nm-validity state="valueMissing">Nome é obrigatório</nm-validity>
+                        </nm-input>
+                        <nm-input name="email" value="{email}" type="email" required>
+                          <nm-label>Email</nm-label>
+                          <nm-validity state="valueMissing">Email é obrigatório</nm-validity>
+                        </nm-input>
+                        <nm-button width="fill">Salvar Alterações</nm-button>
+                      </nm-stack>
                     </template>
-                    <morph-on value="update/submitted:method/resetted"></morph-on>
-                  </morph-form>
+                    <nm-on value="update/submitted:method/resetted"></nm-on>
+                  </nm-form>
                 </template>
-                <morph-on value="users/found:method/render"></morph-on>
-              </morph-render>
-            </morph-stack>
-          </morph-card>
-          <morph-on value="users/found:method/show"></morph-on>
-          <morph-on value="update/submitted:method/hidden"></morph-on>
-        </morph-modal>
+                <nm-on value="users/found:method/render"></nm-on>
+              </nm-render>
+            </nm-stack>
+          </nm-card>
+          <nm-on value="users/found:method/show"></nm-on>
+          <nm-on value="update/submitted:method/hidden"></nm-on>
+        </nm-modal>
 
         <!-- Dataset com found -->
         <x-dataset name="users" upsert="id">
           <x-find key="id">
-            <morph-on value="edit/clicked:attribute/value"></morph-on>
+            <nm-on value="edit/clicked:attribute/value"></nm-on>
           </x-find>
-          <morph-on value="create/submitted:method/pushed"></morph-on>
-          <morph-on value="update/submitted:method/pushed"></morph-on>
+          <nm-on value="create/submitted:method/pushed"></nm-on>
+          <nm-on value="update/submitted:method/pushed"></nm-on>
         </x-dataset>
       </div>
     `
@@ -516,58 +516,58 @@ export const ProductDetails = {
           Adicione produtos e clique para ver os detalhes completos.
         </div>
 
-        <morph-button value='{"id":"1","name":"Notebook","price":3500,"stock":10}'>
+        <nm-button value='{"id":"1","name":"Notebook","price":3500,"stock":10}'>
           Adicionar Notebook
-        </morph-button>
-        <morph-button value='{"id":"2","name":"Mouse","price":150,"stock":50}'>
+        </nm-button>
+        <nm-button value='{"id":"2","name":"Mouse","price":150,"stock":50}'>
           Adicionar Mouse
-        </morph-button>
-        <morph-button value='{"id":"3","name":"Teclado","price":450,"stock":30}'>
+        </nm-button>
+        <nm-button value='{"id":"3","name":"Teclado","price":450,"stock":30}'>
           Adicionar Teclado
-        </morph-button>
+        </nm-button>
 
         <div class="product-grid">
-          <morph-render>
+          <nm-render>
             <template>
-              <morph-card>
-                <morph-stack direction="column">
-                  <morph-text style="font-weight: 600;">{name}</morph-text>
-                  <morph-button name="view" value="{id}" variant="outlined" width="fill">
+              <nm-card>
+                <nm-stack direction="column">
+                  <nm-text style="font-weight: 600;">{name}</nm-text>
+                  <nm-button name="view" value="{id}" variant="outlined" width="fill">
                     Ver Detalhes
-                  </morph-button>
-                </morph-stack>
-              </morph-card>
+                  </nm-button>
+                </nm-stack>
+              </nm-card>
             </template>
-            <morph-on value="products/changed:method/render"></morph-on>
-          </morph-render>
+            <nm-on value="products/changed:method/render"></nm-on>
+          </nm-render>
         </div>
 
         <!-- Modal de detalhes -->
-        <morph-modal>
-          <morph-card width="xs">
-            <morph-render>
+        <nm-modal>
+          <nm-card width="xs">
+            <nm-render>
               <template>
-                <morph-stack direction="column" width="fill">
-                  <morph-heading size="sm">{name}</morph-heading>
-                  <morph-stack direction="column">
-                    <morph-text>Preço: R$ {price}</morph-text>
-                    <morph-text>Estoque: {stock} unidades</morph-text>
-                  </morph-stack>
-                  <morph-button name="close" width="fill">Fechar</morph-button>
-                </morph-stack>
+                <nm-stack direction="column" width="fill">
+                  <nm-heading size="sm">{name}</nm-heading>
+                  <nm-stack direction="column">
+                    <nm-text>Preço: R$ {price}</nm-text>
+                    <nm-text>Estoque: {stock} unidades</nm-text>
+                  </nm-stack>
+                  <nm-button name="close" width="fill">Fechar</nm-button>
+                </nm-stack>
               </template>
-              <morph-on value="products/found:method/render"></morph-on>
-            </morph-render>
-          </morph-card>
-          <morph-on value="products/found:method/show"></morph-on>
-          <morph-on value="close/clicked:method/hidden"></morph-on>
-        </morph-modal>
+              <nm-on value="products/found:method/render"></nm-on>
+            </nm-render>
+          </nm-card>
+          <nm-on value="products/found:method/show"></nm-on>
+          <nm-on value="close/clicked:method/hidden"></nm-on>
+        </nm-modal>
 
         <x-dataset name="products" upsert="id">
           <x-find key="id">
-            <morph-on value="view/clicked:attribute/value"></morph-on>
+            <nm-on value="view/clicked:attribute/value"></nm-on>
           </x-find>
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
         </x-dataset>
       </div>
     `

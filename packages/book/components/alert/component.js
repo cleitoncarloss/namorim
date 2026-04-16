@@ -4,7 +4,7 @@ import { icons } from './icons'
 const component = (alert) => {
   return html`
     <div class="alert-container">
-      <morph-icon use="${icons[alert.type]}"></morph-icon>
+      <nm-icon use="${icons[alert.type]}"></nm-icon>
       <div class="alert-content">
         <slot></slot>
       </div>

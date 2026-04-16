@@ -1,7 +1,7 @@
-### `<morph-hgroup>`
+### `<nm-hgroup>`
 
 **Objetivo**
-Agrupa um conjunto de elementos de cabeçalho (como `<morph-heading>` e `<morph-text>`) para semântica e estilização coesa.
+Agrupa um conjunto de elementos de cabeçalho (como `<nm-heading>` e `<nm-text>`) para semântica e estilização coesa.
 
 **Atributos**
 - `align` — default `start`. Valores: `start`, `center`, `end`. O que controla na prática o alinhamento dos elementos filhos no eixo vertical.
@@ -9,7 +9,7 @@ Agrupa um conjunto de elementos de cabeçalho (como `<morph-heading>` e `<morph-
 - `width` — default `hug`. Livre. O que controla na prática a largura do hgroup (hug=auto, fill=100%, ou valores em px/%).
 
 **Conteúdo**
-- Aceita conteúdo interno — elementos de tipografia, como `<morph-heading>` e `<morph-text>`.
+- Aceita conteúdo interno — elementos de tipografia, como `<nm-heading>` e `<nm-text>`.
 
 **Eventos**
 Nenhum.
@@ -18,4 +18,4 @@ Nenhum.
 - Precisa agrupar um título e um subtítulo, ou um título e um parágrafo introdutório, com alinhamento e espaçamento específicos.
 
 **Não use quando**
-- Precisa de um único elemento de texto → use `<morph-text>`, `<morph-heading>` ou `<morph-title>`.
+- Precisa de um único elemento de texto → use `<nm-text>`, `<nm-heading>` ou `<nm-title>`.

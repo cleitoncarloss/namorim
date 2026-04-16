@@ -1,4 +1,4 @@
-### `<morph-label>`
+### `<nm-label>`
 
 **Objetivo**
 Fornece um rótulo textual para elementos de formulário, melhorando a acessibilidade e a usabilidade.
@@ -18,5 +18,5 @@ Nenhum.
 - Precisa associar um texto descritivo a um campo de entrada (input, textarea, select), checkbox, ou radio button.
 
 **Não use quando**
-- Precisa de um texto de ajuda genérico → use `<morph-helper>`.
-- Precisa de um título → use `<morph-heading>` ou `<morph-title>`.
+- Precisa de um texto de ajuda genérico → use `<nm-helper>`.
+- Precisa de um título → use `<nm-heading>` ou `<nm-title>`.

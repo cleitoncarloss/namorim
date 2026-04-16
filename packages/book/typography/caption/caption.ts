@@ -5,7 +5,7 @@ import { Align, Color, Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-caption')
+@define('nm-caption')
 @paint(component, style)
 class Caption extends Align(Color(Echo(Hidden(HTMLElement)))) {
   #internals

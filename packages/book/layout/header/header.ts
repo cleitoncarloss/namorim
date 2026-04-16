@@ -5,7 +5,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-header')
+@define('nm-header')
 @paint(component, style)
 class Header extends Echo(Hidden(HTMLElement)) {
   #internals

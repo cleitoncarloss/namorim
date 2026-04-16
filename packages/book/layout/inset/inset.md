@@ -1,4 +1,4 @@
-### `<morph-inset>`
+### `<nm-inset>`
 
 **Objetivo**
 Cria um espaçamento negativo (margin) para que o conteúdo interno se estenda além do padding do seu elemento pai.

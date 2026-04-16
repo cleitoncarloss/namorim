@@ -30,17 +30,17 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-hgroup')
+    const element = document.createElement('nm-hgroup')
     if (args.align) element.setAttribute('align', args.align)
     if (args.width) element.setAttribute('width', args.width)
     if (args.hidden) element.setAttribute('hidden', '')
 
-    const heading = document.createElement('morph-heading')
+    const heading = document.createElement('nm-heading')
     heading.setAttribute('align', args.align || 'start')
     heading.setAttribute('color', 'master')
     heading.textContent = 'Que bom ter você aqui'
 
-    const text = document.createElement('morph-text')
+    const text = document.createElement('nm-text')
     text.setAttribute('align', args.align || 'start')
     text.setAttribute('color', 'master')
     text.textContent = 'Entre para conversar com a internet do seu jeito'

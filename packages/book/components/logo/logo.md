@@ -1,4 +1,4 @@
-### `<morph-logo>`
+### `<nm-logo>`
 
 **Objetivo**
 Exibe o logotipo da aplicação.
@@ -18,4 +18,4 @@ Exibe o logotipo da aplicação.
 - Precisa exibir a marca da aplicação, geralmente com funcionalidade de clique.
 
 **Não use quando**
-- Precisa de uma imagem genérica → use `<img>` ou `<morph-icon>`.
+- Precisa de uma imagem genérica → use `<img>` ou `<nm-icon>`.

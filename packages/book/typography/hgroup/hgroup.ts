@@ -5,7 +5,7 @@ import { Hidden, Width } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-hgroup')
+@define('nm-hgroup')
 @paint(component, style)
 class Hgroup extends Echo(Hidden(Width(HTMLElement))) {
   #align

@@ -8,7 +8,7 @@ import Siphon, { pump } from '@siphon'
 import { abort, autorun, dispatch } from './interfaces'
 import interpolate from './interpolate'
 
-@define('morph-fetch')
+@define('nm-fetch')
 class Fetch extends Echo(Headless(Siphon(HTMLElement))) {
   #controller
   #url

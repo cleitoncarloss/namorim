@@ -20,11 +20,11 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-header')
+    const element = document.createElement('nm-header')
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)
 
-    const title = document.createElement('morph-text')
+    const title = document.createElement('nm-text')
     title.setAttribute('size', 'lg')
     title.setAttribute('weight', 'bold')
     title.textContent = 'Titulo'
@@ -32,7 +32,7 @@ export default {
 
     const actions = document.createElement('div')
     actions.setAttribute('slot', 'actions')
-    const button = document.createElement('morph-button')
+    const button = document.createElement('nm-button')
     button.setAttribute('color', 'primary')
     button.textContent = 'Acao'
     actions.appendChild(button)

@@ -4,14 +4,15 @@ import { paint, retouch } from '@dom'
 import Echo from '@echo'
 import on, { customEvent, stop } from '@event'
 import { around } from '@middleware'
-import { Disabled, Hidden, Width } from '@mixin'
+import { Disabled, Hidden, Width, Weight } from '@mixin'
 import component from './component'
 import { emitter } from './interface'
 import style from './style'
 
 @define('nm-button')
 @paint(component, style)
-class Button extends Disabled(Echo(Hidden(Width(HTMLElement)))) {
+class Button extends Disabled(Echo(Hidden(Width(Weight(HTMLElement))))) {
+  #weight
   #color
   #internals
   #type
@@ -26,6 +27,16 @@ class Button extends Disabled(Echo(Hidden(Width(HTMLElement)))) {
   @retouch
   set color(value) {
     this.#color = value
+  }
+
+  get weight() {
+    return (this.#weight ??= 'regular')
+  }
+
+  @attributeChanged('weight')
+  @retouch
+  set weight(value) {
+    this.#weight = value
   }
 
   get internals() {

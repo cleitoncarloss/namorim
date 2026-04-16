@@ -46,7 +46,7 @@ export default {
     card.style.borderRadius = '8px'
     card.style.maxWidth = '600px'
 
-    const inset = document.createElement('morph-inset')
+    const inset = document.createElement('nm-inset')
     if (args.direction) inset.setAttribute('direction', args.direction)
     if (args.height) inset.setAttribute('height', args.height)
     if (args.hidden) inset.setAttribute('hidden', '')

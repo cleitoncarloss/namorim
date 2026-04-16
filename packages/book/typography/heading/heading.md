@@ -1,4 +1,4 @@
-### `<morph-heading>`
+### `<nm-heading>`
 
 **Objetivo**
 Exibe títulos e subtítulos de seções, com diferentes níveis de hierarquia visual.
@@ -19,5 +19,5 @@ Nenhum.
 - Precisa criar títulos para seções de conteúdo, artigos, ou cards, indicando hierarquia.
 
 **Não use quando**
-- Precisa de um texto de parágrafo → use `<morph-text>`.
-- Precisa de um título de página principal → use `<morph-title>`.
+- Precisa de um texto de parágrafo → use `<nm-text>`.
+- Precisa de um título de página principal → use `<nm-title>`.

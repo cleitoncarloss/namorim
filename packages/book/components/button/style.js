@@ -29,10 +29,10 @@ const style = (button) => {
       cursor: pointer;
       display: flex;
       font-family: var(--font-family-base);
-      font-size: var(--font-size-xxs);
-      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-${button.weight});
       gap: var(--spacing-nano);
-      height: 40px;
+      height: 50px;
       justify-content: center;
       line-height: var(--line-height-default);
       padding: 0 var(--spacing_inset-xs);

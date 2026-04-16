@@ -5,7 +5,7 @@ import { Color, Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-badge')
+@define('nm-badge')
 @paint(component, style)
 class Badge extends Color(Echo(Hidden(HTMLElement))) {
   #internals

@@ -54,7 +54,7 @@ const style = () =>
       color: var(--color-info-dark);
     }
 
-    :host([type="info"]) morph-icon {
+    :host([type="info"]) nm-icon {
       color: var(--color-info);
     }
 
@@ -63,7 +63,7 @@ const style = () =>
       color: var(--color-danger-dark);
     }
 
-    :host([type="error"]) morph-icon {
+    :host([type="error"]) nm-icon {
       color: var(--color-danger);
     }
 
@@ -72,7 +72,7 @@ const style = () =>
       color: var(--color-warning-dark);
     }
 
-    :host([type="warning"]) morph-icon {
+    :host([type="warning"]) nm-icon {
       color: var(--color-warning);
     }
 
@@ -81,7 +81,7 @@ const style = () =>
       color: var(--color-succeeded-dark);
     }
 
-    :host([type="success"]) morph-icon {
+    :host([type="success"]) nm-icon {
       color: var(--color-succeeded);
     }
   `

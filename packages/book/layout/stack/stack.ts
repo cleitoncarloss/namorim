@@ -10,6 +10,7 @@ import style from './style'
 class Stack extends Echo(Height(Hidden(Width(HTMLElement)))) {
   #align
   #direction
+  #gap
   #internals
   #justify
 
@@ -31,6 +32,16 @@ class Stack extends Echo(Height(Hidden(Width(HTMLElement)))) {
   @retouch
   set direction(value) {
     this.#direction = value
+  }
+
+  get gap() {
+    return (this.#gap ??= 'var(--spacing_inset-xs)')
+  }
+
+  @attributeChanged('gap')
+  @retouch
+  set gap(value) {
+    this.#gap = value
   }
 
   get internals() {

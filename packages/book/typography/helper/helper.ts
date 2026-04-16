@@ -6,7 +6,7 @@ import component from './component'
 import { slottable } from './interface'
 import style from './style'
 
-@define('morph-helper')
+@define('nm-helper')
 @paint(component, style)
 class Helper extends Align(Color(Echo(Hidden(HTMLElement)))) {
   #internals

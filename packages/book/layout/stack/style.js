@@ -7,7 +7,7 @@ const style = (stack) =>
       box-sizing: border-box;
       display: flex;
       flex-direction: ${stack.direction};
-      gap: var(--spacing_inset-xs);
+      gap: ${stack.gap};
       height: ${stack.height};
       justify-content: ${stack.justify};
       width: ${stack.width};

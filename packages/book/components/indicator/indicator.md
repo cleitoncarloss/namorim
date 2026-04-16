@@ -1,4 +1,4 @@
-### `<morph-indicator>`
+### `<nm-indicator>`
 
 **Objetivo**
 Exibe um indicador visual de atividade ou estado.

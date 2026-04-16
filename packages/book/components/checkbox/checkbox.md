@@ -1,14 +1,14 @@
-# morph-checkbox
+# nm-checkbox
 
 Componente de checkbox que segue o padrão de design do projeto, com suporte a validação de formulário e estados customizados.
 
 ## Uso Básico
 
 ```html
-<morph-checkbox id="agree" name="agree">
+<nm-checkbox id="agree" name="agree">
   <span slot="label">I agree to the terms and conditions</span>
   <span slot="helper">Please read our terms before proceeding</span>
-</morph-checkbox>
+</nm-checkbox>
 ```
 
 ## Propriedades
@@ -38,7 +38,7 @@ Componente de checkbox que segue o padrão de design do projeto, com suporte a v
 O componente suporta validação nativa de formulário através da API ElementInternals:
 
 ```javascript
-const checkbox = document.querySelector('morph-checkbox')
+const checkbox = document.querySelector('nm-checkbox')
 
 // Verificar validade
 checkbox.checkValidity() // retorna boolean
@@ -52,50 +52,50 @@ checkbox.reportValidity()
 ### Checkbox Obrigatório
 
 ```html
-<morph-checkbox id="terms" name="terms" required>
+<nm-checkbox id="terms" name="terms" required>
   <span slot="label">I accept the terms and conditions</span>
   <span slot="helper">Required to proceed</span>
-</morph-checkbox>
+</nm-checkbox>
 ```
 
 ### Checkbox Marcado
 
 ```html
-<morph-checkbox id="newsletter" name="newsletter" checked>
+<nm-checkbox id="newsletter" name="newsletter" checked>
   <span slot="label">Subscribe to newsletter</span>
-</morph-checkbox>
+</nm-checkbox>
 ```
 
 ### Checkbox Desabilitado
 
 ```html
-<morph-checkbox id="readonly" name="readonly" disabled checked>
+<nm-checkbox id="readonly" name="readonly" disabled checked>
   <span slot="label">This option is not available</span>
-</morph-checkbox>
+</nm-checkbox>
 ```
 
 ### Múltiplos Checkboxes
 
 ```html
 <form>
-  <morph-checkbox id="option1" name="options" value="1">
+  <nm-checkbox id="option1" name="options" value="1">
     <span slot="label">Option 1</span>
-  </morph-checkbox>
+  </nm-checkbox>
 
-  <morph-checkbox id="option2" name="options" value="2">
+  <nm-checkbox id="option2" name="options" value="2">
     <span slot="label">Option 2</span>
-  </morph-checkbox>
+  </nm-checkbox>
 
-  <morph-checkbox id="option3" name="options" value="3">
+  <nm-checkbox id="option3" name="options" value="3">
     <span slot="label">Option 3</span>
-  </morph-checkbox>
+  </nm-checkbox>
 </form>
 ```
 
 ## Tratamento de Eventos
 
 ```javascript
-const checkbox = document.querySelector('morph-checkbox')
+const checkbox = document.querySelector('nm-checkbox')
 
 checkbox.addEventListener('changed', (event) => {
   console.log('Checkbox state:', event.detail) // true ou false

@@ -1,13 +1,13 @@
-# morph-alert
+# nm-alert
 
 A temporary alert component that displays messages with different severity levels and auto-dismisses after a configurable duration.
 
 ## Usage
 
 ```html
-<morph-alert type="info" duration="5000">
+<nm-alert type="info" duration="5000">
   Account verification required
-</morph-alert>
+</nm-alert>
 ```
 
 ## Attributes
@@ -71,51 +71,51 @@ alert.addEventListener('dismissed', (event) => {
 
 ### Basic Usage
 ```html
-<morph-alert type="info" duration="5000">
+<nm-alert type="info" duration="5000">
   <strong>Account verification required</strong>
   <p>Please check your email and click the verification link.</p>
-</morph-alert>
+</nm-alert>
 ```
 
-### Using with morph-on Directive
+### Using with nm-on Directive
 
 #### Show alert on button click
 ```html
-<morph-button id="btn-save">Save Changes</morph-button>
-<morph-alert id="alert-success" type="success" duration="3000" hidden>
+<nm-button id="btn-save">Save Changes</nm-button>
+<nm-alert id="alert-success" type="success" duration="3000" hidden>
   <strong>Success!</strong>
   <p>Your changes have been saved.</p>
-</morph-alert>
+</nm-alert>
 
 <!-- Show alert when button is clicked -->
-<morph-on value="btn-save/clicked:method/show"></morph-on>
+<nm-on value="btn-save/clicked:method/show"></nm-on>
 ```
 
 #### Hide alert on button click
 ```html
-<morph-button id="btn-close">Close</morph-button>
-<morph-alert id="alert" type="info">
+<nm-button id="btn-close">Close</nm-button>
+<nm-alert id="alert" type="info">
   <strong>Information</strong>
   <p>Click the button below to dismiss.</p>
-</morph-alert>
+</nm-alert>
 
 <!-- Hide alert when button is clicked -->
-<morph-on value="btn-close/clicked:method/hide"></morph-on>
+<nm-on value="btn-close/clicked:method/hide"></nm-on>
 ```
 
 #### Show alert with different conditions
 ```html
 <!-- Show alert on form submission with error message -->
-<morph-form id="form">
+<nm-form id="form">
   <input type="text" />
-</morph-form>
-<morph-alert id="alert-error" type="error" duration="0" hidden>
+</nm-form>
+<nm-alert id="alert-error" type="error" duration="0" hidden>
   <strong>Please fix the following errors</strong>
   <p>Email is required</p>
-</morph-alert>
+</nm-alert>
 
 <!-- Show alert on form error -->
-<morph-on value="form/error:method/show"></morph-on>
+<nm-on value="form/error:method/show"></nm-on>
 ```
 
 ## Styling

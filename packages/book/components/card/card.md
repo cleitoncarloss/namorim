@@ -1,4 +1,4 @@
-### `<morph-card>`
+### `<nm-card>`
 
 **Objetivo**
 Exibe um bloco de conteúdo delimitado visualmente.

@@ -6,7 +6,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-menu-item')
+@define('nm-menu-item')
 @paint(component, style)
 class Item extends Echo(Hidden(HTMLElement)) {
   #internals

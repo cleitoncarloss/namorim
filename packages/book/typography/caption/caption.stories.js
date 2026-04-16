@@ -40,7 +40,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-caption')
+    const element = document.createElement('nm-caption')
     if (args.align) element.setAttribute('align', args.align)
     if (args.color) element.setAttribute('color', args.color)
     if (args.hidden) element.setAttribute('hidden', '')

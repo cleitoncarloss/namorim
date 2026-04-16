@@ -27,7 +27,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-label')
+    const element = document.createElement('nm-label')
     if (args.align) element.setAttribute('align', args.align)
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)

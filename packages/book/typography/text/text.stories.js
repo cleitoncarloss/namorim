@@ -40,7 +40,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-text')
+    const element = document.createElement('nm-text')
     element.setAttribute('color', args.color)
     element.setAttribute('align', args.align)
     element.textContent = args.content

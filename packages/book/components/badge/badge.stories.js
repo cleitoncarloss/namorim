@@ -46,7 +46,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-badge')
+    const element = document.createElement('nm-badge')
     if (args.color) element.setAttribute('color', args.color)
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)
@@ -146,15 +146,15 @@ export const StatusGroup = {
     container.style.cssText =
       'display: flex; gap: var(--spacing-sm); background-color: var(--color-surface-dark); padding: var(--spacing-md); border-radius: var(--radius-sm);'
 
-    const inProgress = document.createElement('morph-badge')
+    const inProgress = document.createElement('nm-badge')
     inProgress.setAttribute('color', 'warning')
     inProgress.textContent = 'In progress'
 
-    const inReview = document.createElement('morph-badge')
+    const inReview = document.createElement('nm-badge')
     inReview.setAttribute('color', 'primary')
     inReview.textContent = 'In review'
 
-    const complete = document.createElement('morph-badge')
+    const complete = document.createElement('nm-badge')
     complete.setAttribute('color', 'complete')
     complete.textContent = 'Complete'
 

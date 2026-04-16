@@ -5,7 +5,7 @@ import { around } from '@middleware'
 import { Headless } from '@mixin'
 import { dispatch } from './interfaces'
 
-@define('morph-like')
+@define('nm-like')
 class Like extends Echo(Headless(HTMLElement)) {
   #key
   #value

@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-render\` é uma diretiva que renderiza dinamicamente conteúdo baseado em templates e dados.
+O componente \`nm-render\` é uma diretiva que renderiza dinamicamente conteúdo baseado em templates e dados.
 
 ## Características
 
@@ -17,16 +17,16 @@ O componente \`morph-render\` é uma diretiva que renderiza dinamicamente conte�
 - **Layouts Responsivos**: Suporta layouts list e grid
 - **Batch Rendering**: Aceita arrays de dados para renderização em lote
 - **Template Interno**: Usa \`<template>\` interno ou referência externa via atributo
-- **Dataflow**: Integração via barramento de eventos com \`morph-on\`
+- **Dataflow**: Integração via barramento de eventos com \`nm-on\`
 
 ## Sintaxe
 
 \`\`\`html
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-text>{name}</morph-text>
+    <nm-text>{name}</nm-text>
   </template>
-</morph-render>
+</nm-render>
 \`\`\`
 
 ## Atributos
@@ -60,8 +60,8 @@ O sistema de interpolação suporta:
 
 \`\`\`html
 <template>
-  <morph-text>{name} - {age} anos</morph-text>
-  <morph-text>Cidade: {address.city}</morph-text>
+  <nm-text>{name} - {age} anos</nm-text>
+  <nm-text>Cidade: {address.city}</nm-text>
 </template>
 \`\`\`
 
@@ -72,13 +72,13 @@ O sistema de interpolação suporta:
 Layout vertical com flex column, ideal para listas e formulários.
 
 \`\`\`html
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-card>
-      <morph-text>{title}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{title}</nm-text>
+    </nm-card>
   </template>
-</morph-render>
+</nm-render>
 \`\`\`
 
 ### Grid Layout
@@ -92,57 +92,57 @@ Layout responsivo em grid que se adapta ao tamanho do container:
 - 1440px+: 6 colunas
 
 \`\`\`html
-<morph-render layout="grid">
+<nm-render layout="grid">
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+    </nm-card>
   </template>
-</morph-render>
+</nm-render>
 \`\`\`
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com \`morph-on\`.
+O componente é projetado para ser usado através do barramento de eventos com \`nm-on\`.
 
-**IMPORTANTE**: O \`morph-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
+**IMPORTANTE**: O \`nm-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
 
 ### Renderizando Dados de um Dataset
 
 \`\`\`html
 <!-- Dataset com dados -->
-<morph-dataset name="users" upsert="id"></morph-dataset>
+<nm-dataset name="users" upsert="id"></nm-dataset>
 
-<!-- Render com morph-on interno -->
-<morph-render>
+<!-- Render com nm-on interno -->
+<nm-render>
   <template>
-    <morph-text>{name} - {age} anos</morph-text>
+    <nm-text>{name} - {age} anos</nm-text>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ### Renderizando Dados de um Fetch
 
 \`\`\`html
 <!-- Botão trigger -->
-<morph-button>Carregar Usuários</morph-button>
+<nm-button>Carregar Usuários</nm-button>
 
 <!-- Fetch -->
-<morph-fetch name="api" url="https://api.example.com/users">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<nm-fetch name="api" url="https://api.example.com/users">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 
 <!-- Render -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-      <morph-text>{email}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+      <nm-text>{email}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="api/succeeded:method/render"></morph-on>
-</morph-render>
+  <nm-on value="api/succeeded:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ## Exemplos de Fluxos Completos
@@ -151,89 +151,89 @@ O componente é projetado para ser usado através do barramento de eventos com \
 
 \`\`\`html
 <!-- Botão que adiciona dados -->
-<morph-button value='[{"name":"João"},{"name":"Maria"}]'>
+<nm-button value='[{"name":"João"},{"name":"Maria"}]'>
   Renderizar Lista
-</morph-button>
+</nm-button>
 
 <!-- Render -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-text>{name}</morph-text>
+    <nm-text>{name}</nm-text>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ### Fluxo com Dataset (CRUD Completo)
 
 \`\`\`html
 <!-- Botões de controle -->
-<morph-button value='{"id":1,"name":"João","age":25}'>
+<nm-button value='{"id":1,"name":"João","age":25}'>
   Adicionar João
-</morph-button>
+</nm-button>
 
 <!-- Dataset -->
-<morph-dataset name="users" upsert="id">
-  <morph-on value="morph-button/clicked:method/push"></morph-on>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-on value="nm-button/clicked:method/push"></nm-on>
+</nm-dataset>
 
 <!-- Render automático quando dataset muda -->
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-stack width="fill">
-      <morph-text>{name} - {age} anos</morph-text>
-      <morph-button value="{id}" color="error">
-        <morph-icon use="delete"></morph-icon>
-      </morph-button>
-    </morph-stack>
+    <nm-stack width="fill">
+      <nm-text>{name} - {age} anos</nm-text>
+      <nm-button value="{id}" color="error">
+        <nm-icon use="delete"></nm-icon>
+      </nm-button>
+    </nm-stack>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 
 <!-- Botão de deletar é conectado ao dataset -->
-<morph-dataset name="users" upsert="id">
-  <morph-on value="morph-button/clicked:method/delete"></morph-on>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-on value="nm-button/clicked:method/delete"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Fluxo com Grid Responsivo
 
 \`\`\`html
-<morph-button value='[
+<nm-button value='[
   {"id":1,"name":"Produto 1","price":"R$ 100"},
   {"id":2,"name":"Produto 2","price":"R$ 200"},
   {"id":3,"name":"Produto 3","price":"R$ 300"}
-]'>Renderizar Produtos</morph-button>
+]'>Renderizar Produtos</nm-button>
 
-<morph-render layout="grid">
+<nm-render layout="grid">
   <template>
-    <morph-card>
-      <morph-heading size="xs">{name}</morph-heading>
-      <morph-text>{price}</morph-text>
-      <morph-button value="{id}" width="fill">Comprar</morph-button>
-    </morph-card>
+    <nm-card>
+      <nm-heading size="xs">{name}</nm-heading>
+      <nm-text>{price}</nm-text>
+      <nm-button value="{id}" width="fill">Comprar</nm-button>
+    </nm-card>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ### Fluxo com Interpolação Aninhada
 
 \`\`\`html
-<morph-button value='[
+<nm-button value='[
   {"name":"João","address":{"city":"São Paulo","state":"SP"}},
   {"name":"Maria","address":{"city":"Rio de Janeiro","state":"RJ"}}
-]'>Renderizar Endereços</morph-button>
+]'>Renderizar Endereços</nm-button>
 
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-      <morph-text>{address.city} - {address.state}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+      <nm-text>{address.city} - {address.state}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ## Uso com Template Externo
@@ -243,13 +243,13 @@ Ao invés de template interno, você pode referenciar um template externo:
 \`\`\`html
 <!-- Template externo no documento -->
 <template id="user-template">
-  <morph-text>{name}</morph-text>
+  <nm-text>{name}</nm-text>
 </template>
 
 <!-- Render referenciando o template -->
-<morph-render template="user-template">
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+<nm-render template="user-template">
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ## Performance
@@ -271,7 +271,7 @@ render([
 ])
 \`\`\`
 
-Cada renderização sobrescreve a anterior. Para adicionar itens incrementalmente, use \`morph-dataset\`.
+Cada renderização sobrescreve a anterior. Para adicionar itens incrementalmente, use \`nm-dataset\`.
         `,
       },
     },
@@ -321,22 +321,22 @@ export const SimpleList = {
           uma lista de nomes usando o template interno.
         </div>
 
-        <morph-button value='[
+        <nm-button value='[
           {"name":"João Silva"},
           {"name":"Maria Santos"},
           {"name":"Pedro Oliveira"},
           {"name":"Ana Costa"}
         ]'>
           Renderizar Lista
-          <morph-icon use="list"></morph-icon>
-        </morph-button>
+          <nm-icon use="list"></nm-icon>
+        </nm-button>
 
-        <morph-render layout="list">
+        <nm-render layout="list">
           <template>
-            <morph-text>{name}</morph-text>
+            <nm-text>{name}</nm-text>
           </template>
-          <morph-on value="morph-button/clicked:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="nm-button/clicked:method/render"></nm-on>
+        </nm-render>
       </div>
     `
     return container
@@ -375,7 +375,7 @@ export const GridLayout = {
           a janela para ver as colunas se ajustarem automaticamente.
         </div>
 
-        <morph-button value='[
+        <nm-button value='[
           {"id":1,"name":"Produto 1","price":"R$ 99,90","category":"Eletrônicos"},
           {"id":2,"name":"Produto 2","price":"R$ 149,90","category":"Casa"},
           {"id":3,"name":"Produto 3","price":"R$ 199,90","category":"Esportes"},
@@ -384,25 +384,25 @@ export const GridLayout = {
           {"id":6,"name":"Produto 6","price":"R$ 499,90","category":"Games"}
         ]'>
           Renderizar Produtos
-          <morph-icon use="grid_view"></morph-icon>
-        </morph-button>
+          <nm-icon use="grid_view"></nm-icon>
+        </nm-button>
 
-        <morph-render layout="grid">
+        <nm-render layout="grid">
           <template>
-            <morph-card>
-              <morph-stack direction="column" gap="sm">
-                <morph-heading size="xs">{name}</morph-heading>
-                <morph-text color="textSecondary">{category}</morph-text>
-                <morph-text color="primary" weight="bold">{price}</morph-text>
-                <morph-button width="fill">
+            <nm-card>
+              <nm-stack direction="column" gap="sm">
+                <nm-heading size="xs">{name}</nm-heading>
+                <nm-text color="textSecondary">{category}</nm-text>
+                <nm-text color="primary" weight="bold">{price}</nm-text>
+                <nm-button width="fill">
                   Comprar
-                  <morph-icon use="shopping_cart"></morph-icon>
-                </morph-button>
-              </morph-stack>
-            </morph-card>
+                  <nm-icon use="shopping_cart"></nm-icon>
+                </nm-button>
+              </nm-stack>
+            </nm-card>
           </template>
-          <morph-on value="morph-button/clicked:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="nm-button/clicked:method/render"></nm-on>
+        </nm-render>
       </div>
     `
     return container
@@ -443,62 +443,62 @@ export const WithDataset = {
       <div class="story-container">
         <div class="story-title">CRUD com Renderização Dinâmica</div>
         <div class="story-description">
-          Exemplo completo integrando morph-dataset e morph-render. Adicione usuários
+          Exemplo completo integrando nm-dataset e nm-render. Adicione usuários
           e veja a lista ser atualizada automaticamente. Cada item pode ser removido
           individualmente.
         </div>
 
         <div class="controls">
-          <morph-button value='{"id":1,"name":"João Silva","age":25,"role":"Desenvolvedor"}'>
+          <nm-button value='{"id":1,"name":"João Silva","age":25,"role":"Desenvolvedor"}'>
             Adicionar João
-            <morph-icon use="person_add"></morph-icon>
-          </morph-button>
+            <nm-icon use="person_add"></nm-icon>
+          </nm-button>
 
-          <morph-button value='{"id":2,"name":"Maria Santos","age":30,"role":"Designer"}'>
+          <nm-button value='{"id":2,"name":"Maria Santos","age":30,"role":"Designer"}'>
             Adicionar Maria
-            <morph-icon use="person_add"></morph-icon>
-          </morph-button>
+            <nm-icon use="person_add"></nm-icon>
+          </nm-button>
 
-          <morph-button value='{"id":3,"name":"Pedro Oliveira","age":28,"role":"Product Manager"}'>
+          <nm-button value='{"id":3,"name":"Pedro Oliveira","age":28,"role":"Product Manager"}'>
             Adicionar Pedro
-            <morph-icon use="person_add"></morph-icon>
-          </morph-button>
+            <nm-icon use="person_add"></nm-icon>
+          </nm-button>
 
-          <morph-button name="clear" variant="outlined" color="error">
+          <nm-button name="clear" variant="outlined" color="error">
             Limpar Todos
-            <morph-icon use="clear_all"></morph-icon>
-          </morph-button>
+            <nm-icon use="clear_all"></nm-icon>
+          </nm-button>
         </div>
 
         <div style="background: #f5f5f5; padding: 12px; border-radius: 8px;">
           <strong>Total de usuários:</strong>
-          <morph-text value="0">
-            <morph-on value="users/changed:attribute/value|len"></morph-on>
-          </morph-text>
+          <nm-text value="0">
+            <nm-on value="users/changed:attribute/value|len"></nm-on>
+          </nm-text>
         </div>
 
-        <morph-render layout="list">
+        <nm-render layout="list">
           <template>
-            <morph-card>
-              <morph-stack width="fill" gap="md">
-                <morph-stack direction="column" gap="xs" width="fill">
-                  <morph-text weight="bold">{name}</morph-text>
-                  <morph-text color="textSecondary" size="sm">{role} • {age} anos</morph-text>
-                </morph-stack>
-                <morph-button name="delete" value="{id}" color="error" variant="outlined">
-                  <morph-icon use="delete"></morph-icon>
-                </morph-button>
-              </morph-stack>
-            </morph-card>
+            <nm-card>
+              <nm-stack width="fill" gap="md">
+                <nm-stack direction="column" gap="xs" width="fill">
+                  <nm-text weight="bold">{name}</nm-text>
+                  <nm-text color="textSecondary" size="sm">{role} • {age} anos</nm-text>
+                </nm-stack>
+                <nm-button name="delete" value="{id}" color="error" variant="outlined">
+                  <nm-icon use="delete"></nm-icon>
+                </nm-button>
+              </nm-stack>
+            </nm-card>
           </template>
-          <morph-on value="users/changed:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="users/changed:method/render"></nm-on>
+        </nm-render>
 
-        <morph-dataset name="users" upsert="id">
-          <morph-on value="morph-button/clicked:method/push"></morph-on>
-          <morph-on value="delete/clicked:method/deleted"></morph-on>
-          <morph-on value="clear/clicked:method/resetted"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="users" upsert="id">
+          <nm-on value="nm-button/clicked:method/push"></nm-on>
+          <nm-on value="delete/clicked:method/deleted"></nm-on>
+          <nm-on value="clear/clicked:method/resetted"></nm-on>
+        </nm-dataset>
       </div>
     `
     return container
@@ -537,7 +537,7 @@ export const NestedInterpolation = {
           Suporta qualquer nível de aninhamento.
         </div>
 
-        <morph-button value='[
+        <nm-button value='[
           {
             "id":1,
             "name":"João Silva",
@@ -552,40 +552,40 @@ export const NestedInterpolation = {
           }
         ]'>
           Renderizar Contatos
-          <morph-icon use="contacts"></morph-icon>
-        </morph-button>
+          <nm-icon use="contacts"></nm-icon>
+        </nm-button>
 
-        <morph-render layout="list">
+        <nm-render layout="list">
           <template>
-            <morph-card>
-              <morph-stack direction="column" gap="sm">
-                <morph-heading size="xs">{name}</morph-heading>
+            <nm-card>
+              <nm-stack direction="column" gap="sm">
+                <nm-heading size="xs">{name}</nm-heading>
 
-                <morph-stack direction="column" gap="xs">
-                  <morph-text color="textSecondary" size="sm">
-                    <morph-icon use="email" size="sm"></morph-icon>
+                <nm-stack direction="column" gap="xs">
+                  <nm-text color="textSecondary" size="sm">
+                    <nm-icon use="email" size="sm"></nm-icon>
                     {contact.email}
-                  </morph-text>
-                  <morph-text color="textSecondary" size="sm">
-                    <morph-icon use="phone" size="sm"></morph-icon>
+                  </nm-text>
+                  <nm-text color="textSecondary" size="sm">
+                    <nm-icon use="phone" size="sm"></nm-icon>
                     {contact.phone}
-                  </morph-text>
-                </morph-stack>
+                  </nm-text>
+                </nm-stack>
 
-                <morph-stack direction="column" gap="xs">
-                  <morph-text size="sm">
-                    <morph-icon use="location_on" size="sm"></morph-icon>
+                <nm-stack direction="column" gap="xs">
+                  <nm-text size="sm">
+                    <nm-icon use="location_on" size="sm"></nm-icon>
                     {address.street}
-                  </morph-text>
-                  <morph-text color="textSecondary" size="sm">
+                  </nm-text>
+                  <nm-text color="textSecondary" size="sm">
                     {address.city} - {address.state}
-                  </morph-text>
-                </morph-stack>
-              </morph-stack>
-            </morph-card>
+                  </nm-text>
+                </nm-stack>
+              </nm-stack>
+            </nm-card>
           </template>
-          <morph-on value="morph-button/clicked:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="nm-button/clicked:method/render"></nm-on>
+        </nm-render>
       </div>
     `
     return container
@@ -624,39 +624,39 @@ export const WithFetch = {
           dados e renderizar automaticamente. Demonstra o fluxo completo fetch → render.
         </div>
 
-        <morph-button name="load">
+        <nm-button name="load">
           Carregar Usuários da API
-          <morph-icon use="cloud_download"></morph-icon>
-        </morph-button>
+          <nm-icon use="cloud_download"></nm-icon>
+        </nm-button>
 
-        <morph-text value="">
-          <morph-on value="load/clicked:attribute/value|always=Carregando..."></morph-on>
-          <morph-on value="api/succeeded:attribute/value|always=Dados carregados!"></morph-on>
-          <morph-on value="api/errored:attribute/value|always=Erro ao carregar dados"></morph-on>
-        </morph-text>
+        <nm-text value="">
+          <nm-on value="load/clicked:attribute/value|always=Carregando..."></nm-on>
+          <nm-on value="api/succeeded:attribute/value|always=Dados carregados!"></nm-on>
+          <nm-on value="api/errored:attribute/value|always=Erro ao carregar dados"></nm-on>
+        </nm-text>
 
-        <morph-render layout="list">
+        <nm-render layout="list">
           <template>
-            <morph-card>
-              <morph-stack direction="column" gap="xs">
-                <morph-text weight="bold">{name}</morph-text>
-                <morph-text color="textSecondary" size="sm">
-                  <morph-icon use="email" size="sm"></morph-icon>
+            <nm-card>
+              <nm-stack direction="column" gap="xs">
+                <nm-text weight="bold">{name}</nm-text>
+                <nm-text color="textSecondary" size="sm">
+                  <nm-icon use="email" size="sm"></nm-icon>
                   {email}
-                </morph-text>
-                <morph-text color="textSecondary" size="sm">
-                  <morph-icon use="business" size="sm"></morph-icon>
+                </nm-text>
+                <nm-text color="textSecondary" size="sm">
+                  <nm-icon use="business" size="sm"></nm-icon>
                   {company.name}
-                </morph-text>
-              </morph-stack>
-            </morph-card>
+                </nm-text>
+              </nm-stack>
+            </nm-card>
           </template>
-          <morph-on value="api/succeeded:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="api/succeeded:method/render"></nm-on>
+        </nm-render>
 
-        <morph-fetch name="api" url="https://jsonplaceholder.typicode.com/users">
-          <morph-on value="load/clicked:method/get"></morph-on>
-        </morph-fetch>
+        <nm-fetch name="api" url="https://jsonplaceholder.typicode.com/users">
+          <nm-on value="load/clicked:method/get"></nm-on>
+        </nm-fetch>
       </div>
     `
     return container
@@ -702,32 +702,32 @@ export const EmptyState = {
           começa vazio e só mostra conteúdo após receber dados.
         </div>
 
-        <morph-button value='[
+        <nm-button value='[
           {"name":"Primeiro Item"},
           {"name":"Segundo Item"},
           {"name":"Terceiro Item"}
         ]'>
           Renderizar Itens
-          <morph-icon use="add"></morph-icon>
-        </morph-button>
+          <nm-icon use="add"></nm-icon>
+        </nm-button>
 
-        <morph-button name="clear" variant="outlined">
+        <nm-button name="clear" variant="outlined">
           Limpar Lista
-          <morph-icon use="clear"></morph-icon>
-        </morph-button>
+          <nm-icon use="clear"></nm-icon>
+        </nm-button>
 
-        <morph-render layout="list">
+        <nm-render layout="list">
           <template>
-            <morph-card>
-              <morph-text>{name}</morph-text>
-            </morph-card>
+            <nm-card>
+              <nm-text>{name}</nm-text>
+            </nm-card>
           </template>
-          <morph-on value="morph-button/clicked:method/render"></morph-on>
-          <morph-on value="clear/clicked:method/render|always=[]"></morph-on>
-        </morph-render>
+          <nm-on value="nm-button/clicked:method/render"></nm-on>
+          <nm-on value="clear/clicked:method/render|always=[]"></nm-on>
+        </nm-render>
 
         <div class="empty-state">
-          <morph-icon use="inbox" size="lg"></morph-icon>
+          <nm-icon use="inbox" size="lg"></nm-icon>
           <p>Nenhum item renderizado ainda</p>
         </div>
       </div>

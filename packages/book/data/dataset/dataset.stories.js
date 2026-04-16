@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-dataset\` é uma diretiva headless que gerencia uma coleção de dados em memória com operações de CRUD.
+O componente \`nm-dataset\` é uma diretiva headless que gerencia uma coleção de dados em memória com operações de CRUD.
 
 ## Características
 
@@ -16,12 +16,12 @@ O componente \`morph-dataset\` é uma diretiva headless que gerencia uma coleç�
 - **Storage em Map**: Armazena dados em memória usando Map nativo
 - **Upsert**: Atualiza ou insere dados baseado em uma chave única
 - **Eventos**: Dispara \`changed\` após modificações
-- **Dataflow**: Integração via barramento de eventos com \`morph-on\`
+- **Dataflow**: Integração via barramento de eventos com \`nm-on\`
 
 ## Sintaxe
 
 \`\`\`html
-<morph-dataset upsert="id"></morph-dataset>
+<nm-dataset upsert="id"></nm-dataset>
 \`\`\`
 
 ## Atributos
@@ -51,52 +51,52 @@ Disparado após qualquer modificação (push, delete, resetted). O \`event.detai
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com \`morph-on\`.
+O componente é projetado para ser usado através do barramento de eventos com \`nm-on\`.
 
-**IMPORTANTE**: O \`morph-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
+**IMPORTANTE**: O \`nm-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
 
 ### Adicionando Dados
 
 \`\`\`html
 <!-- Botão com dados no value -->
-<morph-button value='{"name":"João","age":25}'>Adicionar João</morph-button>
+<nm-button value='{"name":"João","age":25}'>Adicionar João</nm-button>
 
-<!-- Dataset com morph-on interno -->
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<!-- Dataset com nm-on interno -->
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Removendo Dados
 
 \`\`\`html
 <!-- Botão com ID a ser removido -->
-<morph-button value="123">Remover</morph-button>
+<nm-button value="123">Remover</nm-button>
 
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/deleted"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/deleted"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Resetted Dataset
 
 \`\`\`html
-<morph-button>Limpar Tudo</morph-button>
+<nm-button>Limpar Tudo</nm-button>
 
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/resetted"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/resetted"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Reagindo às Mudanças
 
 \`\`\`html
-<morph-dataset upsert="id"></morph-dataset>
+<nm-dataset upsert="id"></nm-dataset>
 
-<!-- morph-on é filho do morph-text (manipula o pai) -->
-<morph-text value="">
-  <morph-on value="morph-dataset/changed:attribute/value|len"></morph-on>
-</morph-text>
+<!-- nm-on é filho do nm-text (manipula o pai) -->
+<nm-text value="">
+  <nm-on value="nm-dataset/changed:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Exemplos de Fluxos Completos
@@ -105,135 +105,135 @@ O componente é projetado para ser usado através do barramento de eventos com \
 
 \`\`\`html
 <!-- Botões que adicionam dados -->
-<morph-button value='{"id":1,"name":"João"}'>Adicionar João</morph-button>
-<morph-button value='{"id":2,"name":"Maria"}'>Adicionar Maria</morph-button>
+<nm-button value='{"id":1,"name":"João"}'>Adicionar João</nm-button>
+<nm-button value='{"id":2,"name":"Maria"}'>Adicionar Maria</nm-button>
 
 <!-- Dataset -->
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 
 <!-- Contador de itens -->
-<morph-text value="0">
-  <morph-on value="morph-dataset/changed:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="0">
+  <nm-on value="nm-dataset/changed:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Fluxo de Atualização (Upsert)
 
 \`\`\`html
 <!-- Primeiro clique adiciona, segundo clique atualiza -->
-<morph-button value='{"id":1,"name":"João","age":25}'>João 25 anos</morph-button>
-<morph-button value='{"id":1,"name":"João","age":26}'>João 26 anos</morph-button>
+<nm-button value='{"id":1,"name":"João","age":25}'>João 25 anos</nm-button>
+<nm-button value='{"id":1,"name":"João","age":26}'>João 26 anos</nm-button>
 
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Fluxo de Remoção
 
 \`\`\`html
 <!-- Adiciona -->
-<morph-button value='{"id":1,"name":"João"}'>Adicionar</morph-button>
+<nm-button value='{"id":1,"name":"João"}'>Adicionar</nm-button>
 
 <!-- Remove pela chave -->
-<morph-button value="1">Remover</morph-button>
+<nm-button value="1">Remover</nm-button>
 
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-  <morph-on value="morph-button/clicked:method/deleted"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+  <nm-on value="nm-button/clicked:method/deleted"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Fluxo com Geração Automática de UUID
 
 \`\`\`html
 <!-- Dados sem ID serão gerados automaticamente -->
-<morph-button value='{"name":"João"}'>Adicionar João</morph-button>
-<morph-button value='{"name":"Maria"}'>Adicionar Maria</morph-button>
+<nm-button value='{"name":"João"}'>Adicionar João</nm-button>
+<nm-button value='{"name":"Maria"}'>Adicionar Maria</nm-button>
 
 <!-- UUID será criado e atribuído à propriedade 'key' -->
-<morph-dataset upsert="key">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="key">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Fluxo com Múltiplos Dados
 
 \`\`\`html
 <!-- Push aceita array de dados -->
-<morph-button value='[{"id":1,"name":"João"},{"id":2,"name":"Maria"}]'>
+<nm-button value='[{"id":1,"name":"João"},{"id":2,"name":"Maria"}]'>
   Adicionar Múltiplos
-</morph-button>
+</nm-button>
 
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 \`\`\`
 
 ### Fluxo Completo com Contador e Resetted
 
 \`\`\`html
 <!-- Controles -->
-<morph-button value='{"id":1,"name":"João"}'>Adicionar João</morph-button>
-<morph-button value='{"id":2,"name":"Maria"}'>Adicionar Maria</morph-button>
-<morph-button value="1">Remover João</morph-button>
-<morph-button>Limpar Tudo</morph-button>
+<nm-button value='{"id":1,"name":"João"}'>Adicionar João</nm-button>
+<nm-button value='{"id":2,"name":"Maria"}'>Adicionar Maria</nm-button>
+<nm-button value="1">Remover João</nm-button>
+<nm-button>Limpar Tudo</nm-button>
 
 <!-- Dataset -->
-<morph-dataset upsert="id">
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-  <morph-on value="morph-button/clicked:method/deleted"></morph-on>
-  <morph-on value="morph-button/clicked:method/resetted"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+  <nm-on value="nm-button/clicked:method/deleted"></nm-on>
+  <nm-on value="nm-button/clicked:method/resetted"></nm-on>
+</nm-dataset>
 
 <!-- Contador -->
-<morph-text value="0 itens">
-  <morph-on value="morph-dataset/changed:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="0 itens">
+  <nm-on value="nm-dataset/changed:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Uso com Fetch
 
-Combine \`morph-dataset\` com \`morph-fetch\` para armazenar dados de API:
+Combine \`nm-dataset\` com \`nm-fetch\` para armazenar dados de API:
 
 \`\`\`html
 <!-- Botão que busca dados -->
-<morph-button>Carregar Usuários</morph-button>
+<nm-button>Carregar Usuários</nm-button>
 
 <!-- Fetch -->
-<morph-fetch url="https://api.example.com/users">
-  <morph-on value="morph-button/click:method/get"></morph-on>
-</morph-fetch>
+<nm-fetch url="https://api.example.com/users">
+  <nm-on value="nm-button/click:method/get"></nm-on>
+</nm-fetch>
 
 <!-- Dataset armazena os dados retornados -->
-<morph-dataset upsert="id">
-  <morph-on value="morph-fetch/success:method/push"></morph-on>
-</morph-dataset>
+<nm-dataset upsert="id">
+  <nm-on value="nm-fetch/success:method/push"></nm-on>
+</nm-dataset>
 
 <!-- Contador de usuários carregados -->
-<morph-text value="0">
-  <morph-on value="morph-dataset/changed:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="0">
+  <nm-on value="nm-dataset/changed:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Transformando Dados com Filtros
 
-Use filtros do \`morph-on\` para transformar os dados antes de armazenar:
+Use filtros do \`nm-on\` para transformar os dados antes de armazenar:
 
 \`\`\`html
-<morph-fetch url="https://api.example.com/users"></morph-fetch>
+<nm-fetch url="https://api.example.com/users"></nm-fetch>
 
-<morph-dataset upsert="id">
+<nm-dataset upsert="id">
   <!-- Extrai apenas a propriedade 'data' do response -->
-  <morph-on value="morph-fetch/success:method/push|prop=data"></morph-on>
-</morph-dataset>
+  <nm-on value="nm-fetch/success:method/push|prop=data"></nm-on>
+</nm-dataset>
 
-<morph-text value="">
+<nm-text value="">
   <!-- Conta quantos itens foram armazenados -->
-  <morph-on value="morph-dataset/changed:attribute/value|len"></morph-on>
-</morph-text>
+  <nm-on value="nm-dataset/changed:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Comportamento de Upsert
@@ -244,13 +244,13 @@ O comportamento de upsert garante que:
 - Se o dado não possui a propriedade upsert, um UUID será gerado automaticamente
 
 \`\`\`html
-<morph-dataset upsert="id"></morph-dataset>
+<nm-dataset upsert="id"></nm-dataset>
 
 <!-- Primeira chamada: adiciona {id:1, name:"João"} -->
-<morph-button value='{"id":1,"name":"João"}'>Adicionar</morph-button>
+<nm-button value='{"id":1,"name":"João"}'>Adicionar</nm-button>
 
 <!-- Segunda chamada: atualiza para {id:1, name:"João", age:25} -->
-<morph-button value='{"id":1,"age":25}'>Atualizar</morph-button>
+<nm-button value='{"id":1,"age":25}'>Atualizar</nm-button>
 \`\`\`
         `,
       },
@@ -297,47 +297,47 @@ export const SimpleCRUD = {
       <div class="story-container">
         <div class="story-title">Gerenciamento de Dados em Memória</div>
         <div class="story-description">
-          Exemplo básico de CRUD com morph-dataset. Adicione, atualize e remova itens.
+          Exemplo básico de CRUD com nm-dataset. Adicione, atualize e remova itens.
           O contador é atualizado automaticamente via evento changed.
         </div>
 
-        <morph-button value='{"id":1,"name":"João","age":25}'>
+        <nm-button value='{"id":1,"name":"João","age":25}'>
           Adicionar João
-          <morph-icon use="person_add"></morph-icon>
-        </morph-button>
+          <nm-icon use="person_add"></nm-icon>
+        </nm-button>
 
-        <morph-button value='{"id":2,"name":"Maria","age":30}'>
+        <nm-button value='{"id":2,"name":"Maria","age":30}'>
           Adicionar Maria
-          <morph-icon use="person_add"></morph-icon>
-        </morph-button>
+          <nm-icon use="person_add"></nm-icon>
+        </nm-button>
 
-        <morph-button value='{"id":1,"name":"João Silva","age":26}'>
+        <nm-button value='{"id":1,"name":"João Silva","age":26}'>
           Atualizar João (Upsert)
-          <morph-icon use="edit"></morph-icon>
-        </morph-button>
+          <nm-icon use="edit"></nm-icon>
+        </nm-button>
 
-        <morph-button value="1">
+        <nm-button value="1">
           Remover João
-          <morph-icon use="delete"></morph-icon>
-        </morph-button>
+          <nm-icon use="delete"></nm-icon>
+        </nm-button>
 
-        <morph-button name="clear">
+        <nm-button name="clear">
           Limpar Todos
-          <morph-icon use="clear_all"></morph-icon>
-        </morph-button>
+          <nm-icon use="clear_all"></nm-icon>
+        </nm-button>
 
         <div class="counter">
           Total de itens:
-          <morph-text value="0">
-            <morph-on value="users/changed:attribute/value|len"></morph-on>
-          </morph-text>
+          <nm-text value="0">
+            <nm-on value="users/changed:attribute/value|len"></nm-on>
+          </nm-text>
         </div>
 
-        <morph-dataset name="users" upsert="id">
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-          <morph-on value="morph-button/clicked:method/deleted"></morph-on>
-          <morph-on value="clear/clicked:method/resetted"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="users" upsert="id">
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+          <nm-on value="nm-button/clicked:method/deleted"></nm-on>
+          <nm-on value="clear/clicked:method/resetted"></nm-on>
+        </nm-dataset>
       </div>
     `
     return container
@@ -387,105 +387,105 @@ export const CompleteUserManager = {
 
         <div class="header">
           <h3 style="margin: 0;">Usuários</h3>
-          <morph-button name="add">
-            <morph-icon use="add"></morph-icon>
+          <nm-button name="add">
+            <nm-icon use="add"></nm-icon>
             Adicionar novo usuário
-          </morph-button>
+          </nm-button>
         </div>
 
-        <morph-modal>
-          <morph-card width="xxs">
-            <morph-stack direction="column" width="fill">
-              <morph-heading size="xs">Adicionar novo usuário</morph-heading>
-              <morph-form name="user" width="fill">
+        <nm-modal>
+          <nm-card width="xxs">
+            <nm-stack direction="column" width="fill">
+              <nm-heading size="xs">Adicionar novo usuário</nm-heading>
+              <nm-form name="user" width="fill">
                 <template>
-                  <morph-stack direction="column">
-                    <morph-input name="name" width="fill" required>
-                      <morph-label>Nome</morph-label>
-                      <morph-validity state="valueMissing">Nome é obrigatório</morph-validity>
-                    </morph-input>
-                    <morph-input name="age" type="number" width="fill" required>
-                      <morph-label>Idade</morph-label>
-                      <morph-validity state="valueMissing">Idade é obrigatória</morph-validity>
-                    </morph-input>
-                    <morph-button width="fill">
+                  <nm-stack direction="column">
+                    <nm-input name="name" width="fill" required>
+                      <nm-label>Nome</nm-label>
+                      <nm-validity state="valueMissing">Nome é obrigatório</nm-validity>
+                    </nm-input>
+                    <nm-input name="age" type="number" width="fill" required>
+                      <nm-label>Idade</nm-label>
+                      <nm-validity state="valueMissing">Idade é obrigatória</nm-validity>
+                    </nm-input>
+                    <nm-button width="fill">
                       Salvar
-                      <morph-icon use="save" size="sm"></morph-icon>
-                    </morph-button>
-                  </morph-stack>
+                      <nm-icon use="save" size="sm"></nm-icon>
+                    </nm-button>
+                  </nm-stack>
                 </template>
-                <morph-on value="user/submitted:method/resetted"></morph-on>
-              </morph-form>
-            </morph-stack>
-          </morph-card>
-          <morph-on value="add/click:method/show"></morph-on>
-          <morph-on value="user/submitted:method/hidden"></morph-on>
-        </morph-modal>
+                <nm-on value="user/submitted:method/resetted"></nm-on>
+              </nm-form>
+            </nm-stack>
+          </nm-card>
+          <nm-on value="add/click:method/show"></nm-on>
+          <nm-on value="user/submitted:method/hidden"></nm-on>
+        </nm-modal>
 
-        <morph-render>
+        <nm-render>
           <template>
-            <morph-stack width="fill">
-              <morph-stack width="fill">
-                <morph-text>{name} - {age} anos</morph-text>
-              </morph-stack>
-              <morph-button name="edit" value="{id}" variant="outlined">
-                <morph-icon use="edit"></morph-icon>
-              </morph-button>
-              <morph-button name="delete" value="{id}" color="error" variant="outlined">
-                <morph-icon use="delete"></morph-icon>
-              </morph-button>
-            </morph-stack>
+            <nm-stack width="fill">
+              <nm-stack width="fill">
+                <nm-text>{name} - {age} anos</nm-text>
+              </nm-stack>
+              <nm-button name="edit" value="{id}" variant="outlined">
+                <nm-icon use="edit"></nm-icon>
+              </nm-button>
+              <nm-button name="delete" value="{id}" color="error" variant="outlined">
+                <nm-icon use="delete"></nm-icon>
+              </nm-button>
+            </nm-stack>
           </template>
-          <morph-on value="users/changed:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="users/changed:method/render"></nm-on>
+        </nm-render>
 
-        <morph-modal>
-          <morph-card width="xxs">
-            <morph-stack direction="column" width="fill">
-              <morph-heading size="xs">Editar usuário</morph-heading>
-              <morph-render>
+        <nm-modal>
+          <nm-card width="xxs">
+            <nm-stack direction="column" width="fill">
+              <nm-heading size="xs">Editar usuário</nm-heading>
+              <nm-render>
                 <template>
-                  <morph-form name="update">
+                  <nm-form name="update">
                     <template>
-                      <morph-stack direction="column">
-                        <morph-input name="id" value="{id}" hidden></morph-input>
-                        <morph-input name="name" value="{name}" required>
-                          <morph-label>Nome</morph-label>
-                          <morph-validity state="valueMissing">Nome é obrigatório</morph-validity>
-                        </morph-input>
-                        <morph-input name="age" value="{age}" type="number" required>
-                          <morph-label>Idade</morph-label>
-                          <morph-validity state="valueMissing">Idade é obrigatória</morph-validity>
-                        </morph-input>
-                        <morph-button width="fill">Salvar Alterações</morph-button>
-                      </morph-stack>
+                      <nm-stack direction="column">
+                        <nm-input name="id" value="{id}" hidden></nm-input>
+                        <nm-input name="name" value="{name}" required>
+                          <nm-label>Nome</nm-label>
+                          <nm-validity state="valueMissing">Nome é obrigatório</nm-validity>
+                        </nm-input>
+                        <nm-input name="age" value="{age}" type="number" required>
+                          <nm-label>Idade</nm-label>
+                          <nm-validity state="valueMissing">Idade é obrigatória</nm-validity>
+                        </nm-input>
+                        <nm-button width="fill">Salvar Alterações</nm-button>
+                      </nm-stack>
                     </template>
-                    <morph-on value="update/submitted:method/resetted"></morph-on>
-                    <morph-on value="update/submitted:attribute/hidden"></morph-on>
-                  </morph-form>
+                    <nm-on value="update/submitted:method/resetted"></nm-on>
+                    <nm-on value="update/submitted:attribute/hidden"></nm-on>
+                  </nm-form>
                 </template>
-                <morph-on value="users/find:method/render"></morph-on>
-              </morph-render>
-            </morph-stack>
-          </morph-card>
-          <morph-on value="users/find:method/show"></morph-on>
-          <morph-on value="update/submitted:method/hidden"></morph-on>
-        </morph-modal>
+                <nm-on value="users/find:method/render"></nm-on>
+              </nm-render>
+            </nm-stack>
+          </nm-card>
+          <nm-on value="users/find:method/show"></nm-on>
+          <nm-on value="update/submitted:method/hidden"></nm-on>
+        </nm-modal>
 
-        <morph-dataset name="users" upsert="id">
-          <morph-find key="id">
-            <morph-on value="edit/click:attribute/value"></morph-on>
-          </morph-find>
-          <morph-on value="user/submitted:method/pushed"></morph-on>
-          <morph-on value="update/submitted:method/pushed"></morph-on>
-          <morph-on value="delete/click:method/delete"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="users" upsert="id">
+          <nm-find key="id">
+            <nm-on value="edit/click:attribute/value"></nm-on>
+          </nm-find>
+          <nm-on value="user/submitted:method/pushed"></nm-on>
+          <nm-on value="update/submitted:method/pushed"></nm-on>
+          <nm-on value="delete/click:method/delete"></nm-on>
+        </nm-dataset>
 
         <div style="margin-top: 16px; padding: 12px; background: #e3f2fd; border-radius: 8px;">
           <strong>Total de usuários:</strong>
-          <morph-text value="0">
-            <morph-on value="users/changed:attribute/value|len"></morph-on>
-          </morph-text>
+          <nm-text value="0">
+            <nm-on value="users/changed:attribute/value|len"></nm-on>
+          </nm-text>
         </div>
       </div>
     `
@@ -524,26 +524,26 @@ export const WithAutoUUID = {
           Quando dados não possuem a propriedade de upsert, um UUID é gerado automaticamente.
         </div>
 
-        <morph-button value='{"name":"Produto Sem ID"}'>
+        <nm-button value='{"name":"Produto Sem ID"}'>
           Adicionar Produto (UUID será gerado)
-          <morph-icon use="add_shopping_cart"></morph-icon>
-        </morph-button>
+          <nm-icon use="add_shopping_cart"></nm-icon>
+        </nm-button>
 
-        <morph-button value='{"name":"Outro Produto"}'>
+        <nm-button value='{"name":"Outro Produto"}'>
           Adicionar Outro Produto
-          <morph-icon use="add_shopping_cart"></morph-icon>
-        </morph-button>
+          <nm-icon use="add_shopping_cart"></nm-icon>
+        </nm-button>
 
         <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
           <strong>Produtos cadastrados:</strong>
-          <morph-text value="0">
-            <morph-on value="products/changed:attribute/value|len"></morph-on>
-          </morph-text>
+          <nm-text value="0">
+            <nm-on value="products/changed:attribute/value|len"></nm-on>
+          </nm-text>
         </div>
 
-        <morph-dataset name="products" upsert="key">
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="products" upsert="key">
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+        </nm-dataset>
       </div>
     `
     return container

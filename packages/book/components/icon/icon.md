@@ -1,4 +1,4 @@
-### `<morph-icon>`
+### `<nm-icon>`
 
 **Objetivo**
 Exibe um ícone do Material Symbols.
@@ -19,4 +19,4 @@ Exibe um ícone do Material Symbols.
 - Precisa de um elemento visual pequeno e simbólico para representar uma ação ou informação.
 
 **Não use quando**
-- Precisa de uma imagem mais complexa ou decorativa → use `<img>` ou `<morph-avatar>`.
+- Precisa de uma imagem mais complexa ou decorativa → use `<img>` ou `<nm-avatar>`.

@@ -18,16 +18,16 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-footer')
+    const element = document.createElement('nm-footer')
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)
 
-    const link1 = document.createElement('morph-link')
+    const link1 = document.createElement('nm-link')
     link1.setAttribute('href', '#')
     link1.textContent = 'Política de Privacidade'
     element.appendChild(link1)
 
-    const link2 = document.createElement('morph-link')
+    const link2 = document.createElement('nm-link')
     link2.setAttribute('href', '#')
     link2.textContent = 'Termos de Uso'
     element.appendChild(link2)

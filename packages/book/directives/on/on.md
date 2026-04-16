@@ -1,4 +1,4 @@
-### `<morph-on>`
+### `<nm-on>`
 
 **Objetivo**
 Conecta eventos entre componentes.
@@ -22,7 +22,7 @@ Nenhum (atua como um ouvinte e despachante de eventos).
 ## Sintaxe
 
 ```
-<morph-on value="source/event:target/action|filter"></morph-on>
+<nm-on value="source/event:target/action|filter"></nm-on>
 ```
 
 ## Formato do Value
@@ -63,42 +63,42 @@ Nenhum (atua como um ouvinte e despachante de eventos).
 
 ```html
 <!-- Chama metodo push quando input emite sent -->
-<morph-on value="input/sent:method/push"></morph-on>
+<nm-on value="input/sent:method/push"></nm-on>
 
 <!-- Define atributo waiting=true quando agent emite thinking -->
-<morph-on value="agent/thinking:attribute/waiting|always=true"></morph-on>
+<nm-on value="agent/thinking:attribute/waiting|always=true"></nm-on>
 
 <!-- Incrementa contador ao clicar -->
-<morph-on value="button/clicked:method/setCount|inc"></morph-on>
+<nm-on value="button/clicked:method/setCount|inc"></nm-on>
 
 <!-- Define loading=false quando requisicao completa -->
-<morph-on value="api/complete:attribute/loading|always=false"></morph-on>
+<nm-on value="api/complete:attribute/loading|always=false"></nm-on>
 
 <!-- Extrai propriedade 'name' do evento -->
-<morph-on value="form/submitted:method/setName|prop=name"></morph-on>
+<nm-on value="form/submitted:method/setName|prop=name"></nm-on>
 
 <!-- Compara se valor é maior que 10 -->
-<morph-on value="input/changed:attribute/valid|gt=10"></morph-on>
+<nm-on value="input/changed:attribute/valid|gt=10"></nm-on>
 ```
 
 ## Exemplos com Filtros Encadeados
 
 ```html
 <!-- Extrai propriedade 'value' e incrementa -->
-<morph-on value="input/changed:method/setCount|prop=value|inc"></morph-on>
+<nm-on value="input/changed:method/setCount|prop=value|inc"></nm-on>
 
 <!-- Extrai 'total', adiciona 10 e verifica se é maior que 100 -->
-<morph-on value="cart/updated:attribute/valid|prop=total|add=10|gt=100"></morph-on>
+<nm-on value="cart/updated:attribute/valid|prop=total|add=10|gt=100"></nm-on>
 
 <!-- Pega tamanho de array e verifica se é diferente de 0 -->
-<morph-on value="list/changed:attribute/hasItems|len|different=0"></morph-on>
+<nm-on value="list/changed:attribute/hasItems|len|different=0"></nm-on>
 
 <!-- Extrai 'count', decrementa e verifica se é menor ou igual a 0 -->
-<morph-on value="item/remove:attribute/empty|prop=count|dec|lte=0"></morph-on>
+<nm-on value="item/remove:attribute/empty|prop=count|dec|lte=0"></nm-on>
 
 <!-- Pega valor, inverte booleano e converte para truthy -->
-<morph-on value="toggle/clicked:method/setState|not|truthy"></morph-on>
+<nm-on value="toggle/clicked:method/setState|not|truthy"></nm-on>
 
 <!-- Acessa índice 0 do array e extrai propriedade 'id' -->
-<morph-on value="items/load:method/setFirstId|index=0|prop=id"></morph-on>
+<nm-on value="items/load:method/setFirstId|index=0|prop=id"></nm-on>
 ```

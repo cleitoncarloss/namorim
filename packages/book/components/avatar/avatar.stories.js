@@ -38,7 +38,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-avatar')
+    const element = document.createElement('nm-avatar')
     if (args.alt) element.setAttribute('alt', args.alt)
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)

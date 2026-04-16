@@ -1,4 +1,4 @@
-### `<morph-text>`
+### `<nm-text>`
 
 **Objetivo**
 Exibe um bloco de texto formatado.
@@ -19,6 +19,6 @@ Nenhum.
 - Precisa exibir parágrafos de texto, descrições, ou qualquer conteúdo textual genérico.
 
 **Não use quando**
-- Precisa de um título → use `<morph-heading>` ou `<morph-title>`.
-- Precisa de uma legenda → use `<morph-caption>`.
-- Precisa de um rótulo de formulário → use `<morph-label>`.
+- Precisa de um título → use `<nm-heading>` ou `<nm-title>`.
+- Precisa de uma legenda → use `<nm-caption>`.
+- Precisa de um rótulo de formulário → use `<nm-label>`.

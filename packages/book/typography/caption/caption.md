@@ -1,4 +1,4 @@
-### `<morph-caption>`
+### `<nm-caption>`
 
 **Objetivo**
 Exibe texto de legenda, geralmente menor e com estilo diferenciado para informações auxiliares.
@@ -20,5 +20,5 @@ Nenhum.
 - Necessita de um texto secundário ou auxiliar, com hierarquia visual menor que um texto normal.
 
 **Não use quando**
-- Precisa de um texto principal ou um parágrafo longo → use `<morph-text>`.
-- Precisa de um título ou subtítulo → use `<morph-heading>` ou `<morph-title>`.
+- Precisa de um texto principal ou um parágrafo longo → use `<nm-text>`.
+- Precisa de um título ou subtítulo → use `<nm-heading>` ou `<nm-title>`.

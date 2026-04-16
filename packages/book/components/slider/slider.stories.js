@@ -18,7 +18,7 @@ export default {
     },
     helper: {
       control: 'text',
-      description: 'Texto auxiliar exibido abaixo do slider (morph-helper)',
+      description: 'Texto auxiliar exibido abaixo do slider (nm-helper)',
     },
     hidden: {
       control: 'boolean',
@@ -27,7 +27,7 @@ export default {
     },
     label: {
       control: 'text',
-      description: 'Label associada ao slider (morph-label)',
+      description: 'Label associada ao slider (nm-label)',
     },
     max: {
       control: 'number',
@@ -68,7 +68,7 @@ export default {
   render: (args) => {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = `
-      <morph-slider
+      <nm-slider
         ${args.name ? `name="${args.name}"` : ''}
         ${args.min !== undefined ? `min="${args.min}"` : ''}
         ${args.max !== undefined ? `max="${args.max}"` : ''}
@@ -80,9 +80,9 @@ export default {
       >
         ${args.label ? `<span slot="label">${args.label}</span>` : ''}
         ${args.helper ? `<span slot="helper">${args.helper}</span>` : ''}
-      </morph-slider>
+      </nm-slider>
     `
-    const element = wrapper.querySelector('morph-slider')
+    const element = wrapper.querySelector('nm-slider')
     if (args.onChange) element.addEventListener('change', args.onChange)
     return element
   },

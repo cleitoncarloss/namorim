@@ -8,7 +8,7 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-fetch\` é uma diretiva headless que facilita requisições HTTP através do barramento de eventos.
+O componente \`nm-fetch\` é uma diretiva headless que facilita requisições HTTP através do barramento de eventos.
 
 ## Características
 
@@ -17,12 +17,12 @@ O componente \`morph-fetch\` é uma diretiva headless que facilita requisições
 - **Eventos**: Dispara \`succeeded\` e \`errored\` após requisições
 - **Cancelamento**: Aborta requisições pendentes automaticamente
 - **Interpolação**: Permite substituir variáveis na URL
-- **Dataflow**: Integração via barramento de eventos com \`morph-on\`
+- **Dataflow**: Integração via barramento de eventos com \`nm-on\`
 
 ## Sintaxe
 
 \`\`\`html
-<morph-fetch url="/api/users/:id"></morph-fetch>
+<nm-fetch url="/api/users/:id"></nm-fetch>
 \`\`\`
 
 ## Atributos
@@ -53,52 +53,52 @@ Disparado quando a requisição falha. O \`event.detail\` contém informações 
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com \`morph-on\`.
+O componente é projetado para ser usado através do barramento de eventos com \`nm-on\`.
 
-**IMPORTANTE**: O \`morph-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
+**IMPORTANTE**: O \`nm-on\` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
 
 ### Trigger de Requisição
 
 \`\`\`html
 <!-- Botão que dispara o método get do fetch -->
-<morph-button>Carregar Dados</morph-button>
+<nm-button>Carregar Dados</nm-button>
 
-<!-- morph-on é filho do fetch (manipula o pai) -->
-<morph-fetch url="https://api.example.com/users">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<!-- nm-on é filho do fetch (manipula o pai) -->
+<nm-fetch url="https://api.example.com/users">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 \`\`\`
 
 ### Passando Payload
 
 \`\`\`html
 <!-- Botão com value que será passado como payload -->
-<morph-button value='{"id":123}'>Buscar Usuário 123</morph-button>
+<nm-button value='{"id":123}'>Buscar Usuário 123</nm-button>
 
-<morph-fetch url="https://api.example.com/users/:id">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<nm-fetch url="https://api.example.com/users/:id">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 \`\`\`
 
 ### Reagindo ao Sucesso
 
 \`\`\`html
-<morph-fetch url="https://api.example.com/users"></morph-fetch>
+<nm-fetch url="https://api.example.com/users"></nm-fetch>
 
-<!-- morph-on é filho do morph-text (manipula o pai) -->
-<morph-text value="">
-  <morph-on value="morph-fetch/succeeded:attribute/value|prop=name"></morph-on>
-</morph-text>
+<!-- nm-on é filho do nm-text (manipula o pai) -->
+<nm-text value="">
+  <nm-on value="nm-fetch/succeeded:attribute/value|prop=name"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Reagindo ao Erro
 
 \`\`\`html
-<morph-fetch url="https://api.example.com/invalid"></morph-fetch>
+<nm-fetch url="https://api.example.com/invalid"></nm-fetch>
 
-<morph-text value="">
-  <morph-on value="morph-fetch/errored:attribute/value|always=Erro na requisição"></morph-on>
-</morph-text>
+<nm-text value="">
+  <nm-on value="nm-fetch/errored:attribute/value|always=Erro na requisição"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Exemplos de Fluxos Completos
@@ -107,72 +107,72 @@ O componente é projetado para ser usado através do barramento de eventos com \
 
 \`\`\`html
 <!-- Botão trigger -->
-<morph-button>Carregar</morph-button>
+<nm-button>Carregar</nm-button>
 
-<!-- Fetch com morph-on interno -->
-<morph-fetch url="https://api.example.com/data">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<!-- Fetch com nm-on interno -->
+<nm-fetch url="https://api.example.com/data">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 
-<!-- Exibição com morph-on interno -->
-<morph-text value="Aguardando...">
-  <morph-on value="morph-fetch/succeeded:attribute/value|prop=message"></morph-on>
-  <morph-on value="morph-fetch/errored:attribute/value|always=Erro!"></morph-on>
-</morph-text>
+<!-- Exibição com nm-on interno -->
+<nm-text value="Aguardando...">
+  <nm-on value="nm-fetch/succeeded:attribute/value|prop=message"></nm-on>
+  <nm-on value="nm-fetch/errored:attribute/value|always=Erro!"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Fluxo de Criação (POST)
 
 \`\`\`html
 <!-- Botão com dados -->
-<morph-button value='{"name":"João","email":"joao@example.com"}'>
+<nm-button value='{"name":"João","email":"joao@example.com"}'>
   Criar Usuário
-</morph-button>
+</nm-button>
 
 <!-- Fetch -->
-<morph-fetch url="https://api.example.com/users">
-  <morph-on value="morph-button/clicked:method/posted"></morph-on>
-</morph-fetch>
+<nm-fetch url="https://api.example.com/users">
+  <nm-on value="nm-button/clicked:method/posted"></nm-on>
+</nm-fetch>
 
 <!-- Feedback -->
-<morph-text value="">
-  <morph-on value="morph-fetch/succeeded:attribute/value|always=Usuário criado!"></morph-on>
-  <morph-on value="morph-fetch/errored:attribute/value|always=Erro ao criar"></morph-on>
-</morph-text>
+<nm-text value="">
+  <nm-on value="nm-fetch/succeeded:attribute/value|always=Usuário criado!"></nm-on>
+  <nm-on value="nm-fetch/errored:attribute/value|always=Erro ao criar"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Fluxo com Interpolação de URL
 
 \`\`\`html
 <!-- Botão com ID no value -->
-<morph-button value='{"id":123}'>Buscar Usuário 123</morph-button>
+<nm-button value='{"id":123}'>Buscar Usuário 123</nm-button>
 
 <!-- Fetch com URL parametrizada -->
-<morph-fetch url="https://api.example.com/users/:id">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<nm-fetch url="https://api.example.com/users/:id">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 
 <!-- Resultado -->
-<morph-text value="">
-  <morph-on value="morph-fetch/succeeded:attribute/value|prop=name"></morph-on>
-</morph-text>
+<nm-text value="">
+  <nm-on value="nm-fetch/succeeded:attribute/value|prop=name"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Fluxo de Deleção (DELETE)
 
 \`\`\`html
 <!-- Botão de deletar -->
-<morph-button value='{"id":123}' color="danger">Deletar</morph-button>
+<nm-button value='{"id":123}' color="danger">Deletar</nm-button>
 
 <!-- Fetch -->
-<morph-fetch url="https://api.example.com/users/:id">
-  <morph-on value="morph-button/clicked:method/deleted"></morph-on>
-</morph-fetch>
+<nm-fetch url="https://api.example.com/users/:id">
+  <nm-on value="nm-button/clicked:method/deleted"></nm-on>
+</nm-fetch>
 
 <!-- Status -->
-<morph-text value="">
-  <morph-on value="morph-fetch/succeeded:attribute/value|always=Deletado com sucesso"></morph-on>
-</morph-text>
+<nm-text value="">
+  <nm-on value="nm-fetch/succeeded:attribute/value|always=Deletado com sucesso"></nm-on>
+</nm-text>
 \`\`\`
 
 ## Cancelamento Automático
@@ -180,36 +180,36 @@ O componente é projetado para ser usado através do barramento de eventos com \
 Requisições pendentes são automaticamente canceladas quando uma nova requisição é iniciada:
 
 \`\`\`html
-<morph-button value='{"id":1}'>Usuário 1</morph-button>
-<morph-button value='{"id":2}'>Usuário 2</morph-button>
+<nm-button value='{"id":1}'>Usuário 1</nm-button>
+<nm-button value='{"id":2}'>Usuário 2</nm-button>
 
-<morph-fetch url="https://api.example.com/users/:id">
+<nm-fetch url="https://api.example.com/users/:id">
   <!-- Se clicar rápido nos dois botões, apenas a última requisição será completada -->
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 \`\`\`
 
 ## Transformando Dados com Filtros
 
-Use filtros do \`morph-on\` para transformar os dados recebidos:
+Use filtros do \`nm-on\` para transformar os dados recebidos:
 
 \`\`\`html
-<morph-fetch url="https://api.example.com/users"></morph-fetch>
+<nm-fetch url="https://api.example.com/users"></nm-fetch>
 
-<morph-text value="">
+<nm-text value="">
   <!-- Extrai propriedade 'name' -->
-  <morph-on value="morph-fetch/succeeded:attribute/value|prop=name"></morph-on>
-</morph-text>
+  <nm-on value="nm-fetch/succeeded:attribute/value|prop=name"></nm-on>
+</nm-text>
 
-<morph-text value="">
+<nm-text value="">
   <!-- Conta quantos itens retornaram -->
-  <morph-on value="morph-fetch/succeeded:attribute/value|len"></morph-on>
-</morph-text>
+  <nm-on value="nm-fetch/succeeded:attribute/value|len"></nm-on>
+</nm-text>
 
-<morph-text value="">
+<nm-text value="">
   <!-- Verifica se teve sucesso -->
-  <morph-on value="morph-fetch/succeeded:attribute/value|always=Sucesso!"></morph-on>
-</morph-text>
+  <nm-on value="nm-fetch/succeeded:attribute/value|always=Sucesso!"></nm-on>
+</nm-text>
 \`\`\`
         `,
       },
@@ -254,59 +254,59 @@ export const CepSearch = {
         <div class="story-description">
           Exemplo real de integração com API externa (ViaCEP). Digite um CEP válido
           (ex: 01310100) e os campos serão preenchidos automaticamente. Demonstra uso
-          de morph-fetch com tratamento de sucesso e erro.
+          de nm-fetch com tratamento de sucesso e erro.
         </div>
 
-        <morph-form>
+        <nm-form>
           <template>
-            <morph-input name="cep" required>
-              <morph-label>CEP</morph-label>
-              <morph-validity state="valueMissing">CEP é obrigatório</morph-validity>
-            </morph-input>
+            <nm-input name="cep" required>
+              <nm-label>CEP</nm-label>
+              <nm-validity state="valueMissing">CEP é obrigatório</nm-validity>
+            </nm-input>
 
-            <morph-input name="estado" readonly>
-              <morph-label>Estado</morph-label>
-              <morph-on value="api/succeeded:attribute/value|prop=estado"></morph-on>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="estado" readonly>
+              <nm-label>Estado</nm-label>
+              <nm-on value="api/succeeded:attribute/value|prop=estado"></nm-on>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-input name="cidade" readonly>
-              <morph-label>Cidade</morph-label>
-              <morph-on value="api/succeeded:attribute/value|prop=localidade"></morph-on>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="cidade" readonly>
+              <nm-label>Cidade</nm-label>
+              <nm-on value="api/succeeded:attribute/value|prop=localidade"></nm-on>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-input name="bairro" readonly>
-              <morph-label>Bairro</morph-label>
-              <morph-on value="api/succeeded:attribute/value|prop=bairro"></morph-on>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="bairro" readonly>
+              <nm-label>Bairro</nm-label>
+              <nm-on value="api/succeeded:attribute/value|prop=bairro"></nm-on>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-input name="rua" readonly>
-              <morph-label>Rua</morph-label>
-              <morph-on value="api/succeeded:attribute/value|prop=logradouro"></morph-on>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="rua" readonly>
+              <nm-label>Rua</nm-label>
+              <nm-on value="api/succeeded:attribute/value|prop=logradouro"></nm-on>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-input name="numero" required>
-              <morph-label>Número</morph-label>
-              <morph-validity state="valueMissing">Número é obrigatório</morph-validity>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="numero" required>
+              <nm-label>Número</nm-label>
+              <nm-validity state="valueMissing">Número é obrigatório</nm-validity>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-input name="complemento">
-              <morph-label>Complemento</morph-label>
-              <morph-on value="api/errored:method/resetted"></morph-on>
-            </morph-input>
+            <nm-input name="complemento">
+              <nm-label>Complemento</nm-label>
+              <nm-on value="api/errored:method/resetted"></nm-on>
+            </nm-input>
 
-            <morph-button width="fill">Enviar</morph-button>
-            <morph-button variant="outlined" type="resetted" width="fill">Limpar</morph-button>
+            <nm-button width="fill">Enviar</nm-button>
+            <nm-button variant="outlined" type="resetted" width="fill">Limpar</nm-button>
           </template>
-        </morph-form>
+        </nm-form>
 
-        <morph-fetch name="api" url="https://viacep.com.br/ws/{}/json">
-          <morph-on value="cep/changed:method/get"></morph-on>
-        </morph-fetch>
+        <nm-fetch name="api" url="https://viacep.com.br/ws/{}/json">
+          <nm-on value="cep/changed:method/get"></nm-on>
+        </nm-fetch>
       </div>
     `
     return container
@@ -350,22 +350,22 @@ export const SimpleGetRequest = {
           Exemplo básico de requisição GET com feedback de sucesso e erro.
         </div>
 
-        <morph-button name="load">
+        <nm-button name="load">
           Buscar Dados
-          <morph-icon use="cloud_download"></morph-icon>
-        </morph-button>
+          <nm-icon use="cloud_download"></nm-icon>
+        </nm-button>
 
         <div class="result-box">
-          <morph-text value="Aguardando...">
-            <morph-on value="api/succeeded:attribute/value|prop=title"></morph-on>
-            <morph-on value="api/errored:attribute/value|always=Erro ao carregar dados"></morph-on>
-            <morph-on value="load/clicked:attribute/value|always=Carregando..."></morph-on>
-          </morph-text>
+          <nm-text value="Aguardando...">
+            <nm-on value="api/succeeded:attribute/value|prop=title"></nm-on>
+            <nm-on value="api/errored:attribute/value|always=Erro ao carregar dados"></nm-on>
+            <nm-on value="load/clicked:attribute/value|always=Carregando..."></nm-on>
+          </nm-text>
         </div>
 
-        <morph-fetch name="api" url="https://jsonplaceholder.typicode.com/posts/1">
-          <morph-on value="load/clicked:method/get"></morph-on>
-        </morph-fetch>
+        <nm-fetch name="api" url="https://jsonplaceholder.typicode.com/posts/1">
+          <nm-on value="load/clicked:method/get"></nm-on>
+        </nm-fetch>
       </div>
     `
     return container
@@ -403,34 +403,34 @@ export const PostRequest = {
           Demonstra requisição POST para criar um novo recurso.
         </div>
 
-        <morph-form>
+        <nm-form>
           <template>
-            <morph-input name="title" required>
-              <morph-label>Título</morph-label>
-              <morph-validity state="valueMissing">Título é obrigatório</morph-validity>
-            </morph-input>
+            <nm-input name="title" required>
+              <nm-label>Título</nm-label>
+              <nm-validity state="valueMissing">Título é obrigatório</nm-validity>
+            </nm-input>
 
-            <morph-input name="body" required>
-              <morph-label>Conteúdo</morph-label>
-              <morph-validity state="valueMissing">Conteúdo é obrigatório</morph-validity>
-            </morph-input>
+            <nm-input name="body" required>
+              <nm-label>Conteúdo</nm-label>
+              <nm-validity state="valueMissing">Conteúdo é obrigatório</nm-validity>
+            </nm-input>
 
-            <morph-button width="fill">
+            <nm-button width="fill">
               Criar Post
-              <morph-icon use="send"></morph-icon>
-            </morph-button>
+              <nm-icon use="send"></nm-icon>
+            </nm-button>
           </template>
-          <morph-on value="api/succeeded:method/resetted"></morph-on>
-        </morph-form>
+          <nm-on value="api/succeeded:method/resetted"></nm-on>
+        </nm-form>
 
-        <morph-text value="">
-          <morph-on value="api/succeeded:attribute/value|always=Post criado com sucesso! ✓"></morph-on>
-          <morph-on value="api/errored:attribute/value|always=Erro ao criar post ✗"></morph-on>
-        </morph-text>
+        <nm-text value="">
+          <nm-on value="api/succeeded:attribute/value|always=Post criado com sucesso! ✓"></nm-on>
+          <nm-on value="api/errored:attribute/value|always=Erro ao criar post ✗"></nm-on>
+        </nm-text>
 
-        <morph-fetch name="api" url="https://jsonplaceholder.typicode.com/posts">
-          <morph-on value="morph-form/submitted:method/posted"></morph-on>
-        </morph-fetch>
+        <nm-fetch name="api" url="https://jsonplaceholder.typicode.com/posts">
+          <nm-on value="nm-form/submitted:method/posted"></nm-on>
+        </nm-fetch>
       </div>
     `
     return container

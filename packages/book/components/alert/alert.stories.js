@@ -1,7 +1,7 @@
 import './alert'
 
 const renderAlert = (args) => {
-  const alert = document.createElement('morph-alert')
+  const alert = document.createElement('nm-alert')
 
   alert.setAttribute('type', args.type)
   if (args.duration !== undefined) alert.setAttribute('duration', args.duration)

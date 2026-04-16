@@ -1,4 +1,4 @@
-### `<morph-redirect>`
+### `<nm-redirect>`
 
 **Objetivo**
 Diretiva headless para navegação programática.
@@ -16,12 +16,12 @@ Nenhum.
 - Precisa redirecionar o usuário para outra URL de forma programática, sem um clique direto em um link.
 
 **Não use quando**
-- Precisa de um link visível e clicável → use `<morph-link>`.
+- Precisa de um link visível e clicável → use `<nm-link>`.
 
 ## Uso
 
 ```html
-<morph-redirect href="/dashboard"></morph-redirect>
+<nm-redirect href="/dashboard"></nm-redirect>
 ```
 
 ## Metodos
@@ -31,8 +31,8 @@ Nenhum.
 ## Exemplo com Event Binding
 
 ```html
-<morph-button value="dashboard">Ir para Dashboard</morph-button>
-<morph-redirect href="/dashboard">
-  <morph-on value="button/clicked:method/go"></morph-on>
-</morph-redirect>
+<nm-button value="dashboard">Ir para Dashboard</nm-button>
+<nm-redirect href="/dashboard">
+  <nm-on value="button/clicked:method/go"></nm-on>
+</nm-redirect>
 ```

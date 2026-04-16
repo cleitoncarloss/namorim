@@ -20,7 +20,7 @@ import {
 import interpolate from './interpolate'
 import style from './style'
 
-@define('morph-select')
+@define('nm-select')
 @paint(component, style)
 class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
   #controller

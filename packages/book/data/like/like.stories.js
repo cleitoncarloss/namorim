@@ -8,29 +8,29 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-like\` é uma diretiva headless que filtra dados de um dataset baseado em uma busca parcial (like/contains).
+O componente \`nm-like\` é uma diretiva headless que filtra dados de um dataset baseado em uma busca parcial (like/contains).
 
 ## Características
 
 - **Headless**: Não possui renderização visual
 - **Case Insensitive**: Busca não diferencia maiúsculas de minúsculas
 - **Filtro Parcial**: Busca valores que contenham o texto digitado
-- **Filho de Dataset**: Deve ser filho direto de \`morph-dataset\`
+- **Filho de Dataset**: Deve ser filho direto de \`nm-dataset\`
 - **Eventos**: Dispara \`liked\` com os resultados filtrados
-- **Dataflow**: Integração via barramento de eventos com \`morph-on\`
+- **Dataflow**: Integração via barramento de eventos com \`nm-on\`
 
 ## Sintaxe
 
 \`\`\`html
-<morph-dataset name="users" upsert="id">
-  <morph-like key="name"></morph-like>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-like key="name"></nm-like>
+</nm-dataset>
 \`\`\`
 
 ## Atributos
 
 - **key**: Nome da propriedade a ser buscada no dataset (ex: \`name\`, \`email\`, \`title\`)
-- **value**: Valor a ser buscado (geralmente definido via \`morph-on\`)
+- **value**: Valor a ser buscado (geralmente definido via \`nm-on\`)
 
 ## Comportamento
 
@@ -46,49 +46,49 @@ Disparado após a busca. O \`event.detail\` contém um array com os itens encont
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com \`morph-on\`.
+O componente é projetado para ser usado através do barramento de eventos com \`nm-on\`.
 
 ### Busca em Campo de Texto
 
 \`\`\`html
 <!-- Input de busca -->
-<morph-input name="search">
-  <morph-label>Buscar por nome</morph-label>
-</morph-input>
+<nm-input name="search">
+  <nm-label>Buscar por nome</nm-label>
+</nm-input>
 
-<!-- Dataset com morph-like interno -->
-<morph-dataset name="users" upsert="id">
-  <morph-like key="name">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-</morph-dataset>
+<!-- Dataset com nm-like interno -->
+<nm-dataset name="users" upsert="id">
+  <nm-like key="name">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+</nm-dataset>
 
 <!-- Exibe quantidade de resultados -->
-<morph-text value="0 resultados">
-  <morph-on value="users/liked:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="0 resultados">
+  <nm-on value="users/liked:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Busca com Renderização de Resultados
 
 \`\`\`html
-<morph-input name="search">
-  <morph-label>Buscar usuários</morph-label>
-</morph-input>
+<nm-input name="search">
+  <nm-label>Buscar usuários</nm-label>
+</nm-input>
 
-<morph-dataset name="users" upsert="id">
-  <morph-like key="name">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-like key="name">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+</nm-dataset>
 
 <!-- Renderiza apenas os resultados filtrados -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-text>{name} - {email}</morph-text>
+    <nm-text>{name} - {email}</nm-text>
   </template>
-  <morph-on value="users/liked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/liked:method/render"></nm-on>
+</nm-render>
 \`\`\`
 
 ## Exemplos de Fluxos Completos
@@ -97,122 +97,122 @@ O componente é projetado para ser usado através do barramento de eventos com \
 
 \`\`\`html
 <!-- Campo de busca -->
-<morph-input name="search">
-  <morph-label>Buscar produto</morph-label>
-</morph-input>
+<nm-input name="search">
+  <nm-label>Buscar produto</nm-label>
+</nm-input>
 
 <!-- Botões para adicionar produtos -->
-<morph-button value='{"id":1,"name":"Notebook","price":3000}'>
+<nm-button value='{"id":1,"name":"Notebook","price":3000}'>
   Adicionar Notebook
-</morph-button>
-<morph-button value='{"id":2,"name":"Mouse","price":50}'>
+</nm-button>
+<nm-button value='{"id":2,"name":"Mouse","price":50}'>
   Adicionar Mouse
-</morph-button>
-<morph-button value='{"id":3,"name":"Teclado","price":200}'>
+</nm-button>
+<nm-button value='{"id":3,"name":"Teclado","price":200}'>
   Adicionar Teclado
-</morph-button>
+</nm-button>
 
 <!-- Dataset com filtro -->
-<morph-dataset name="products" upsert="id">
-  <morph-like key="name">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-  <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-</morph-dataset>
+<nm-dataset name="products" upsert="id">
+  <nm-like key="name">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+  <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+</nm-dataset>
 
 <!-- Renderiza resultados filtrados -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-stack>
-      <morph-text>{name}</morph-text>
-      <morph-text>R$ {price}</morph-text>
-    </morph-stack>
+    <nm-stack>
+      <nm-text>{name}</nm-text>
+      <nm-text>R$ {price}</nm-text>
+    </nm-stack>
   </template>
-  <morph-on value="products/liked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="products/liked:method/render"></nm-on>
+</nm-render>
 
 <!-- Contador de resultados -->
-<morph-text value="0 encontrados">
-  <morph-on value="products/liked:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="0 encontrados">
+  <nm-on value="products/liked:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Busca com Debounce
 
 \`\`\`html
 <!-- Input com delay -->
-<morph-input name="search" debounce="300">
-  <morph-label>Digite para buscar</morph-label>
-</morph-input>
+<nm-input name="search" debounce="300">
+  <nm-label>Digite para buscar</nm-label>
+</nm-input>
 
-<morph-dataset name="users" upsert="id">
-  <morph-like key="email">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-like key="email">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+</nm-dataset>
 
-<morph-text value="Digite algo...">
-  <morph-on value="users/liked:attribute/value|len"></morph-on>
-</morph-text>
+<nm-text value="Digite algo...">
+  <nm-on value="users/liked:attribute/value|len"></nm-on>
+</nm-text>
 \`\`\`
 
 ### Busca em Múltiplas Propriedades
 
-Para buscar em múltiplas propriedades, use múltiplos \`morph-like\`:
+Para buscar em múltiplas propriedades, use múltiplos \`nm-like\`:
 
 \`\`\`html
-<morph-input name="search">
-  <morph-label>Buscar</morph-label>
-</morph-input>
+<nm-input name="search">
+  <nm-label>Buscar</nm-label>
+</nm-input>
 
-<morph-dataset name="users" upsert="id">
+<nm-dataset name="users" upsert="id">
   <!-- Busca por nome -->
-  <morph-like key="name">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
+  <nm-like key="name">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
 
   <!-- Busca por email -->
-  <morph-like key="email">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-</morph-dataset>
+  <nm-like key="email">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+</nm-dataset>
 \`\`\`
 
 ## Diferença entre Like e Found
 
-- **morph-like**: Filtra múltiplos resultados com busca parcial (contains)
-- **morph-found**: Busca um único resultado com match exato
+- **nm-like**: Filtra múltiplos resultados com busca parcial (contains)
+- **nm-found**: Busca um único resultado com match exato
 
 \`\`\`html
 <!-- Like: retorna array com todos que contêm "Jo" -->
-<morph-like key="name" value="Jo"></morph-like>
+<nm-like key="name" value="Jo"></nm-like>
 <!-- Resultado: [{name:"João"}, {name:"Jorge"}] -->
 
 <!-- Found: retorna objeto com match exato -->
-<morph-found key="name" value="João"></morph-found>
+<nm-found key="name" value="João"></nm-found>
 <!-- Resultado: {name:"João"} -->
 \`\`\`
 
-## Integração com morph-render
+## Integração com nm-render
 
-O resultado de \`liked\` pode ser usado diretamente com \`morph-render\`:
+O resultado de \`liked\` pode ser usado diretamente com \`nm-render\`:
 
 \`\`\`html
-<morph-dataset name="users" upsert="id">
-  <morph-like key="name">
-    <morph-on value="search/changed:attribute/value"></morph-on>
-  </morph-like>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-like key="name">
+    <nm-on value="search/changed:attribute/value"></nm-on>
+  </nm-like>
+</nm-dataset>
 
 <!-- Renderiza automaticamente os resultados filtrados -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="users/liked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/liked:method/render"></nm-on>
+</nm-render>
 \`\`\`
         `,
       },
@@ -225,7 +225,7 @@ O resultado de \`liked\` pode ser usado diretamente com \`morph-render\`:
     },
     value: {
       control: 'text',
-      description: 'Valor a ser buscado (geralmente via morph-on)',
+      description: 'Valor a ser buscado (geralmente via nm-on)',
     },
   },
 }
@@ -272,52 +272,52 @@ export const ProductSearch = {
         </div>
 
         <div class="add-buttons">
-          <morph-button value='{"id":1,"name":"Notebook Dell","price":3500}'>
+          <nm-button value='{"id":1,"name":"Notebook Dell","price":3500}'>
             + Notebook Dell
-          </morph-button>
-          <morph-button value='{"id":2,"name":"Mouse Logitech","price":150}'>
+          </nm-button>
+          <nm-button value='{"id":2,"name":"Mouse Logitech","price":150}'>
             + Mouse Logitech
-          </morph-button>
-          <morph-button value='{"id":3,"name":"Teclado Mecânico","price":450}'>
+          </nm-button>
+          <nm-button value='{"id":3,"name":"Teclado Mecânico","price":450}'>
             + Teclado Mecânico
-          </morph-button>
-          <morph-button value='{"id":4,"name":"Webcam Logitech","price":350}'>
+          </nm-button>
+          <nm-button value='{"id":4,"name":"Webcam Logitech","price":350}'>
             + Webcam Logitech
-          </morph-button>
-          <morph-button value='{"id":5,"name":"Headset Gamer","price":280}'>
+          </nm-button>
+          <nm-button value='{"id":5,"name":"Headset Gamer","price":280}'>
             + Headset Gamer
-          </morph-button>
+          </nm-button>
         </div>
 
-        <morph-input name="search">
-          <morph-label>🔍 Buscar produtos</morph-label>
-        </morph-input>
+        <nm-input name="search">
+          <nm-label>🔍 Buscar produtos</nm-label>
+        </nm-input>
 
-        <morph-dataset name="products" upsert="id">
-          <morph-like key="name">
-            <morph-on value="search/changed:attribute/value"></morph-on>
-          </morph-like>
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="products" upsert="id">
+          <nm-like key="name">
+            <nm-on value="search/changed:attribute/value"></nm-on>
+          </nm-like>
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+        </nm-dataset>
 
         <div>
           <div class="results-header">
             Resultados encontrados:
-            <morph-text value="0">
-              <morph-on value="products/liked:attribute/value|len"></morph-on>
-            </morph-text>
+            <nm-text value="0">
+              <nm-on value="products/liked:attribute/value|len"></nm-on>
+            </nm-text>
           </div>
         </div>
 
-        <morph-render>
+        <nm-render>
           <template>
-            <morph-stack>
-              <morph-text style="flex: 1;">{name}</morph-text>
-              <morph-text style="font-weight: 600; color: #1976d2;">R$ {price}</morph-text>
-            </morph-stack>
+            <nm-stack>
+              <nm-text style="flex: 1;">{name}</nm-text>
+              <nm-text style="font-weight: 600; color: #1976d2;">R$ {price}</nm-text>
+            </nm-stack>
           </template>
-          <morph-on value="products/liked:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="products/liked:method/render"></nm-on>
+        </nm-render>
       </div>
     `
     return container
@@ -355,43 +355,43 @@ export const UserSearch = {
           Busca case-insensitive em lista de usuários.
         </div>
 
-        <morph-button value='{"id":1,"name":"João Silva","email":"joao@example.com"}'>
+        <nm-button value='{"id":1,"name":"João Silva","email":"joao@example.com"}'>
           Adicionar João Silva
-        </morph-button>
-        <morph-button value='{"id":2,"name":"Maria Santos","email":"maria@example.com"}'>
+        </nm-button>
+        <nm-button value='{"id":2,"name":"Maria Santos","email":"maria@example.com"}'>
           Adicionar Maria Santos
-        </morph-button>
-        <morph-button value='{"id":3,"name":"José Oliveira","email":"jose@example.com"}'>
+        </nm-button>
+        <nm-button value='{"id":3,"name":"José Oliveira","email":"jose@example.com"}'>
           Adicionar José Oliveira
-        </morph-button>
+        </nm-button>
 
-        <morph-input name="search">
-          <morph-label>Buscar por nome</morph-label>
-        </morph-input>
+        <nm-input name="search">
+          <nm-label>Buscar por nome</nm-label>
+        </nm-input>
 
-        <morph-dataset name="users" upsert="id">
-          <morph-like key="name">
-            <morph-on value="search/changed:attribute/value"></morph-on>
-          </morph-like>
-          <morph-on value="morph-button/clicked:method/pushed"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="users" upsert="id">
+          <nm-like key="name">
+            <nm-on value="search/changed:attribute/value"></nm-on>
+          </nm-like>
+          <nm-on value="nm-button/clicked:method/pushed"></nm-on>
+        </nm-dataset>
 
         <div style="background: #f5f5f5; padding: 12px; border-radius: 8px;">
           <strong>Encontrados:</strong>
-          <morph-text value="0">
-            <morph-on value="users/liked:attribute/value|len"></morph-on>
-          </morph-text>
+          <nm-text value="0">
+            <nm-on value="users/liked:attribute/value|len"></nm-on>
+          </nm-text>
         </div>
 
-        <morph-render>
+        <nm-render>
           <template>
-            <morph-stack direction="column">
-              <morph-text style="font-weight: 600;">{name}</morph-text>
-              <morph-text style="color: #666; font-size: 14px;">{email}</morph-text>
-            </morph-stack>
+            <nm-stack direction="column">
+              <nm-text style="font-weight: 600;">{name}</nm-text>
+              <nm-text style="color: #666; font-size: 14px;">{email}</nm-text>
+            </nm-stack>
           </template>
-          <morph-on value="users/liked:method/render"></morph-on>
-        </morph-render>
+          <nm-on value="users/liked:method/render"></nm-on>
+        </nm-render>
       </div>
     `
     return container

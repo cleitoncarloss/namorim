@@ -1,4 +1,4 @@
-### `<morph-container>`
+### `<nm-container>`
 
 **Objetivo**
 Define uma área de conteúdo com largura máxima e centralizada para organizar o layout principal da página.
@@ -17,5 +17,5 @@ Nenhum.
 - Precisa de uma estrutura de layout principal para a página que garanta alinhamento e legibilidade em diferentes tamanhos de tela.
 
 **Não use quando**
-- Precisa de um agrupamento flexível de elementos sem restrições de largura → use `<morph-stack>`.
-- Precisa de um container com padding interno negativo → use `<morph-inset>`.
+- Precisa de um agrupamento flexível de elementos sem restrições de largura → use `<nm-stack>`.
+- Precisa de um container com padding interno negativo → use `<nm-inset>`.

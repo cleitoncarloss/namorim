@@ -21,7 +21,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-indicator')
+    const element = document.createElement('nm-indicator')
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)
     element.textContent = 'Thinking...'

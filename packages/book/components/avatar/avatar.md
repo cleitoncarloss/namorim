@@ -1,4 +1,4 @@
-### `<morph-avatar>`
+### `<nm-avatar>`
 
 **Objetivo**
 Exibe uma imagem de avatar.
@@ -20,4 +20,4 @@ Exibe uma imagem de avatar.
 - Precisa exibir a imagem de um usuário.
 
 **Não use quando**
-- Precisa exibir um ícone → use `<morph-icon>`.
+- Precisa exibir um ícone → use `<nm-icon>`.

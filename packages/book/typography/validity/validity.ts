@@ -5,7 +5,7 @@ import component from './component'
 import { reflectable, resettable, slottable, validatable } from './interfaces'
 import style from './style'
 
-@define('morph-validity')
+@define('nm-validity')
 @paint(component, style)
 class Validity extends Echo(HTMLElement) {
   #controller

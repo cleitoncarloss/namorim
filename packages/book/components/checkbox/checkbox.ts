@@ -8,7 +8,7 @@ import component from './component'
 import { changed, validatable } from './interface'
 import style from './style'
 
-// FIXME: Refatorar a implementacao deste component, pois esta fora do padrao @define('morph-checkbox')
+// FIXME: Refatorar a implementacao deste component, pois esta fora do padrao @define('nm-checkbox')
 @paint(component, style)
 class Checkbox extends Disabled(Echo(Hidden(Width(HTMLElement)))) {
   #checked

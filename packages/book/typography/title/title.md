@@ -1,4 +1,4 @@
-### `<morph-title>`
+### `<nm-title>`
 
 **Objetivo**
 Exibe o título principal da página ou de uma seção de destaque.
@@ -18,5 +18,5 @@ Nenhum.
 - Precisa de um título de destaque que represente o conteúdo principal da página ou uma seção importante.
 
 **Não use quando**
-- Precisa de um subtítulo ou título de seção menor → use `<morph-heading>`.
-- Precisa de um texto comum → use `<morph-text>`.
+- Precisa de um subtítulo ou título de seção menor → use `<nm-heading>`.
+- Precisa de um texto comum → use `<nm-text>`.

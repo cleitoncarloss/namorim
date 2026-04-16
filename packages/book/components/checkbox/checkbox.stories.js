@@ -24,7 +24,7 @@ export default {
     },
     helper: {
       control: 'text',
-      description: 'Texto auxiliar exibido abaixo do checkbox (morph-helper)',
+      description: 'Texto auxiliar exibido abaixo do checkbox (nm-helper)',
     },
     hidden: {
       control: 'boolean',
@@ -33,7 +33,7 @@ export default {
     },
     label: {
       control: 'text',
-      description: 'Label associada ao checkbox (morph-label)',
+      description: 'Label associada ao checkbox (nm-label)',
     },
     name: {
       control: 'text',
@@ -57,7 +57,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-checkbox')
+    const element = document.createElement('nm-checkbox')
     if (args.name) element.setAttribute('name', args.name)
     if (args.width) element.setAttribute('width', args.width)
     if (args.checked) element.setAttribute('checked', '')
@@ -66,17 +66,17 @@ export default {
     if (args.required) element.setAttribute('required', '')
     if (args.onChanged) element.addEventListener('changed', args.onChanged)
     if (args.label) {
-      const label = document.createElement('morph-label')
+      const label = document.createElement('nm-label')
       label.textContent = args.label
       element.appendChild(label)
     }
     if (args.helper) {
-      const helper = document.createElement('morph-helper')
+      const helper = document.createElement('nm-helper')
       helper.textContent = args.helper
       element.appendChild(helper)
     }
     if (args.required) {
-      const validity = document.createElement('morph-validity')
+      const validity = document.createElement('nm-validity')
       validity.setAttribute('state', 'valueMissing')
       validity.textContent = 'Marque esta opcao para continuar'
       element.appendChild(validity)

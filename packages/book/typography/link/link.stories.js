@@ -62,7 +62,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-link')
+    const element = document.createElement('nm-link')
     if (args.align) element.setAttribute('align', args.align)
     if (args.color) element.setAttribute('color', args.color)
     element.setAttribute('size', args.size)

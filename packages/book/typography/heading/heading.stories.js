@@ -40,7 +40,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-heading')
+    const element = document.createElement('nm-heading')
     element.setAttribute('color', args.color)
     element.setAttribute('align', args.align)
     element.textContent = args.content

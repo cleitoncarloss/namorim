@@ -21,7 +21,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-container')
+    const element = document.createElement('nm-container')
     element.textContent = args.content
     if (args.hidden) element.setAttribute('hidden', '')
     if (args.on) element.setAttribute('on', args.on)

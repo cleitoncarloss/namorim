@@ -9,7 +9,7 @@ import { render, resetted, submitted } from './interfaces'
 import interpolate from './interpolate'
 import style from './style'
 
-@define('morph-form')
+@define('nm-form')
 @paint(component, style)
 class Form extends Echo(Hidden(Siphon(Template(HTMLElement)))) {
   #internals

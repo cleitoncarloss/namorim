@@ -5,7 +5,7 @@ import { Align, Color, Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-heading')
+@define('nm-heading')
 @paint(component, style)
 class Heading extends Align(Color(Echo(Hidden(HTMLElement)))) {
   #internals

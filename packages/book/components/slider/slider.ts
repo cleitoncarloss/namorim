@@ -7,7 +7,7 @@ import { Disabled, Hidden, Width } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-slider')
+@define('nm-slider')
 @paint(component, style)
 class Slider extends Disabled(Echo(Hidden(Width(HTMLElement)))) {
   #internals

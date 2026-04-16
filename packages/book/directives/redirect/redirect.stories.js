@@ -8,12 +8,12 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-redirect\` e uma diretiva headless para navegacao programatica.
+O componente \`nm-redirect\` e uma diretiva headless para navegacao programatica.
 
 ## Uso
 
 \`\`\`html
-<morph-redirect href="/dashboard"></morph-redirect>
+<nm-redirect href="/dashboard"></nm-redirect>
 \`\`\`
 
 ## Metodos
@@ -23,10 +23,10 @@ O componente \`morph-redirect\` e uma diretiva headless para navegacao programat
 ## Exemplo com Event Binding
 
 \`\`\`html
-<morph-button value="dashboard">Ir para Dashboard</morph-button>
-<morph-redirect href="/dashboard">
-  <morph-on value="button/clicked:method/go"></morph-on>
-</morph-redirect>
+<nm-button value="dashboard">Ir para Dashboard</nm-button>
+<nm-redirect href="/dashboard">
+  <nm-on value="button/clicked:method/go"></nm-on>
+</nm-redirect>
 \`\`\`
         `,
       },
@@ -51,7 +51,7 @@ export const Default = {
     container.innerHTML = `
       <p style="margin: 0 0 8px 0; font-weight: bold;">Exemplo de uso:</p>
       <code style="display: block; padding: 8px; background: #e0e0e0; border-radius: 4px;">
-        &lt;morph-redirect href="/dashboard"&gt;&lt;/morph-redirect&gt;
+        &lt;nm-redirect href="/dashboard"&gt;&lt;/nm-redirect&gt;
       </code>
       <p style="margin: 16px 0 8px 0; font-size: 12px; color: #666;">
         Componente headless - nao renderiza elementos visuais.

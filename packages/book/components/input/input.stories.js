@@ -19,7 +19,7 @@ export default {
     },
     helper: {
       control: 'text',
-      description: 'Texto auxiliar exibido abaixo do input (morph-helper)',
+      description: 'Texto auxiliar exibido abaixo do input (nm-helper)',
     },
     hidden: {
       control: 'boolean',
@@ -28,7 +28,7 @@ export default {
     },
     label: {
       control: 'text',
-      description: 'Label associada ao input (morph-label)',
+      description: 'Label associada ao input (nm-label)',
     },
     max: {
       control: 'text',
@@ -79,7 +79,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-input')
+    const element = document.createElement('nm-input')
     if (args.name) element.setAttribute('name', args.name)
     if (args.type) element.setAttribute('type', args.type)
     if (args.placeholder) element.setAttribute('placeholder', args.placeholder)
@@ -93,17 +93,17 @@ export default {
     if (args.required) element.setAttribute('required', '')
     if (args.onChange) element.addEventListener('change', args.onChange)
     if (args.label) {
-      const label = document.createElement('morph-label')
+      const label = document.createElement('nm-label')
       label.textContent = args.label
       element.appendChild(label)
     }
     if (args.helper) {
-      const helper = document.createElement('morph-helper')
+      const helper = document.createElement('nm-helper')
       helper.textContent = args.helper
       element.appendChild(helper)
     }
     if (args.required) {
-      const validity = document.createElement('morph-validity')
+      const validity = document.createElement('nm-validity')
       validity.setAttribute('state', 'valueMissing')
       validity.textContent = 'Campo obrigatorio'
       element.appendChild(validity)

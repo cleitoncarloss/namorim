@@ -1,4 +1,4 @@
-### `<morph-stack>`
+### `<nm-stack>`
 
 **Objetivo**
 Organiza elementos em uma pilha (vertical ou horizontal) com espaçamento consistente.

@@ -8,12 +8,12 @@ export default {
     docs: {
       description: {
         component: `
-O componente \`morph-on\` e uma diretiva headless que conecta eventos entre componentes.
+O componente \`nm-on\` e uma diretiva headless que conecta eventos entre componentes.
 
 ## Sintaxe
 
 \`\`\`
-<morph-on value="source/event:target/action|filter"></morph-on>
+<nm-on value="source/event:target/action|filter"></nm-on>
 \`\`\`
 
 ## Formato do Value
@@ -54,44 +54,44 @@ O componente \`morph-on\` e uma diretiva headless que conecta eventos entre comp
 
 \`\`\`html
 <!-- Chama metodo push quando input emite sent -->
-<morph-on value="input/sent:method/push"></morph-on>
+<nm-on value="input/sent:method/push"></nm-on>
 
 <!-- Define atributo waiting=true quando agent emite thinking -->
-<morph-on value="agent/thinking:attribute/waiting|always=true"></morph-on>
+<nm-on value="agent/thinking:attribute/waiting|always=true"></nm-on>
 
 <!-- Incrementa contador ao clicar -->
-<morph-on value="button/clicked:method/setCount|inc"></morph-on>
+<nm-on value="button/clicked:method/setCount|inc"></nm-on>
 
 <!-- Define loading=false quando requisicao completa -->
-<morph-on value="api/complete:attribute/loading|always=false"></morph-on>
+<nm-on value="api/complete:attribute/loading|always=false"></nm-on>
 
 <!-- Extrai propriedade 'name' do evento -->
-<morph-on value="form/submitted:method/setName|prop=name"></morph-on>
+<nm-on value="form/submitted:method/setName|prop=name"></nm-on>
 
 <!-- Compara se valor é maior que 10 -->
-<morph-on value="input/changed:attribute/valid|gt=10"></morph-on>
+<nm-on value="input/changed:attribute/valid|gt=10"></nm-on>
 \`\`\`
 
 ## Exemplos com Filtros Encadeados
 
 \`\`\`html
 <!-- Extrai propriedade 'value' e incrementa -->
-<morph-on value="input/changed:method/setCount|prop=value|inc"></morph-on>
+<nm-on value="input/changed:method/setCount|prop=value|inc"></nm-on>
 
 <!-- Extrai 'total', adiciona 10 e verifica se é maior que 100 -->
-<morph-on value="cart/update:attribute/valid|prop=total|add=10|gt=100"></morph-on>
+<nm-on value="cart/update:attribute/valid|prop=total|add=10|gt=100"></nm-on>
 
 <!-- Pega tamanho de array e verifica se é diferente de 0 -->
-<morph-on value="list/changed:attribute/hasItems|len|different=0"></morph-on>
+<nm-on value="list/changed:attribute/hasItems|len|different=0"></nm-on>
 
 <!-- Extrai 'count', decrementa e verifica se é menor ou igual a 0 -->
-<morph-on value="item/remove:attribute/empty|prop=count|dec|lte=0"></morph-on>
+<nm-on value="item/remove:attribute/empty|prop=count|dec|lte=0"></nm-on>
 
 <!-- Pega valor, inverte booleano e converte para truthy -->
-<morph-on value="toggle/clicked:method/setState|not|truthy"></morph-on>
+<nm-on value="toggle/clicked:method/setState|not|truthy"></nm-on>
 
 <!-- Acessa índice 0 do array e extrai propriedade 'id' -->
-<morph-on value="items/load:method/setFirstId|index=0|prop=id"></morph-on>
+<nm-on value="items/load:method/setFirstId|index=0|prop=id"></nm-on>
 \`\`\`
         `,
       },
@@ -133,49 +133,49 @@ export const ConditionalVisibility = {
       <div class="story-container">
         <div class="story-title">Contador de Café</div>
         <div class="story-description">
-          Exemplo de uso de morph-on com operadores condicionais (lte, gte, not) para controlar
+          Exemplo de uso de nm-on com operadores condicionais (lte, gte, not) para controlar
           a visibilidade de elementos baseado no valor do formulário.
         </div>
 
-        <morph-form>
+        <nm-form>
           <template>
-            <morph-stack direction="column">
-              <morph-input name="coffee" type="number" min="0" max="10" required>
-                <morph-label>Quantos cafés você já tomou hoje?</morph-label>
-                <morph-validity state="valueMissing">Ei, cadê o café? Digite um valor antes de prosseguir!</morph-validity>
-                <morph-validity state="rangeUnderflow">Hum… café negativo? Só aceitamos 0 ou mais!</morph-validity>
-                <morph-validity state="rangeOverflow">Uau, muita cafeína! No máximo 10 cafés por dia.</morph-validity>
-              </morph-input>
-              <morph-button width="320px">
+            <nm-stack direction="column">
+              <nm-input name="coffee" type="number" min="0" max="10" required>
+                <nm-label>Quantos cafés você já tomou hoje?</nm-label>
+                <nm-validity state="valueMissing">Ei, cadê o café? Digite um valor antes de prosseguir!</nm-validity>
+                <nm-validity state="rangeUnderflow">Hum… café negativo? Só aceitamos 0 ou mais!</nm-validity>
+                <nm-validity state="rangeOverflow">Uau, muita cafeína! No máximo 10 cafés por dia.</nm-validity>
+              </nm-input>
+              <nm-button width="320px">
                 Registrar café
-                <morph-icon use="local_cafe"></morph-icon>
-              </morph-button>
-            </morph-stack>
+                <nm-icon use="local_cafe"></nm-icon>
+              </nm-button>
+            </nm-stack>
           </template>
-          <morph-on value="morph-form/submitted:attribute/hidden|always=true"></morph-on>
-          <morph-on value="refresh/clicked:attribute/hidden|always=false"></morph-on>
-          <morph-on value="refresh/clicked:method/resetted"></morph-on>
-        </morph-form>
+          <nm-on value="nm-form/submitted:attribute/hidden|always=true"></nm-on>
+          <nm-on value="refresh/clicked:attribute/hidden|always=false"></nm-on>
+          <nm-on value="refresh/clicked:method/resetted"></nm-on>
+        </nm-form>
 
-        <morph-stack direction="column" hidden>
-          <morph-text>😌 Tá suave. Mais um não mata!</morph-text>
-          <morph-button name="refresh" width="320px">
+        <nm-stack direction="column" hidden>
+          <nm-text>😌 Tá suave. Mais um não mata!</nm-text>
+          <nm-button name="refresh" width="320px">
             Zerar contagem
-            <morph-icon use="refresh"></morph-icon>
-          </morph-button>
-          <morph-on value="morph-form/submitted:attribute/hidden|prop=coffee|lte=5|not"></morph-on>
-          <morph-on value="refresh/clicked:attribute/hidden|always=true"></morph-on>
-        </morph-stack>
+            <nm-icon use="refresh"></nm-icon>
+          </nm-button>
+          <nm-on value="nm-form/submitted:attribute/hidden|prop=coffee|lte=5|not"></nm-on>
+          <nm-on value="refresh/clicked:attribute/hidden|always=true"></nm-on>
+        </nm-stack>
 
-        <morph-stack direction="column" hidden>
-          <morph-text>😵 Já chega, mano! Vai explodir!</morph-text>
-          <morph-button name="refresh" width="320px">
+        <nm-stack direction="column" hidden>
+          <nm-text>😵 Já chega, mano! Vai explodir!</nm-text>
+          <nm-button name="refresh" width="320px">
             Tentar de novo
-            <morph-icon use="refresh"></morph-icon>
-          </morph-button>
-          <morph-on value="morph-form/submitted:attribute/hidden|prop=coffee|gte=6|not"></morph-on>
-          <morph-on value="refresh/clicked:attribute/hidden|always=true"></morph-on>
-        </morph-stack>
+            <nm-icon use="refresh"></nm-icon>
+          </nm-button>
+          <nm-on value="nm-form/submitted:attribute/hidden|prop=coffee|gte=6|not"></nm-on>
+          <nm-on value="refresh/clicked:attribute/hidden|always=true"></nm-on>
+        </nm-stack>
       </div>
     `
     return container
@@ -210,34 +210,34 @@ export const AttributeManipulation = {
       <div class="story-container">
         <div class="story-title">Controle de Estado de Botão</div>
         <div class="story-description">
-          Demonstra como morph-on pode usar filtros (len, equals) para habilitar/desabilitar
+          Demonstra como nm-on pode usar filtros (len, equals) para habilitar/desabilitar
           um botão baseado no tamanho de um array.
         </div>
 
-        <morph-button name="add" value='{"name":"João","age":25}'>
+        <nm-button name="add" value='{"name":"João","age":25}'>
           Adicionar Item
-          <morph-icon use="add"></morph-icon>
-        </morph-button>
+          <nm-icon use="add"></nm-icon>
+        </nm-button>
 
-        <morph-button name="clear">
+        <nm-button name="clear">
           Limpar Todos
-          <morph-icon use="clear"></morph-icon>
-        </morph-button>
+          <nm-icon use="clear"></nm-icon>
+        </nm-button>
 
-        <morph-text value="0 itens">
-          <morph-on value="items/changed:attribute/value|len"></morph-on>
-        </morph-text>
+        <nm-text value="0 itens">
+          <nm-on value="items/changed:attribute/value|len"></nm-on>
+        </nm-text>
 
-        <morph-button name="save" variant="outlined" disabled>
+        <nm-button name="save" variant="outlined" disabled>
           Salvar (habilitado quando houver itens)
-          <morph-icon use="save"></morph-icon>
-          <morph-on value="items/changed:attribute/disabled|len|equals=0"></morph-on>
-        </morph-button>
+          <nm-icon use="save"></nm-icon>
+          <nm-on value="items/changed:attribute/disabled|len|equals=0"></nm-on>
+        </nm-button>
 
-        <morph-dataset name="items" upsert="id">
-          <morph-on value="add/clicked:method/push"></morph-on>
-          <morph-on value="clear/clicked:method/resetted"></morph-on>
-        </morph-dataset>
+        <nm-dataset name="items" upsert="id">
+          <nm-on value="add/clicked:method/push"></nm-on>
+          <nm-on value="clear/clicked:method/resetted"></nm-on>
+        </nm-dataset>
       </div>
     `
     return container
@@ -283,8 +283,8 @@ export const ChainedFilters = {
           antes de aplicá-los a atributos ou métodos.
         </div>
 
-        <morph-button value='{"coffee":5}'>Enviar 5 cafés</morph-button>
-        <morph-button value='{"coffee":10}'>Enviar 10 cafés</morph-button>
+        <nm-button value='{"coffee":5}'>Enviar 5 cafés</nm-button>
+        <nm-button value='{"coffee":10}'>Enviar 10 cafés</nm-button>
 
         <div class="example-box">
           Valor original (coffee): <span id="original">-</span><br>
@@ -292,17 +292,17 @@ export const ChainedFilters = {
           Após gt=7 (> 7): <span id="comparison">-</span>
         </div>
 
-        <morph-text id="original" value="-">
-          <morph-on value="morph-button/clicked:attribute/value|prop=coffee"></morph-on>
-        </morph-text>
+        <nm-text id="original" value="-">
+          <nm-on value="nm-button/clicked:attribute/value|prop=coffee"></nm-on>
+        </nm-text>
 
-        <morph-text id="incremented" value="-">
-          <morph-on value="morph-button/clicked:attribute/value|prop=coffee|inc"></morph-on>
-        </morph-text>
+        <nm-text id="incremented" value="-">
+          <nm-on value="nm-button/clicked:attribute/value|prop=coffee|inc"></nm-on>
+        </nm-text>
 
-        <morph-text id="comparison" value="-">
-          <morph-on value="morph-button/clicked:attribute/value|prop=coffee|inc|gt=7"></morph-on>
-        </morph-text>
+        <nm-text id="comparison" value="-">
+          <nm-on value="nm-button/clicked:attribute/value|prop=coffee|inc|gt=7"></nm-on>
+        </nm-text>
       </div>
     `
     return container

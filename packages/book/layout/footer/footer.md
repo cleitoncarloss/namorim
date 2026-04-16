@@ -1,4 +1,4 @@
-### `<morph-footer>`
+### `<nm-footer>`
 
 **Objetivo**
 Apresenta informações de rodapé, como links de navegação secundária ou direitos autorais.
@@ -17,4 +17,4 @@ Nenhum.
 - Precisa de uma seção de rodapé padrão para a aplicação.
 
 **Não use quando**
-- Precisa de um cabeçalho → use `<morph-header>`.
+- Precisa de um cabeçalho → use `<nm-header>`.

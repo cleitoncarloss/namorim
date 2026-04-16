@@ -6,7 +6,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-avatar')
+@define('nm-avatar')
 @paint(component, style)
 class Avatar extends Echo(Hidden(HTMLElement)) {
   #alt

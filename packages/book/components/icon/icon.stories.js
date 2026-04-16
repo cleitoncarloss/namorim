@@ -39,7 +39,7 @@ export default {
     },
   },
   render: (args) => {
-    const element = document.createElement('morph-icon')
+    const element = document.createElement('nm-icon')
     element.setAttribute('use', args.use)
     if (args.color) element.setAttribute('color', args.color)
     if (args.hidden) element.setAttribute('hidden', '')

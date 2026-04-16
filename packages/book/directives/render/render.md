@@ -1,4 +1,4 @@
-### `<morph-render>`
+### `<nm-render>`
 
 **Objetivo**
 Renderiza dinamicamente conteúdo baseado em templates e dados.
@@ -16,7 +16,7 @@ Nenhum.
 **Use quando**
 - Precisa renderizar listas de itens ou blocos de conteúdo repetitivos de forma dinâmica.
 - Necessita de layouts responsivos para a exibição de coleções de dados.
-- Integração com `morph-dataset` ou `morph-fetch` para exibir dados.
+- Integração com `nm-dataset` ou `nm-fetch` para exibir dados.
 
 **Não use quando**
 - Precisa apenas exibir um único bloco de texto ou elemento estático.
@@ -28,16 +28,16 @@ Nenhum.
 - **Layouts Responsivos**: Suporta layouts list e grid
 - **Batch Rendering**: Aceita arrays de dados para renderização em lote
 - **Template Interno**: Usa `<template>` interno ou referência externa via atributo
-- **Dataflow**: Integração via barramento de eventos com `morph-on`
+- **Dataflow**: Integração via barramento de eventos com `nm-on`
 
 ## Sintaxe
 
 ```html
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-text>{name}</morph-text>
+    <nm-text>{name}</nm-text>
   </template>
-</morph-render>
+</nm-render>
 ```
 
 ## Métodos (Chamados via Dataflow)
@@ -66,8 +66,8 @@ O sistema de interpolação suporta:
 
 ```html
 <template>
-  <morph-text>{name} - {age} anos</morph-text>
-  <morph-text>Cidade: {address.city}</morph-text>
+  <nm-text>{name} - {age} anos</nm-text>
+  <nm-text>Cidade: {address.city}</nm-text>
 </template>
 ```
 
@@ -78,13 +78,13 @@ O sistema de interpolação suporta:
 Layout vertical com flex column, ideal para listas e formulários.
 
 ```html
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-card>
-      <morph-text>{title}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{title}</nm-text>
+    </nm-card>
   </template>
-</morph-render>
+</nm-render>
 ```
 
 ### Grid Layout
@@ -98,57 +98,57 @@ Layout responsivo em grid que se adapta ao tamanho do container:
 - 1440px+: 6 colunas
 
 ```html
-<morph-render layout="grid">
+<nm-render layout="grid">
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+    </nm-card>
   </template>
-</morph-render>
+</nm-render>
 ```
 
 ## Integração via Dataflow
 
-O componente é projetado para ser usado através do barramento de eventos com `morph-on`.
+O componente é projetado para ser usado através do barramento de eventos com `nm-on`.
 
-**IMPORTANTE**: O `morph-on` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
+**IMPORTANTE**: O `nm-on` deve ser **filho** do componente que ele manipula, pois ele opera no elemento pai.
 
 ### Renderizando Dados de um Dataset
 
 ```html
 <!-- Dataset com dados -->
-<morph-dataset name="users" upsert="id"></morph-dataset>
+<nm-dataset name="users" upsert="id"></nm-dataset>
 
-<!-- Render com morph-on interno -->
-<morph-render>
+<!-- Render com nm-on interno -->
+<nm-render>
   <template>
-    <morph-text>{name} - {age} anos</morph-text>
+    <nm-text>{name} - {age} anos</nm-text>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 ```
 
 ### Renderizando Dados de um Fetch
 
 ```html
 <!-- Botão trigger -->
-<morph-button>Carregar Usuários</morph-button>
+<nm-button>Carregar Usuários</nm-button>
 
 <!-- Fetch -->
-<morph-fetch name="api" url="https://api.example.com/users">
-  <morph-on value="morph-button/clicked:method/get"></morph-on>
-</morph-fetch>
+<nm-fetch name="api" url="https://api.example.com/users">
+  <nm-on value="nm-button/clicked:method/get"></nm-on>
+</nm-fetch>
 
 <!-- Render -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-      <morph-text>{email}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+      <nm-text>{email}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="api/succeeded:method/render"></morph-on>
-</morph-render>
+  <nm-on value="api/succeeded:method/render"></nm-on>
+</nm-render>
 ```
 
 ## Exemplos de Fluxos Completos
@@ -157,89 +157,89 @@ O componente é projetado para ser usado através do barramento de eventos com `
 
 ```html
 <!-- Botão que adiciona dados -->
-<morph-button value='[{"name":"João"},{"name":"Maria"}]'>
+<nm-button value='[{"name":"João"},{"name":"Maria"}]'>
   Renderizar Lista
-</morph-button>
+</nm-button>
 
 <!-- Render -->
-<morph-render>
+<nm-render>
   <template>
-    <morph-text>{name}</morph-text>
+    <nm-text>{name}</nm-text>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 ```
 
 ### Fluxo com Dataset (CRUD Completo)
 
 ```html
 <!-- Botões de controle -->
-<morph-button value='{"id":1,"name":"João","age":25}'>
+<nm-button value='{"id":1,"name":"João","age":25}'>
   Adicionar João
-</morph-button>
+</nm-button>
 
 <!-- Dataset -->
-<morph-dataset name="users" upsert="id">
-  <morph-on value="morph-button/clicked:method/push"></morph-on>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-on value="nm-button/clicked:method/push"></nm-on>
+</nm-dataset>
 
 <!-- Render automático quando dataset muda -->
-<morph-render layout="list">
+<nm-render layout="list">
   <template>
-    <morph-stack width="fill">
-      <morph-text>{name} - {age} anos</morph-text>
-      <morph-button value="{id}" color="error">
-        <morph-icon use="delete"></morph-icon>
-      </morph-button>
-    </morph-stack>
+    <nm-stack width="fill">
+      <nm-text>{name} - {age} anos</nm-text>
+      <nm-button value="{id}" color="error">
+        <nm-icon use="delete"></nm-icon>
+      </nm-button>
+    </nm-stack>
   </template>
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 
 <!-- Botão de deletar é conectado ao dataset -->
-<morph-dataset name="users" upsert="id">
-  <morph-on value="morph-button/clicked:method/delete"></morph-on>
-</morph-dataset>
+<nm-dataset name="users" upsert="id">
+  <nm-on value="nm-button/clicked:method/delete"></nm-on>
+</nm-dataset>
 ```
 
 ### Fluxo com Grid Responsivo
 
 ```html
-<morph-button value='[
+<nm-button value='[
   {"id":1,"name":"Produto 1","price":"R$ 100"},
   {"id":2,"name":"Produto 2","price":"R$ 200"},
   {"id":3,"name":"Produto 3","price":"R$ 300"}
-]'>Renderizar Produtos</morph-button>
+]'>Renderizar Produtos</nm-button>
 
-<morph-render layout="grid">
+<nm-render layout="grid">
   <template>
-    <morph-card>
-      <morph-heading size="xs">{name}</morph-heading>
-      <morph-text>{price}</morph-text>
-      <morph-button value="{id}" width="fill">Comprar</morph-button>
-    </morph-card>
+    <nm-card>
+      <nm-heading size="xs">{name}</nm-heading>
+      <nm-text>{price}</nm-text>
+      <nm-button value="{id}" width="fill">Comprar</nm-button>
+    </nm-card>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 ```
 
 ### Fluxo com Interpolação Aninhada
 
 ```html
-<morph-button value='[
+<nm-button value='[
   {"name":"João","address":{"city":"São Paulo","state":"SP"}},
   {"name":"Maria","address":{"city":"Rio de Janeiro","state":"RJ"}}
-]'>Renderizar Endereços</morph-button>
+]'>Renderizar Endereços</nm-button>
 
-<morph-render>
+<nm-render>
   <template>
-    <morph-card>
-      <morph-text>{name}</morph-text>
-      <morph-text>{address.city} - {address.state}</morph-text>
-    </morph-card>
+    <nm-card>
+      <nm-text>{name}</nm-text>
+      <nm-text>{address.city} - {address.state}</nm-text>
+    </nm-card>
   </template>
-  <morph-on value="morph-button/clicked:method/render"></morph-on>
-</morph-render>
+  <nm-on value="nm-button/clicked:method/render"></nm-on>
+</nm-render>
 ```
 
 ## Uso com Template Externo
@@ -249,13 +249,13 @@ Ao invés de template interno, você pode referenciar um template externo:
 ```html
 <!-- Template externo no documento -->
 <template id="user-template">
-  <morph-text>{name}</morph-text>
+  <nm-text>{name}</nm-text>
 </template>
 
 <!-- Render referenciando o template -->
-<morph-render template="user-template">
-  <morph-on value="users/changed:method/render"></morph-on>
-</morph-render>
+<nm-render template="user-template">
+  <nm-on value="users/changed:method/render"></nm-on>
+</nm-render>
 ```
 
 ## Performance
@@ -277,4 +277,4 @@ render([
 ])
 ```
 
-Cada renderização sobrescreve a anterior. Para adicionar itens incrementalmente, use `morph-dataset`.
+Cada renderização sobrescreve a anterior. Para adicionar itens incrementalmente, use `nm-dataset`.

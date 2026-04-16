@@ -6,7 +6,7 @@ import { Hidden } from '@mixin'
 import component from './component'
 import style from './style'
 
-@define('morph-link')
+@define('nm-link')
 @paint(component, style)
 class Link extends Echo(Hidden(HTMLElement)) {
   #href
