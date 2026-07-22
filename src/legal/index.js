@@ -1,0 +1,2 @@
+import "./terms";
+import "./privacyPolicy";
