@@ -257,4 +257,10 @@
   /* UTILITY - White & Black */
   --color-pure-white: #FFFFFF;
   --color-pure-black: #000000;
+
+  /* AJUSTE — token adicionado para alinhar com o app Namorim (era cor solta #E0F5EC) */
+  --color-primary-lighter-alt: light-dark(
+    #E0F5EC,
+    #0D3A34
+  ); /* Fundo leve teal usado em cards/bandeiras — mais suave que primary-lighter. */
 }
