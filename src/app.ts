@@ -1,12 +1,11 @@
-import { connected, define } from '@directive'
-import { paint, renderer } from '@dom'
-import router from '@router'
+import { connected, define } from "@t2e1/kuba/directive"
+import { paint } from "@t2e1/kuba/dom"
+import router from "@t2e1/kuba/router"
 import component from './component'
 import { mountable } from './interfaces'
-import style from './style'
 
 @define('nm-app')
-@paint(component, style)
+@paint(component)
 class App extends HTMLElement {
   constructor() {
     super()
@@ -15,8 +14,7 @@ class App extends HTMLElement {
 
   @connected
   [mountable]() {
-    renderer.bind(this.shadowRoot)
-    router.handle()
+    requestAnimationFrame(() => router.handle())
     return this
   }
 }

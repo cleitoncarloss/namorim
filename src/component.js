@@ -1,5 +1,5 @@
-import { html } from '@dom'
+import { html } from '@t2e1/kuba/dom'
 
-const component = () => html``
+const component = () => html`<slot></slot>`
 
 export default component

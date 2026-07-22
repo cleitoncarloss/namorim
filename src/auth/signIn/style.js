@@ -1,24 +1,26 @@
-import { css } from '@dom'
+import { css } from '@t2e1/kuba/dom'
 
 const style = () =>
   css`
     :host {
       box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      height: 100dvh;
-    }
+      margin: 0;
+      padding: 0;
 
-    main {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      min-height: 100svh;
-    }
+      kb-main {
+        aling-items: center;
+        justify-content: center;
+        min-height: 100svh;
+        padding: 0 var(--spacing-xxs);
 
-    nm-stack {
-      max-width: 430px;
-      margin: 0 auto;
+        figure {
+          margin: 0;
+        }
+
+        a {
+          color: var(--color-primary);
+        }
+      }
     }
   `
 
