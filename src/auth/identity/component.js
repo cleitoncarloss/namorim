@@ -2,8 +2,10 @@ import "@t2e1/kuba"
 import { html } from "@t2e1/kuba/dom"
 import "@book/components/button"
 import "@book/components/input"
+import "@book/components/select"
 import "@book/typography/label"
 import "@book/typography/validity"
+import states from "./states"
 
 const component = () => {
   return html`
@@ -28,7 +30,7 @@ const component = () => {
               <nm-validity state="valueMissing">Sobrenome é obrigatorio</nm-validity>
             </nm-input>
 
-            <nm-input name="email" type="email" width="100%" placeholder="seu@email.com" required>
+            <nm-input name="email" type="email" width="100%" placeholder="Seu email" required>
               <nm-label>E-mail</nm-label>
 
               <nm-validity state="valueMissing">E-mail é obrigatorio</nm-validity>
@@ -41,7 +43,19 @@ const component = () => {
               <nm-validity state="valueMissing">Cpf é obrigatorio</nm-validity>
             </nm-input>
 
-            <nm-button width="100%" weight="medium">Próximo</nm-button>
+            <nm-select name="state" width="100%" placeholder="Selecione um estado" required>
+              <nm-label>Em qual estado você mora</nm-label>
+
+              ${states.map(
+                (state) => `<option value="${state.uf}">${state.name}</option>`
+              )}
+
+              <nm-validity state="valueMissing">Estado é obrigatorio</nm-validity>
+            </nm-select>
+
+            <nm-button width="100%" weight="medium">
+              Próximo
+            </nm-button>
 
           </kb-stack>
         </template>

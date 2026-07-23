@@ -11,7 +11,7 @@ const element = {
 
       if (/^(append)$/i.test(key)) {
         const element = select.shadowRoot.querySelector('select')
-        return element[key].bind(select)
+        return element[key].bind(element)
       }
 
       return select.shadowRoot.querySelector('select').getAttribute(key)

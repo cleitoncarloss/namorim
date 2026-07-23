@@ -14,7 +14,7 @@ const style = (input) =>
 			input {
 				appearance: none;
 				background-color: var(--color-tertiary);
-				border: var(--border-width-hairline) solid var(--color-tertiary);
+				border: var(--border-width-hairline) solid var(--color-tertiary-dark);
 				border-radius: var(--border-radius-sm);
 				box-sizing: border-box;
 				color: var(--color-neutral-dark);
@@ -46,7 +46,7 @@ const style = (input) =>
 				}
 
 				&::placeholder {
-					color: var(--color-neutral-light);
+					color: var(--color-secondary-light);
 				}
 
 				&:-webkit-autofill,

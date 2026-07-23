@@ -19,8 +19,8 @@ const style = (select) =>
 
     select {
       appearance: none;
-			background-color: var(--color-master-lightest);
-			border: var(--border-width-hairline) solid var(--color-master-light);
+			background-color: var(--color-tertiary);
+			border: var(--border-width-hairline) solid var(--color-tertiary-dark);
       border-radius: var(--border-radius-sm);
 			box-sizing: border-box;
       color: var(--color-neutral-dark);
@@ -28,7 +28,7 @@ const style = (select) =>
       font-family: var(--font-family-base);
       font-size: var(--font-size-xxs);
       font-weight: var(--font-weight-regular);
-      height: 40px;
+      height: 46px;
       line-height: var(--line-height-default);
       padding: var(--spacing_inset-nano) var(--spacing_inset-xs);
       width: 100%;
@@ -50,8 +50,8 @@ const style = (select) =>
         color: var(--color-master);
       }
 
-      &::placeholder {
-        color: var(--color-master);
+      &:invalid {
+        color: var(--color-secondary-light);
       }
 
       &:-webkit-autofill,
@@ -63,6 +63,7 @@ const style = (select) =>
     }
 
     nm-icon {
+      color: var(--color-secondary-light);
       pointer-events: none;
       position: absolute;
       right: var(--spacing-xxxs);

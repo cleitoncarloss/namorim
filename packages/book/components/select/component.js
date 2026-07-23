@@ -12,7 +12,7 @@ const component = (select) => html`
       ${select.disabled ? 'disabled' : ''}
       ${select.required ? 'required' : ''}
     >
-      <option value=""></option>
+      <option value="">${select.placeholder ?? ''}</option>
       <slot></slot>
     </select>
     <nm-icon use="keyboard_arrow_down"></nm-icon>

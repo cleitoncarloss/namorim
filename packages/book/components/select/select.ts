@@ -1,3 +1,4 @@
+import '@book/components/icon'
 import { define, disconnected, formAssociated, formReset } from '@directive'
 import attributeChanged, { booleanAttribute } from '@directive/attributeChanged'
 import { didPaint, paint } from '@dom'
@@ -69,6 +70,15 @@ class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
   @attributeChanged('name')
   set name(value) {
     this.element.name = value
+  }
+
+  get placeholder() {
+    return this.getAttribute('placeholder') ?? ''
+  }
+
+  @attributeChanged('placeholder')
+  set placeholder(value) {
+    this.setAttribute('placeholder', value)
   }
 
   get required() {
