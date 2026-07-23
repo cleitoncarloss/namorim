@@ -1,5 +1,9 @@
 import "@t2e1/kuba"
 import { html } from "@t2e1/kuba/dom"
+import "@book/components/button"
+import "@book/components/input"
+import "@book/typography/label"
+import "@book/typography/validity"
 
 const component = () => {
   return html`
@@ -12,32 +16,32 @@ const component = () => {
       <kb-form autorender width="100%">
         <template>
           <kb-stack spacing="sm" direction="column" width="100%">
-            <kb-input name="firstName" width="100%" placeholder="Seu nome" required>
-              <kb-label>Nome</kb-label>
+            <nm-input name="firstName" width="100%" placeholder="Seu nome" required>
+              <nm-label>Nome</nm-label>
 
-              <kb-validity state="valueMissing">Nome é obrigatorio</kb-validity>
-            </kb-input>
+              <nm-validity state="valueMissing">Nome é obrigatorio</nm-validity>
+            </nm-input>
 
-            <kb-input name="lastName" width="100%" placeholder="Seu sobrenome" required>
-              <kb-label>Sobrenome</kb-label>
+            <nm-input name="lastName" width="100%" placeholder="Seu sobrenome" required>
+              <nm-label>Sobrenome</nm-label>
 
-              <kb-validity state="valueMissing">Sobrenome é obrigatorio</kb-validity>
-            </kb-input>
+              <nm-validity state="valueMissing">Sobrenome é obrigatorio</nm-validity>
+            </nm-input>
 
-            <kb-input name="email" type="email" width="100%" placeholder="seu@email.com" required>
-              <kb-label>E-mail</kb-label>
+            <nm-input name="email" type="email" width="100%" placeholder="seu@email.com" required>
+              <nm-label>E-mail</nm-label>
 
-              <kb-validity state="valueMissing">E-mail é obrigatorio</kb-validity>
-              <kb-validity state="typeMismatch">Digite um e-mail válido</kb-validity>
-            </kb-input>
+              <nm-validity state="valueMissing">E-mail é obrigatorio</nm-validity>
+              <nm-validity state="typeMismatch">Digite um e-mail válido</nm-validity>
+            </nm-input>
 
-            <kb-input name="cpf" width="100%" placeholder="000.000.000-00" required>
-              <kb-label>CPF</kb-label>
+            <nm-input name="cpf" width="100%" placeholder="000.000.000-00" required>
+              <nm-label>CPF</nm-label>
 
-              <kb-validity state="valueMissing">Cpf é obrigatorio</kb-validity>
-            </kb-input>
+              <nm-validity state="valueMissing">Cpf é obrigatorio</nm-validity>
+            </nm-input>
 
-            <kb-button width="100%" disabled>Próximo</kb-button>
+            <nm-button width="100%" weight="medium">Próximo</nm-button>
 
           </kb-stack>
         </template>

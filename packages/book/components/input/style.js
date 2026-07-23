@@ -13,15 +13,15 @@ const style = (input) =>
 
 			input {
 				appearance: none;
-				background-color: var(--color-tertiary-lighter);
-				border: var(--border-width-hairline) solid var(--color-neutral-lighter);
+				background-color: var(--color-tertiary);
+				border: var(--border-width-hairline) solid var(--color-tertiary);
 				border-radius: var(--border-radius-sm);
 				box-sizing: border-box;
 				color: var(--color-neutral-dark);
 				font-family: var(--font-family-base);
 				font-size: var(--font-size-xxs);
 				font-weight: var(--font-weight-regular);
-				height: 40px;
+				height: 46px;
 				line-height: var(--line-height-default);
 				padding: var(--spacing_inset-nano) var(--spacing_inset-xs);
 				transition: border-color 0.2s ease-in-out;
