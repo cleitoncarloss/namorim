@@ -3,5 +3,5 @@
 }
 
 body {
-  background-color: var(--color-master-lightest);
+  background-color: light-dark(var(--color-pure-white), #121417);
 }

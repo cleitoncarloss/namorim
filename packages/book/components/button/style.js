@@ -28,6 +28,8 @@ const style = (button) => {
       color: var(--color-pure-white);
       cursor: pointer;
       display: flex;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
       font-family: var(--font-family-base);
       font-size: var(--font-size-xs);
       font-weight: var(--font-weight-${button.weight});
@@ -48,6 +50,11 @@ const style = (button) => {
     button:active:not(:disabled) {
       background-color: var(--button-color-darker);
       border-color: var(--button-color-darker);
+    }
+
+    button:focus-visible {
+      outline: var(--border-width-hairline) solid var(--button-color-dark);
+      outline-offset: 2px;
     }
 
     :host([variant="outlined"]) button {

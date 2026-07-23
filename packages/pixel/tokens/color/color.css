@@ -263,4 +263,22 @@
     #E0F5EC,
     #0D3A34
   ); /* Fundo leve teal usado em cards/bandeiras — mais suave que primary-lighter. */
+
+  /* color background input */
+  --color-master-lightest: light-dark(
+    #F1F5F9,
+    #1A202C
+  );
+
+  /* color border input */
+  --color-master-light: light-dark(
+    #E8ECF4,
+    #2D3748
+  );
+
+  --color-master-dark: light-dark(
+    #0F172A,
+    #F1F5F9
+
+  )
 }
