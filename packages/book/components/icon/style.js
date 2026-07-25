@@ -9,7 +9,7 @@ export const style = (icon) =>
       display: flex;
       font-family: 'Material Symbols Outlined';
       font-style: normal;
-      font-size: var(--font-size-sm);
+      font-size: ${icon.size};
       font-weight: normal;
       line-height: 1;
       letter-spacing: normal;

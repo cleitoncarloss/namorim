@@ -78,7 +78,7 @@ class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
 
   @attributeChanged('placeholder')
   set placeholder(value) {
-    this.setAttribute('placeholder', value)
+    this.element.placeholder = value
   }
 
   get required() {

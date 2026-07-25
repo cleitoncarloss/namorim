@@ -15,9 +15,11 @@ const component = () => {
           />
         </figure>
 
-        <nm-button weight="medium" width="100%">
+        <nm-button name="login" weight="medium" width="100%">
           <img src=${google} />
           Entrar com Google
+
+          <nm-redirect href="/auth/identity" on="login/clicked:method/go"></nm-redirect>
         </nm-button>
 
         <footer>

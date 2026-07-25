@@ -11,6 +11,7 @@ import { style } from './style'
 class Icon extends Echo(Hidden(HTMLElement)) {
   #color
   #internals
+  #size
   #use
   #value
 
@@ -22,6 +23,16 @@ class Icon extends Echo(Hidden(HTMLElement)) {
   @retouch
   set color(value) {
     this.#color = value
+  }
+
+  get size() {
+    return this.#size ? `var(--font-size-${this.#size})` : 'var(--font-size-sm)'
+  }
+
+  @attributeChanged('size')
+  @retouch
+  set size(value) {
+    this.#size = value
   }
 
   get internals() {

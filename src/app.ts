@@ -1,6 +1,6 @@
 import { connected, define } from "@t2e1/kuba/directive"
 import { paint } from "@t2e1/kuba/dom"
-import router from "@t2e1/kuba/router"
+import router from "@router"
 import component from './component'
 import { mountable } from './interfaces'
 

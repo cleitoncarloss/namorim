@@ -1,14 +1,17 @@
 import "@t2e1/kuba"
-import { html } from "@t2e1/kuba/dom"
 import "@book/components/button"
-import "@book/components/input"
-import "@book/components/select"
-import "@book/typography/label"
-import "@book/typography/validity"
+import { html } from "@t2e1/kuba/dom"
 import states from "./states"
 
 const component = () => {
   return html`
+    <nm-header>
+      <nm-button name="backLogin" color="secondary" variant="text" icononly>
+        <nm-icon use="arrow_back" size="md"></nm-icon>
+        <nm-redirect href="/auth/sign-in" on="backLogin/clicked:method/go"></nm-redirect>
+      </nm-button>
+    </nm-header>
+
     <kb-main>
       <kb-stack spacing="quarck" direction="column" width="100%">
         <kb-text weight="bold" color="secondary-dark" size="lg">Vamos começar</kb-text>
@@ -45,11 +48,9 @@ const component = () => {
 
             <nm-select name="state" width="100%" placeholder="Selecione um estado" required>
               <nm-label>Em qual estado você mora</nm-label>
-
               ${states.map(
                 (state) => `<option value="${state.uf}">${state.name}</option>`
               )}
-
               <nm-validity state="valueMissing">Estado é obrigatorio</nm-validity>
             </nm-select>
 
