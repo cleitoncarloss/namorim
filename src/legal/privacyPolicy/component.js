@@ -3,10 +3,16 @@ import { html } from "@t2e1/kuba/dom"
 
 const component = () => {
   return html`
+    <nm-header>
+      <nm-button name="backPrivacy" color="secondary" variant="text" icononly>
+        <nm-icon use="arrow_back" size="md"></nm-icon>
+        <nm-redirect href="/auth/sign-in" on="backPrivacy/clicked:method/go"></nm-redirect>
+      </nm-button>
+      <kb-text size="md" weight="bold" color="secondary-darker">Política de Privacidade</kb-text>
+    </nm-header>
+
     <kb-main>
       <kb-stack spacing="xs" direction="column" width="100%">
-        <kb-text size="lg" weight="bold" color="secondary-darker">Política de Privacidade</kb-text>
-
         <kb-stack spacing="quarck" direction="column" width="100%">
           <kb-text size="md" weight="medium" color="secondary-darker">1. Dados que coletamos</kb-text>
           <kb-text color="secondary-dark">
