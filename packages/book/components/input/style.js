@@ -49,6 +49,10 @@ const style = (input) =>
 					color: var(--color-secondary-light);
 				}
 
+				&::-webkit-calendar-picker-indicator {
+					opacity: 0.5;
+				}
+
 				&:-webkit-autofill,
 				&:-webkit-autofill:hover,
 				&:-webkit-autofill:focus,
@@ -61,6 +65,14 @@ const style = (input) =>
 			input[type='number']::-webkit-outer-spin-button {
 				appearance: none;
 				margin: 0;
+			}
+
+			input[type='date'] {
+				color: var(--color-secondary-light);
+
+				&:valid {
+					color: var(--color-neutral-dark);
+				}
 			}
 		}
 

@@ -2,6 +2,7 @@ import "@t2e1/kuba"
 import "@book/components/button"
 import { html } from "@t2e1/kuba/dom"
 import states from "./states"
+import { days, months, years } from "./birth-date-options"
 
 const component = () => {
   return html`
@@ -40,7 +41,29 @@ const component = () => {
               <nm-validity state="typeMismatch">Digite um e-mail válido</nm-validity>
             </nm-input>
 
-            <nm-input name="cpf" width="100%" placeholder="000.000.000-00" required>
+            <kb-stack direction="column" spacing="quarck" width="100%">
+              <kb-text weight="medium">Data de nascimento</kb-text> 
+              <kb-stack spacing="xs" direction="row" width="100%">
+                <nm-select name="day" width="100%" placeholder="Dia" required>
+                  ${days.map((day) => `<option value="${day}">${day}</option>`)}
+                  <nm-validity state="valueMissing">(D) é obrigatorio</nm-validity>
+                </nm-select>
+
+                <nm-select name="month" width="100%" placeholder="Mês" required>
+                  ${months.map((month) => `<option value="${month.value}">${month.name}</option>`)}
+                  <nm-validity state="valueMissing">(M) é obrigatorio</nm-validity>
+                </nm-select>
+
+                <nm-select name="year" width="100%" placeholder="Ano" required>
+                  ${years().map((year) => `
+                    <option value="${year}">${year}</option>
+                  `)}
+                  <nm-validity state="valueMissing">(A) é obrigatorio</nm-validity>
+                </nm-select>
+              </kb-stack>
+            </kb-stack>
+
+            <nm-input name="cpf" width="100%" placeholder="Seu cpf" required>
               <nm-label>CPF</nm-label>
 
               <nm-validity state="valueMissing">Cpf é obrigatorio</nm-validity>
