@@ -11,11 +11,14 @@ import component from './component'
 import Element from './element'
 import {
   change,
+  closeOnEscape,
   disableable,
   dispatch,
+  pick,
   reflectable,
   reportable,
   syncable,
+  toggle,
   validatable,
 } from './interfaces'
 import interpolate from './interpolate'
@@ -123,12 +126,68 @@ class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
   constructor() {
     super()
     this.attachShadow({ mode: 'open', delegatesFocus: true })
+    window.addEventListener(
+      'click',
+      (event) => {
+        if (!event.composedPath().includes(this)) this[closeOnEscape]()
+      },
+      { signal: this.controller.signal },
+    )
   }
 
   @on.change('select', value)
   [change](val) {
     this.value = val
+    this.#syncTrigger()
     return this
+  }
+
+  @on.click('.trigger')
+  [toggle]() {
+    if (this.disabled) return this
+    this.internals.states.has('open')
+      ? this.internals.states.delete('open')
+      : this.internals.states.add('open')
+    return this
+  }
+
+  @on.click('li[role="option"]', (event, next) => next(event.target))
+  [pick](target) {
+    const select = this.shadowRoot.querySelector('select')
+    select.value = target.dataset.value
+    select.dispatchEvent(new Event('change', { bubbles: true }))
+    this.internals.states.delete('open')
+    return this
+  }
+
+  @on.keydown('*', (event, next) => event.key === 'Escape' && next(event))
+  [closeOnEscape]() {
+    this.internals.states.delete('open')
+    return this
+  }
+
+  #buildListbox() {
+    const select = this.shadowRoot.querySelector('select')
+    const listbox = this.shadowRoot.querySelector('.listbox')
+
+    listbox.innerHTML = Array.from(select.options)
+      .filter((option) => option.value !== '')
+      .map(
+        (option) =>
+          `<li role="option" data-value="${option.value}" ${option.value === select.value ? 'aria-selected="true"' : ''}>${option.textContent}</li>`,
+      )
+      .join('')
+
+    this.#syncTrigger()
+  }
+
+  #syncTrigger() {
+    const select = this.shadowRoot.querySelector('select')
+    const label = this.shadowRoot.querySelector('.trigger .value')
+    const selected = select.selectedOptions[0]
+    const isPlaceholder = !selected || selected.value === ''
+    label.textContent = isPlaceholder ? this.placeholder : selected.textContent
+    label.classList.toggle('placeholder', isPlaceholder)
   }
 
   checkValidity() {
@@ -176,7 +235,9 @@ class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
     this.element.value = ''
     this.removeAttribute('value')
     this.internals.states.delete('invalid')
+    this.internals.states.delete('open')
     this.dispatchEvent(new Event('reset'))
+    this.#syncTrigger()
     return this
   }
 
@@ -184,6 +245,7 @@ class Select extends Echo(Hidden(Siphon(Template(Width(HTMLElement))))) {
   [syncable]() {
     this.element.append(...Array.from(this.querySelectorAll('option')))
     this.element.value = this.getAttribute('value') ?? ''
+    this.#buildListbox()
     return this
   }
 
