@@ -27,6 +27,7 @@ export default {
     const title = document.createElement('nm-text')
     title.setAttribute('size', 'lg')
     title.setAttribute('weight', 'bold')
+    title.setAttribute('slot', 'leading')
     title.textContent = 'Titulo'
     element.appendChild(title)
 

@@ -40,7 +40,7 @@ const style = (select) =>
       font-weight: var(--font-weight-regular);
       height: 46px;
       line-height: var(--line-height-default);
-      padding: var(--spacing_inset-nano) var(--spacing_inset-xs);
+      padding: var(--spacing_inset-nano);
       text-align: left;
       width: 100%;
 
@@ -73,7 +73,6 @@ const style = (select) =>
       background-color: var(--color-tertiary);
       border: var(--border-width-hairline) solid var(--color-tertiary-dark);
       border-radius: var(--border-radius-sm);
-      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
       box-sizing: border-box;
       display: none;
       list-style: none;
@@ -111,7 +110,7 @@ const style = (select) =>
       color: var(--color-secondary-light);
       pointer-events: none;
       position: absolute;
-      right: var(--spacing-xxxs);
+      right: var(--spacing-nano);
       top: 50%;
       transform: translateY(-50%);
       transition: transform 0.15s ease;

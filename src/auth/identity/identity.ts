@@ -4,6 +4,7 @@ import router from "@router"
 import renderer from "@t2e1/kuba/renderer"
 import component from "./component"
 import style from "./style"
+import on, { detail } from "@event"
 
 @define("nm-identity")
 @paint(component, style)

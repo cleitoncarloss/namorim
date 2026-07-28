@@ -7,10 +7,10 @@ import { days, months, years } from "./birth-date-options"
 const component = () => {
   return html`
     <nm-header>
-      <nm-button name="backLogin" color="secondary" variant="text" icononly>
-        <nm-icon use="arrow_back" size="md"></nm-icon>
-        <nm-redirect href="/auth/sign-in" on="backLogin/clicked:method/go"></nm-redirect>
-      </nm-button>
+      <kb-stack direction="column" spacing="quarck" width="100%">
+      <kb-text>Passo 1 de 4</kb-text>
+        <kb-progress value="25"></kb-progress>
+      </kb-stack>
     </nm-header>
 
     <kb-main>
@@ -22,7 +22,7 @@ const component = () => {
       <kb-form autorender width="100%">
         <template>
           <kb-stack spacing="sm" direction="column" width="100%">
-            <nm-input name="firstName" width="100%" placeholder="Seu nome" required>
+            <nm-input name="name" width="100%" placeholder="Seu nome" required>
               <nm-label>Nome</nm-label>
 
               <nm-validity state="valueMissing">Nome é obrigatorio</nm-validity>
@@ -41,9 +41,17 @@ const component = () => {
               <nm-validity state="typeMismatch">Digite um e-mail válido</nm-validity>
             </nm-input>
 
-            <kb-stack direction="column" spacing="quarck" width="100%">
+            <nm-select name="state" width="100%" placeholder="Selecione um estado" required>
+              <nm-label>Em qual estado você mora</nm-label>
+              ${states.map(
+                (state) => `<option value="${state.uf}">${state.name}</option>`
+              )}
+              <nm-validity state="valueMissing">Estado é obrigatorio</nm-validity>
+            </nm-select>
+
+            <kb-stack direction="column" spacing="0" width="100%">
               <kb-text weight="medium">Data de nascimento</kb-text> 
-              <kb-stack spacing="xs" direction="row" width="100%">
+              <kb-stack spacing="nano" width="100%">
                 <nm-select name="day" width="100%" placeholder="Dia" required>
                   ${days.map((day) => `<option value="${day}">${day}</option>`)}
                   <nm-validity state="valueMissing">(D) é obrigatorio</nm-validity>
@@ -69,18 +77,9 @@ const component = () => {
               <nm-validity state="valueMissing">Cpf é obrigatorio</nm-validity>
             </nm-input>
 
-            <nm-select name="state" width="100%" placeholder="Selecione um estado" required>
-              <nm-label>Em qual estado você mora</nm-label>
-              ${states.map(
-                (state) => `<option value="${state.uf}">${state.name}</option>`
-              )}
-              <nm-validity state="valueMissing">Estado é obrigatorio</nm-validity>
-            </nm-select>
-
             <nm-button width="100%" weight="medium">
               Próximo
             </nm-button>
-
           </kb-stack>
         </template>
       </kb-form>
