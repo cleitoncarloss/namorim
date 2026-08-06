@@ -1,2 +1,1 @@
-import "./signIn"
-import "./identity"
+import './signIn';

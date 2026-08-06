@@ -1,1 +1,1 @@
-import "./terms";
+import './terms';

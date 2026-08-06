@@ -1,1 +1,1 @@
-import "./identity";
+import './identity';

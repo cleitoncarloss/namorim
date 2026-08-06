@@ -1,1 +1,1 @@
-export const mountable = Symbol('mountable')
+export const mountable = Symbol('mountable');

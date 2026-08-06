@@ -6,6 +6,7 @@
 
 import js from '@eslint/js';
 import globals from 'globals';
+import prettierConfig from 'eslint-config-prettier';
 
 export default [
   js.configs.recommended,
@@ -103,6 +104,7 @@ export default [
       'no-magic-numbers': 'off',
     },
   },
+  prettierConfig,
   {
     // Exceções para arquivos de teste
     files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}', '**/tests/**'],

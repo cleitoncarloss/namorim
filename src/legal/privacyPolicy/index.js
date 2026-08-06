@@ -1,1 +1,1 @@
-import "./privacyPolicy";
+import './privacyPolicy';

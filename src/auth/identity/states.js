@@ -26,4 +26,4 @@ export default [
   { uf: 'SP', name: 'São Paulo' },
   { uf: 'SE', name: 'Sergipe' },
   { uf: 'TO', name: 'Tocantins' },
-]
+];
