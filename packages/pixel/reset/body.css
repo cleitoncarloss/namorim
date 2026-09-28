@@ -1,7 +1,2 @@
-:root {
-  color-scheme: light dark;
-}
-
 body {
-  background-color: light-dark(var(--color-pure-white), #121417);
 }

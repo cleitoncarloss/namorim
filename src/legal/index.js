@@ -1,2 +1,0 @@
-import './terms';
-import './privacyPolicy';

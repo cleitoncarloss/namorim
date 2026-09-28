@@ -1,1 +1,0 @@
-export { truthy } from './truthy'

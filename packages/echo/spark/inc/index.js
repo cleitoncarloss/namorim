@@ -1,1 +1,0 @@
-export { inc } from './inc'
